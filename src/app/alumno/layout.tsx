@@ -27,7 +27,7 @@ export default function DashboardLayout({
       return { title: 'Tienda de Libros', sub: 'Explora y descubre nuevo conocimiento.' };
 
     if (pathname.includes('/redeem'))
-      return { title: 'Canjear Código', sub: 'Activa tus licencias institucionales.' };
+      return { title: 'Canjear Libro', sub: 'Activa tus licencias institucionales.' };
 
     if (pathname.includes('/stats'))
       return { title: 'Tu Progreso', sub: 'Estadísticas detalladas de aprendizaje.' };

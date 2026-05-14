@@ -99,6 +99,7 @@ export default function AnnotationToolbar({
         style={{
           top: pos.top,
           left: pos.left,
+          width: '280px',
           opacity: visible ? 1 : 0,
           transform: visible
             ? 'translateY(-100%) scale(1)'
@@ -117,6 +118,34 @@ export default function AnnotationToolbar({
             boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05), inset 0 1px 0 rgba(255,255,255,0.08)',
           }}
         >
+        {/* Sub-panel: Glosario / Definición */}
+          {showGlosario && (
+            <div
+              className="px-3 py-3 flex flex-col gap-2"
+              style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}
+            >
+              {isLoadingGlosario ? (
+                <div className="flex flex-col items-center justify-center py-4 gap-2">
+                  <div className="w-4 h-4 border-2 border-[#d4af37] border-t-transparent rounded-full animate-spin" />
+                  <span className="text-[10px] text-[#d4af37]/60 uppercase tracking-widest font-black">Buscando...</span>
+                </div>
+              ) : glosarioError ? (
+                <div className="py-2 text-center">
+                  <p className="text-xs text-red-400 font-medium">{glosarioError}</p>
+                </div>
+              ) : remoteDefinicion ? (
+                <div className="flex flex-col gap-1.5">
+                  <h4 className="text-base font-bold text-[#d4af37] capitalize tracking-wide border-b border-white/10 pb-1">
+                    {remoteDefinicion.palabra}
+                  </h4>
+                  <p className="text-sm text-white/85 leading-relaxed font-lora">
+                    {remoteDefinicion.definicion || 'No se encontró una definición exacta para esta palabra.'}
+                  </p>
+                </div>
+              ) : null}
+            </div>
+          )}
+
           {/* Barra de acciones */}
           <div className="flex items-center gap-1 px-2 py-2">
 
@@ -307,61 +336,7 @@ export default function AnnotationToolbar({
         </div>
       </div>
 
-      {/* ── Sub-panel de Diccionario (Glosario) ────────────────── */}
-      {showGlosario && (
-        <div
-          className="fixed z-[499] pointer-events-auto"
-          style={{
-            bottom: `calc(100vh - ${pos.top}px + 8px)`,
-            left: pos.left,
-            width: '280px',
-            animation: 'noteCardIn 0.2s cubic-bezier(0.34,1.56,0.64,1) both',
-          }}
-        >
-          <div
-            className="rounded-2xl p-3"
-            style={{
-              background: 'rgba(20,10,4,0.95)',
-              backdropFilter: 'blur(12px)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              boxShadow: '0 12px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
-            }}
-          >
-            {isLoadingGlosario ? (
-              <div className="flex flex-col items-center justify-center py-6 gap-3">
-                <div className="w-5 h-5 border-2 border-[#d4af37] border-t-transparent rounded-full animate-spin" />
-                <span className="text-xs text-[#d4af37]/60 uppercase tracking-widest font-black">Buscando...</span>
-              </div>
-            ) : glosarioError ? (
-              <div className="py-4 text-center">
-                <p className="text-xs text-red-400 font-medium">{glosarioError}</p>
-              </div>
-            ) : remoteDefinicion ? (
-              <div className="flex flex-col gap-2">
-                <h4 className="text-sm font-bold text-[#d4af37] capitalize tracking-wide border-b border-white/10 pb-1">
-                  {remoteDefinicion.palabra}
-                </h4>
-                <p className="text-sm text-white/90 leading-relaxed font-lora">
-                  {remoteDefinicion.definicion || 'No se encontró una definición exacta para esta palabra.'}
-                </p>
-              </div>
-            ) : null}
 
-            {/* Flechita superior del glosario */}
-            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-[-1px]">
-              <div
-                className="w-3 h-3 rotate-45 rounded-sm"
-                style={{
-                  background: 'rgba(20,10,4,0.95)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  borderBottom: 'none',
-                  borderRight: 'none',
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* ── Modal de comentario ─────────────────────────────────── */}
       {showCommentModal && (
@@ -411,7 +386,7 @@ export default function AnnotationToolbar({
                   </p>
                 </div>
                 <button
-                  onClick={onClear}
+                  onClick={() => setPendingType(null)}
                   className="p-1.5 rounded-full hover:bg-[#fbf8f1] transition-colors shrink-0 mt-0.5"
                 >
                   <svg className="w-3.5 h-3.5 text-[#c9b99a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -429,7 +404,7 @@ export default function AnnotationToolbar({
                 onChange={e => setCommentDraft(e.target.value)}
                 onKeyDown={e => {
                   if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) onComentario(commentDraft);
-                  if (e.key === 'Escape') onClear();
+                  if (e.key === 'Escape') setPendingType(null);
                 }}
                 placeholder="Escribe tu nota aquí..."
                 rows={4}
@@ -456,7 +431,7 @@ export default function AnnotationToolbar({
             {/* Footer */}
             <div className="flex gap-3 px-6 pb-6">
               <button
-                onClick={onClear}
+                onClick={() => setPendingType(null)}
                 className="flex-1 py-2.5 rounded-xl text-sm font-bold transition-all"
                 style={{
                   background: 'transparent',

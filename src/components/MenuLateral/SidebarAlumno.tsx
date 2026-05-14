@@ -19,7 +19,7 @@ export default function SidebarAlumno({ isOpen, onClose }: Props) {
       icon: 'store',
     },
     {
-      label: 'Canjear Código',
+      label: 'Canjear Libro',
       href: '/alumno/redeem',
       icon: 'ticket',
     },
