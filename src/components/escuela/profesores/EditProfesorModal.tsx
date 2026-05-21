@@ -136,10 +136,10 @@ export default function EditarProfesorModal({ open, onClose, onSuccess, profesor
     const inputClass = (field: keyof ProfesorEditFormErrors) =>
         `w-full px-4 py-3 rounded-xl border-2 bg-white font-lora text-sm transition-all duration-300 focus:outline-none ${errors[field]
             ? 'border-red-500 focus:border-red-500 focus:ring-4 focus:ring-red-500/10'
-            : 'border-[#e3dac9] focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10'
+            : 'border-[#c8d8f0] focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10'
         }`;
 
-    const labelClass = 'block text-sm font-bold text-[#2b1b17] mb-2';
+    const labelClass = 'block text-sm font-bold text-[#0a1628] mb-2';
 
     const ErrorMsg = ({ field }: { field: keyof ProfesorEditFormErrors }) =>
         errors[field] ? (
@@ -163,7 +163,7 @@ export default function EditarProfesorModal({ open, onClose, onSuccess, profesor
 
                 {/* ── Información Personal ───────────────────────────────── */}
                 <div>
-                    <h3 className="text-lg font-playfair font-bold text-[#2b1b17] mb-4 flex items-center gap-2">
+                    <h3 className="text-lg font-playfair font-bold text-[#0a1628] mb-4 flex items-center gap-2">
                         <div className="w-1 h-6 bg-gradient-to-b from-[#d4af37] to-[#c19a2e] rounded-full" />
                         Información Personal
                     </h3>
@@ -206,7 +206,7 @@ export default function EditarProfesorModal({ open, onClose, onSuccess, profesor
                         <div>
                             <label className={labelClass}>
                                 Apellido Materno
-                                <span className="ml-2 font-normal text-[#a1887f] text-xs">(opcional)</span>
+                                <span className="ml-2 font-normal text-[#6b8cba] text-xs">(opcional)</span>
                             </label>
                             <input
                                 type="text"
@@ -238,7 +238,7 @@ export default function EditarProfesorModal({ open, onClose, onSuccess, profesor
                         <div>
                             <label className={labelClass}>
                                 Teléfono
-                                <span className="ml-2 font-normal text-[#a1887f] text-xs">(opcional)</span>
+                                <span className="ml-2 font-normal text-[#6b8cba] text-xs">(opcional)</span>
                             </label>
                             <input
                                 type="tel"
@@ -255,7 +255,7 @@ export default function EditarProfesorModal({ open, onClose, onSuccess, profesor
                         <div>
                             <label className={labelClass}>
                                 Fecha de Nacimiento
-                                <span className="ml-2 font-normal text-[#a1887f] text-xs">(opcional)</span>
+                                <span className="ml-2 font-normal text-[#6b8cba] text-xs">(opcional)</span>
                             </label>
                             <input
                                 type="date"
@@ -271,7 +271,7 @@ export default function EditarProfesorModal({ open, onClose, onSuccess, profesor
                         <div>
                             <label className={labelClass}>
                                 Género
-                                <span className="ml-2 font-normal text-[#a1887f] text-xs">(opcional)</span>
+                                <span className="ml-2 font-normal text-[#6b8cba] text-xs">(opcional)</span>
                             </label>
                             <select
                                 name="genero"
@@ -295,7 +295,7 @@ export default function EditarProfesorModal({ open, onClose, onSuccess, profesor
                                 value={formData.activo ? 'true' : 'false'}
                                 onChange={handleChange('activo')}
                                 disabled={isLoading}
-                                className="w-full px-4 py-3 rounded-xl border-2 border-[#e3dac9] bg-white font-lora text-sm focus:outline-none focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10 transition-all"
+                                className="w-full px-4 py-3 rounded-xl border-2 border-[#c8d8f0] bg-white font-lora text-sm focus:outline-none focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10 transition-all"
                             >
                                 <option value="true">Activo</option>
                                 <option value="false">Inactivo</option>
@@ -306,13 +306,13 @@ export default function EditarProfesorModal({ open, onClose, onSuccess, profesor
 
                 {/* ── Contraseña ─────────────────────────────────────────── */}
                 <div>
-                    <h3 className="text-lg font-playfair font-bold text-[#2b1b17] mb-4 flex items-center gap-2">
+                    <h3 className="text-lg font-playfair font-bold text-[#0a1628] mb-4 flex items-center gap-2">
                         <div className="w-1 h-6 bg-gradient-to-b from-[#d4af37] to-[#c19a2e] rounded-full" />
                         Seguridad
                     </h3>
 
-                    <div className="bg-[#fbf8f1] rounded-xl p-4 mb-4 border border-[#e3dac9]">
-                        <p className="text-sm text-[#8d6e3f] flex items-center gap-2">
+                    <div className="bg-[#f5f8ff] rounded-xl p-4 mb-4 border border-[#c8d8f0]">
+                        <p className="text-sm text-[#1e3a6e] flex items-center gap-2">
                             <svg className="w-4 h-4 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                                     d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -324,7 +324,7 @@ export default function EditarProfesorModal({ open, onClose, onSuccess, profesor
                     <div className="relative">
                         <label className={labelClass}>
                             Nueva Contraseña
-                            <span className="ml-2 font-normal text-[#a1887f] text-xs">(opcional)</span>
+                            <span className="ml-2 font-normal text-[#6b8cba] text-xs">(opcional)</span>
                         </label>
                         <input
                             type={showPassword ? 'text' : 'password'}
@@ -339,7 +339,7 @@ export default function EditarProfesorModal({ open, onClose, onSuccess, profesor
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-4 top-[42px] text-[#a1887f] hover:text-[#2b1b17] transition-colors"
+                            className="absolute right-4 top-[42px] text-[#6b8cba] hover:text-[#0a1628] transition-colors"
                         >
                             {showPassword ? (
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -360,19 +360,19 @@ export default function EditarProfesorModal({ open, onClose, onSuccess, profesor
                 </div>
 
                 {/* ── Botones ────────────────────────────────────────────── */}
-                <div className="flex gap-3 pt-6 border-t border-[#e3dac9]">
+                <div className="flex gap-3 pt-6 border-t border-[#c8d8f0]">
                     <button
                         type="button"
                         onClick={handleClose}
                         disabled={isLoading}
-                        className="flex-1 px-4 py-3 rounded-xl border-2 border-[#e3dac9] text-[#5d4037] font-bold hover:bg-[#fbf8f1] transition-colors disabled:opacity-50"
+                        className="flex-1 px-4 py-3 rounded-xl border-2 border-[#c8d8f0] text-[#1e3a6e] font-bold hover:bg-[#f5f8ff] transition-colors disabled:opacity-50"
                     >
                         Cancelar
                     </button>
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-[#2b1b17] to-[#3e2723] text-[#f0e6d2] font-bold hover:from-[#3e2723] hover:to-[#4e342e] shadow-lg transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                        className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-[#0a1628] to-[#1e3a6e] text-[#f5f8ff] font-bold hover:from-[#1e3a6e] hover:to-[#1a2d5a] shadow-lg transition-all disabled:opacity-50 flex items-center justify-center gap-2"
                     >
                         {isLoading ? (
                             <>

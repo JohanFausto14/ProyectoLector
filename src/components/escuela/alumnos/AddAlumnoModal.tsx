@@ -110,7 +110,7 @@ export const AddAlumnoModal: React.FC<AddAlumnoModalProps> = ({ isOpen, onClose,
                 <div>
                     {/* Header */}
                     <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-bold uppercase tracking-wider text-[#8d6e3f] flex items-center gap-1.5">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#1e3a6e] flex items-center gap-1.5">
                             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
@@ -132,12 +132,12 @@ export const AddAlumnoModal: React.FC<AddAlumnoModalProps> = ({ isOpen, onClose,
                     </div>
 
                     {loadingGrupos ? (
-                        <div className="flex items-center gap-2 py-3 text-sm text-[#8d6e3f]">
+                        <div className="flex items-center gap-2 py-3 text-sm text-[#1e3a6e]">
                             <div className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-[#d4af37]" />
                             Cargando grupos...
                         </div>
                     ) : grupos.length === 0 ? (
-                        <p className="text-xs text-[#a1887f] italic py-2">
+                        <p className="text-xs text-[#6b8cba] italic py-2">
                             No hay grupos activos. Crea uno desde la sección de Grupos.
                         </p>
                     ) : (
@@ -150,8 +150,8 @@ export const AddAlumnoModal: React.FC<AddAlumnoModalProps> = ({ isOpen, onClose,
                                         onClick={() => setFiltroGrado(null)}
                                         className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all ${
                                             filtroGrado === null
-                                                ? 'bg-[#2b1b17] text-[#f0e6d2]'
-                                                : 'bg-[#f5f0e8] text-[#5d4037] hover:bg-[#e8dfd0]'
+                                                ? 'bg-[#0a1628] text-[#f5f8ff]'
+                                                : 'bg-[#f5f0e8] text-[#1e3a6e] hover:bg-[#e8dfd0]'
                                         }`}
                                     >
                                         Todos
@@ -167,7 +167,7 @@ export const AddAlumnoModal: React.FC<AddAlumnoModalProps> = ({ isOpen, onClose,
                                                 className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all ${
                                                     active
                                                         ? `${c.bg} ${c.text}`
-                                                        : 'bg-[#f5f0e8] text-[#5d4037] hover:bg-[#e8dfd0]'
+                                                        : 'bg-[#f5f0e8] text-[#1e3a6e] hover:bg-[#e8dfd0]'
                                                 }`}
                                             >
                                                 {g}°
@@ -178,7 +178,7 @@ export const AddAlumnoModal: React.FC<AddAlumnoModalProps> = ({ isOpen, onClose,
                             )}
 
                             {/* Lista de grupos */}
-                            <div className="rounded-xl border border-[#e3dac9] overflow-hidden divide-y divide-[#ede8df] max-h-48 overflow-y-auto">
+                            <div className="rounded-xl border border-[#c8d8f0] overflow-hidden divide-y divide-[#ede8df] max-h-48 overflow-y-auto">
                                 {gruposFiltrados.map(grupo => {
                                     const c = gradoColors[grupo.grado] ?? defaultColor;
                                     const isSelected = grupoSeleccionado?.id === grupo.id;
@@ -195,7 +195,7 @@ export const AddAlumnoModal: React.FC<AddAlumnoModalProps> = ({ isOpen, onClose,
                                             className={`w-full flex items-center gap-3 px-3 py-2.5 text-left transition-colors ${
                                                 isSelected
                                                     ? `${c.bg}`
-                                                    : 'bg-white hover:bg-[#fbf8f1]'
+                                                    : 'bg-white hover:bg-[#f5f8ff]'
                                             }`}
                                         >
                                             {/* Badge grado + nombre unidos */}
@@ -205,7 +205,7 @@ export const AddAlumnoModal: React.FC<AddAlumnoModalProps> = ({ isOpen, onClose,
 
                                             {/* Maestro */}
                                             <div className="flex-1 min-w-0">
-                                                <p className={`text-xs truncate ${isSelected ? c.text + ' opacity-80' : 'text-[#a1887f]'}`}>
+                                                <p className={`text-xs truncate ${isSelected ? c.text + ' opacity-80' : 'text-[#6b8cba]'}`}>
                                                     {maestroNombre
                                                         ? <>👤 {maestroNombre}</>
                                                         : <span className="italic">Sin maestro</span>
@@ -257,10 +257,10 @@ export const AddAlumnoModal: React.FC<AddAlumnoModalProps> = ({ isOpen, onClose,
                 {/* Divisor */}
                 <div className="relative">
                     <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-[#e3dac9]" />
+                        <div className="w-full border-t border-[#c8d8f0]" />
                     </div>
                     <div className="relative flex justify-center text-xs">
-                        <span className="px-3 bg-white text-[#a1887f] font-bold uppercase tracking-wider">
+                        <span className="px-3 bg-white text-[#6b8cba] font-bold uppercase tracking-wider">
                             Datos del Alumno
                         </span>
                     </div>

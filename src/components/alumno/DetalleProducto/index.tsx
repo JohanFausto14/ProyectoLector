@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { Libro } from '../../../data/libros';
 import styles from './styles.module.css';
 
@@ -11,16 +11,28 @@ interface DetalleProductoProps {
 }
 
 export const DetalleProducto: React.FC<DetalleProductoProps> = ({ libro, isOpen, onClose }) => {
+    // Bloquear scroll de la página cuando el modal está abierto
+    useEffect(() => {
+        if (isOpen && libro) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpen, libro]);
+
     if (!isOpen || !libro) return null;
 
     return (
         <div className={`${styles.modalOverlay} z-[100] backdrop-blur-sm`}>
-            <div className={`${styles.modalContent} flex flex-col md:flex-row max-h-[90vh] md:max-h-[85vh] max-w-5xl w-full bg-gradient-to-br from-white to-[#faf8f5] rounded-3xl shadow-2xl relative overflow-hidden border border-[#e3dac9]/30`}>
+            <div className={`${styles.modalContent} flex flex-col md:flex-row max-h-[90vh] md:max-h-[85vh] max-w-5xl w-full bg-gradient-to-br from-white to-[#faf8f5] rounded-3xl shadow-2xl relative overflow-hidden border border-[#c8d8f0]/30`}>
                 
                 {/* Close Button */}
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 z-20 p-2.5 bg-white/80 backdrop-blur-sm rounded-full hover:bg-[#2b1b17] hover:text-white text-[#5d4037] transition-all duration-300 shadow-lg hover:shadow-xl hover:rotate-90"
+                    className="absolute top-4 right-4 z-20 p-2.5 bg-white/80 backdrop-blur-sm rounded-full hover:bg-[#0a1628] hover:text-white text-[#1e3a6e] transition-all duration-300 shadow-lg hover:shadow-xl hover:rotate-90"
                     aria-label="Cerrar"
                 >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -29,10 +41,10 @@ export const DetalleProducto: React.FC<DetalleProductoProps> = ({ libro, isOpen,
                 </button>
 
                 {/* Left: 3D Book Presentation */}
-                <div className="w-full md:w-2/5 bg-gradient-to-br from-[#e3dac9]/20 to-[#d4af37]/5 flex flex-col items-center justify-center p-8 md:p-12 relative">
+                <div className="hidden md:flex w-full md:w-2/5 bg-gradient-to-br from-[#c8d8f0]/20 to-[#d4af37]/5 flex-col items-center justify-center p-8 md:p-12 relative shrink-0">
                     {/* Decorative elements */}
                     <div className="absolute top-0 left-0 w-32 h-32 bg-[#d4af37]/5 rounded-full blur-3xl"></div>
-                    <div className="absolute bottom-0 right-0 w-40 h-40 bg-[#2b1b17]/5 rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-0 right-0 w-40 h-40 bg-[#0a1628]/5 rounded-full blur-3xl"></div>
                     
                     <div className="relative z-10">
                         <div
@@ -74,7 +86,7 @@ export const DetalleProducto: React.FC<DetalleProductoProps> = ({ libro, isOpen,
                 </div>
 
                 {/* Right: Details */}
-                <div className="flex-1 p-6 md:p-10 overflow-y-auto">
+                <div className="flex-1 p-4 sm:p-6 md:p-10 overflow-y-auto">
                     <div className="max-w-2xl">
                         {/* Tags */}
                         <div className="flex flex-wrap gap-2 mb-6">
@@ -84,6 +96,9 @@ export const DetalleProducto: React.FC<DetalleProductoProps> = ({ libro, isOpen,
                                     <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd"></path>
                                 </svg>
                                 {libro.year}
+                            </span>
+                            <span className="md:hidden inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-[#0a1628]/10 to-[#0a1628]/5 text-[#0a1628] text-xs font-bold uppercase tracking-wider rounded-full border border-[#0a1628]/10">
+                                {libro.publisher}
                             </span>
                             {libro.owned && (
                                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-emerald-50 to-emerald-100/50 text-emerald-700 text-xs font-bold uppercase tracking-wider rounded-full border border-emerald-200">
@@ -96,10 +111,10 @@ export const DetalleProducto: React.FC<DetalleProductoProps> = ({ libro, isOpen,
                         </div>
 
                         {/* Title & Author */}
-                        <h2 className={`${styles.detailTitle} text-3xl md:text-4xl font-playfair font-bold text-[#2b1b17] mb-2 leading-tight`}>
+                        <h2 className={`${styles.detailTitle} text-3xl md:text-4xl font-playfair font-bold text-[#0a1628] mb-2 leading-tight`}>
                             {libro.title}
                         </h2>
-                        <p className={`${styles.detailAuthor} text-[#8d6e3f] italic text-lg md:text-xl mb-8 flex items-center gap-2`}>
+                        <p className={`${styles.detailAuthor} text-[#1e3a6e] italic text-lg md:text-xl mb-8 flex items-center gap-2`}>
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
@@ -107,49 +122,49 @@ export const DetalleProducto: React.FC<DetalleProductoProps> = ({ libro, isOpen,
                         </p>
 
                         {/* Stats Grid */}
-                        <div className={`${styles.detailStats} grid grid-cols-3 gap-4 py-6 px-4 bg-gradient-to-r from-[#fbf8f1] to-white rounded-xl border border-[#e3dac9]/50 mb-8 shadow-sm`}>
+                        <div className={`${styles.detailStats} grid grid-cols-3 gap-4 py-6 px-4 bg-gradient-to-r from-[#f5f8ff] to-white rounded-xl border border-[#c8d8f0]/50 mb-8 shadow-sm`}>
                             <div className="text-center">
                                 <div className="w-10 h-10 bg-gradient-to-br from-[#d4af37] to-[#c19a2e] rounded-lg mx-auto mb-2 flex items-center justify-center shadow-md">
                                     <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                                     </svg>
                                 </div>
-                                <p className={`${styles.detailStatLabel} text-xs font-bold text-[#a1887f] uppercase tracking-wider mb-1`}>Páginas</p>
-                                <p className={`${styles.detailStatValue} font-playfair font-bold text-xl text-[#2b1b17]`}>{libro.pages}</p>
+                                <p className={`${styles.detailStatLabel} text-xs font-bold text-[#6b8cba] uppercase tracking-wider mb-1`}>Páginas</p>
+                                <p className={`${styles.detailStatValue} font-playfair font-bold text-xl text-[#0a1628]`}>{libro.pages}</p>
                             </div>
-                            <div className="text-center border-l border-r border-[#e3dac9]">
-                                <div className="w-10 h-10 bg-gradient-to-br from-[#8d6e3f] to-[#7a5c36] rounded-lg mx-auto mb-2 flex items-center justify-center shadow-md">
+                            <div className="text-center border-l border-r border-[#c8d8f0]">
+                                <div className="w-10 h-10 bg-gradient-to-br from-[#1e3a6e] to-[#7a5c36] rounded-lg mx-auto mb-2 flex items-center justify-center shadow-md">
                                     <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
                                     </svg>
                                 </div>
-                                <p className={`${styles.detailStatLabel} text-xs font-bold text-[#a1887f] uppercase tracking-wider mb-1`}>Idioma</p>
-                                <p className={`${styles.detailStatValue} font-playfair font-bold text-xl text-[#2b1b17]`}>Español</p>
+                                <p className={`${styles.detailStatLabel} text-xs font-bold text-[#6b8cba] uppercase tracking-wider mb-1`}>Idioma</p>
+                                <p className={`${styles.detailStatValue} font-playfair font-bold text-xl text-[#0a1628]`}>Español</p>
                             </div>
                             <div className="text-center">
-                                <div className="w-10 h-10 bg-gradient-to-br from-[#5d4037] to-[#4e342e] rounded-lg mx-auto mb-2 flex items-center justify-center shadow-md">
+                                <div className="w-10 h-10 bg-gradient-to-br from-[#1e3a6e] to-[#1a2d5a] rounded-lg mx-auto mb-2 flex items-center justify-center shadow-md">
                                     <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                     </svg>
                                 </div>
-                                <p className={`${styles.detailStatLabel} text-xs font-bold text-[#a1887f] uppercase tracking-wider mb-1`}>Formato</p>
-                                <p className={`${styles.detailStatValue} font-playfair font-bold text-xl text-[#2b1b17]`}>Digital</p>
+                                <p className={`${styles.detailStatLabel} text-xs font-bold text-[#6b8cba] uppercase tracking-wider mb-1`}>Formato</p>
+                                <p className={`${styles.detailStatValue} font-playfair font-bold text-xl text-[#0a1628]`}>Digital</p>
                             </div>
                         </div>
 
                         {/* Synopsis */}
                         <div className="mb-8">
-                            <h4 className={`${styles.detailSynopsisTitle} font-playfair font-bold text-xl text-[#2b1b17] mb-4 flex items-center gap-2`}>
+                            <h4 className={`${styles.detailSynopsisTitle} font-playfair font-bold text-xl text-[#0a1628] mb-4 flex items-center gap-2`}>
                                 <div className="w-1 h-6 bg-gradient-to-b from-[#d4af37] to-[#c19a2e] rounded-full"></div>
                                 Sinopsis
                             </h4>
-                            <p className={`${styles.detailSynopsisText} text-[#5d4037] text-sm md:text-base leading-relaxed font-lora`}>
+                            <p className={`${styles.detailSynopsisText} text-[#1e3a6e] text-sm md:text-base leading-relaxed font-lora`}>
                                 {libro.synopsis}
                             </p>
                         </div>
 
                         {/* Action Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-3 mt-auto pt-6 border-t border-[#e3dac9]">
+                        <div className="flex flex-col sm:flex-row gap-3 mt-auto pt-6 border-t border-[#c8d8f0]">
                             {libro.owned ? (
                                 <>
                                     <button className="flex-1 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white py-4 rounded-xl font-playfair font-bold uppercase tracking-widest hover:from-emerald-600 hover:to-emerald-700 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 shadow-lg transition-all duration-300 flex items-center justify-center gap-2">
@@ -158,7 +173,7 @@ export const DetalleProducto: React.FC<DetalleProductoProps> = ({ libro, isOpen,
                                         </svg>
                                         {libro.progress > 0 ? 'Continuar Lectura' : 'Leer Ahora'}
                                     </button>
-                                    <button className="sm:w-14 h-14 bg-white border-2 border-[#e3dac9] rounded-xl hover:border-[#d4af37] hover:bg-[#fbf8f1] transition-all duration-300 flex items-center justify-center text-[#5d4037] hover:text-[#d4af37] shadow-sm hover:shadow-md">
+                                    <button className="sm:w-14 h-14 bg-white border-2 border-[#c8d8f0] rounded-xl hover:border-[#d4af37] hover:bg-[#f5f8ff] transition-all duration-300 flex items-center justify-center text-[#1e3a6e] hover:text-[#d4af37] shadow-sm hover:shadow-md">
                                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
                                         </svg>
@@ -166,13 +181,13 @@ export const DetalleProducto: React.FC<DetalleProductoProps> = ({ libro, isOpen,
                                 </>
                             ) : (
                                 <>
-                                    <button className="flex-1 bg-gradient-to-r from-[#2b1b17] to-[#3e2723] text-[#f0e6d2] py-4 rounded-xl font-playfair font-bold uppercase tracking-widest hover:from-[#3e2723] hover:to-[#4e342e] hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 shadow-lg flex items-center justify-center gap-3">
+                                    <button className="flex-1 bg-gradient-to-r from-[#0a1628] to-[#1e3a6e] text-[#f5f8ff] py-4 rounded-xl font-playfair font-bold uppercase tracking-widest hover:from-[#1e3a6e] hover:to-[#1a2d5a] hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 shadow-lg flex items-center justify-center gap-3">
                                         <span>Comprar Ahora</span>
-                                        <span className="bg-[#d4af37] text-[#2b1b17] text-sm px-3 py-1.5 rounded-lg font-sans font-bold shadow-md">
+                                        <span className="bg-[#d4af37] text-[#0a1628] text-sm px-3 py-1.5 rounded-lg font-sans font-bold shadow-md">
                                             {libro.price === 0 ? 'GRATIS' : `$${libro.price}`}
                                         </span>
                                     </button>
-                                    <button className="sm:w-14 h-14 bg-white border-2 border-[#e3dac9] rounded-xl hover:border-[#d4af37] hover:bg-[#fbf8f1] transition-all duration-300 flex items-center justify-center text-[#5d4037] hover:text-[#d4af37] shadow-sm hover:shadow-md">
+                                    <button className="sm:w-14 h-14 bg-white border-2 border-[#c8d8f0] rounded-xl hover:border-[#d4af37] hover:bg-[#f5f8ff] transition-all duration-300 flex items-center justify-center text-[#1e3a6e] hover:text-[#d4af37] shadow-sm hover:shadow-md">
                                         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"></path>
                                         </svg>

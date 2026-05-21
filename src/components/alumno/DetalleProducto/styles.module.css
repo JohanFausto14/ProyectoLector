@@ -56,12 +56,12 @@
 }
 
 .detailStats {
-    border-top: 1px solid #e3dac9;
-    border-bottom: 1px solid #e3dac9;
+    border-top: 1px solid #c8d8f0;
+    border-bottom: 1px solid #c8d8f0;
 }
 
 .detailStatLabel {
-    color: #a1887f;
+    color: #6b8cba;
     letter-spacing: 0.05em;
 }
 

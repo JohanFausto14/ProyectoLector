@@ -19,7 +19,7 @@ export default function ReadingTimer({ formattedTime, isRunning }: ReadingTimerP
 
   return (
     <div
-      className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-full transition-all duration-500"
+      className="flex items-center gap-1.5 sm:gap-2.5 px-2 py-0.5 sm:px-3.5 sm:py-1.5 rounded-full transition-all duration-500"
       style={{
         background: isRunning
           ? 'linear-gradient(135deg, rgba(212,175,55,0.12) 0%, rgba(212,175,55,0.06) 100%)'
@@ -38,7 +38,7 @@ export default function ReadingTimer({ formattedTime, isRunning }: ReadingTimerP
       <svg
         className="w-3.5 h-3.5 shrink-0 transition-all duration-700"
         style={{
-          color: isRunning ? '#d4af37' : '#a1887f',
+          color: isRunning ? '#d4af37' : '#6b8cba',
           filter: isRunning ? 'drop-shadow(0 0 4px rgba(212,175,55,0.6))' : 'none',
           transform: isRunning
             ? `rotate(${tick ? '6deg' : '-6deg'})`
@@ -57,9 +57,9 @@ export default function ReadingTimer({ formattedTime, isRunning }: ReadingTimerP
 
       {/* Tiempo */}
       <span
-        className="font-mono text-sm font-bold tabular-nums tracking-widest transition-all duration-500 select-none"
+        className="font-mono text-xs sm:text-sm font-bold tabular-nums tracking-widest transition-all duration-500 select-none"
         style={{
-          color: isRunning ? '#d4af37' : '#a1887f',
+          color: isRunning ? '#d4af37' : '#6b8cba',
           textShadow: isRunning ? '0 0 12px rgba(212,175,55,0.4)' : 'none',
           letterSpacing: '0.1em',
         }}

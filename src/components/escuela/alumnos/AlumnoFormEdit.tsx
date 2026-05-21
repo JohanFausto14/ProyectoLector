@@ -153,17 +153,17 @@ export const AlumnoFormEdit: React.FC<AlumnoFormEditProps> = ({
     const inputClass = (field: keyof AlumnoEditFormErrors) =>
         `w-full px-4 py-3 rounded-xl border-2 bg-white font-lora text-sm transition-all duration-300 focus:outline-none ${errors[field]
             ? 'border-red-500 focus:border-red-500 focus:ring-4 focus:ring-red-500/10'
-            : 'border-[#e3dac9] focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10'
+            : 'border-[#c8d8f0] focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10'
         }`;
 
-    const labelClass = 'block text-sm font-bold text-[#2b1b17] mb-2';
+    const labelClass = 'block text-sm font-bold text-[#0a1628] mb-2';
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6" noValidate>
 
             {/* Información Personal */}
             <div>
-                <h3 className="text-lg font-playfair font-bold text-[#2b1b17] mb-4 flex items-center gap-2">
+                <h3 className="text-lg font-playfair font-bold text-[#0a1628] mb-4 flex items-center gap-2">
                     <div className="w-1 h-6 bg-gradient-to-b from-[#d4af37] to-[#c19a2e] rounded-full"></div>
                     Información Personal
                 </h3>
@@ -207,7 +207,7 @@ export const AlumnoFormEdit: React.FC<AlumnoFormEditProps> = ({
                     <div>
                         <label className={labelClass}>
                             Apellido Materno
-                            <span className="ml-2 font-normal text-[#a1887f] text-xs">(opcional)</span>
+                            <span className="ml-2 font-normal text-[#6b8cba] text-xs">(opcional)</span>
                         </label>
                         <input
                             type="text"
@@ -243,7 +243,7 @@ export const AlumnoFormEdit: React.FC<AlumnoFormEditProps> = ({
                     <div>
                         <label className={labelClass}>
                             Teléfono
-                            <span className="ml-2 font-normal text-[#a1887f] text-xs">(opcional)</span>
+                            <span className="ml-2 font-normal text-[#6b8cba] text-xs">(opcional)</span>
                         </label>
                         <input
                             type="tel"
@@ -261,7 +261,7 @@ export const AlumnoFormEdit: React.FC<AlumnoFormEditProps> = ({
                     <div>
                         <label className={labelClass}>
                             Fecha de Nacimiento
-                            <span className="ml-2 font-normal text-[#a1887f] text-xs">(opcional)</span>
+                            <span className="ml-2 font-normal text-[#6b8cba] text-xs">(opcional)</span>
                         </label>
                         <input
                             type="date"
@@ -277,7 +277,7 @@ export const AlumnoFormEdit: React.FC<AlumnoFormEditProps> = ({
                     <div>
                         <label className={labelClass}>
                             Género
-                            <span className="ml-2 font-normal text-[#a1887f] text-xs">(opcional)</span>
+                            <span className="ml-2 font-normal text-[#6b8cba] text-xs">(opcional)</span>
                         </label>
                         <select
                             name="genero"
@@ -297,19 +297,19 @@ export const AlumnoFormEdit: React.FC<AlumnoFormEditProps> = ({
 
             {/* Información Académica */}
             <div>
-                <h3 className="text-lg font-playfair font-bold text-[#2b1b17] mb-4 flex items-center gap-2">
+                <h3 className="text-lg font-playfair font-bold text-[#0a1628] mb-4 flex items-center gap-2">
                     <div className="w-1 h-6 bg-gradient-to-b from-[#d4af37] to-[#c19a2e] rounded-full"></div>
                     Información Académica
                 </h3>
 
-                <div className="bg-[#fbf8f1] rounded-2xl p-6 border-2 border-[#e3dac9]/50 mb-6">
+                <div className="bg-[#f5f8ff] rounded-2xl p-6 border-2 border-[#c8d8f0]/50 mb-6">
                     <div className="flex items-center justify-between mb-4">
-                        <label className="text-sm font-bold text-[#2b1b17] flex items-center gap-2">
+                        <label className="text-sm font-bold text-[#0a1628] flex items-center gap-2">
                             <svg className="w-5 h-5 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
                             Asignación de Grupo
-                            <span className="font-normal text-[#a1887f] text-xs">(Selecciona para cambiar)</span>
+                            <span className="font-normal text-[#6b8cba] text-xs">(Selecciona para cambiar)</span>
                         </label>
                         {formData.grupoId && (
                             <button
@@ -328,7 +328,7 @@ export const AlumnoFormEdit: React.FC<AlumnoFormEditProps> = ({
                     {loadingGrupos ? (
                         <div className="flex items-center gap-3 py-8 justify-center">
                             <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#d4af37]" />
-                            <span className="text-sm text-[#8d6e3f] font-medium">Cargando grupos...</span>
+                            <span className="text-sm text-[#1e3a6e] font-medium">Cargando grupos...</span>
                         </div>
                     ) : (
                         <div className="space-y-4">
@@ -340,8 +340,8 @@ export const AlumnoFormEdit: React.FC<AlumnoFormEditProps> = ({
                                         onClick={() => setFiltroGrado(null)}
                                         className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                                             filtroGrado === null
-                                                ? 'bg-[#2b1b17] text-[#fbf8f1]'
-                                                : 'bg-white text-[#5d4037] border-2 border-[#e3dac9] hover:border-[#d4af37]'
+                                                ? 'bg-[#0a1628] text-[#f5f8ff]'
+                                                : 'bg-white text-[#1e3a6e] border-2 border-[#c8d8f0] hover:border-[#d4af37]'
                                         }`}
                                     >
                                         Todos
@@ -356,7 +356,7 @@ export const AlumnoFormEdit: React.FC<AlumnoFormEditProps> = ({
                                                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border-2 ${
                                                     filtroGrado === g
                                                         ? `${c.bg} ${c.text} ${c.border}`
-                                                        : 'bg-white text-[#5d4037] border-[#e3dac9] hover:border-[#d4af37]'
+                                                        : 'bg-white text-[#1e3a6e] border-[#c8d8f0] hover:border-[#d4af37]'
                                                 }`}
                                             >
                                                 {g}° Grado
@@ -381,7 +381,7 @@ export const AlumnoFormEdit: React.FC<AlumnoFormEditProps> = ({
                                             className={`relative flex flex-col items-start gap-1 p-3 rounded-2xl border-2 text-left transition-all duration-300 ${
                                                 isSelected
                                                     ? `${c.bg} ${c.border} shadow-md scale-[1.02]`
-                                                    : 'border-[#e3dac9] bg-white hover:border-[#d4af37]/50 hover:bg-[#fbf8f1]/50'
+                                                    : 'border-[#c8d8f0] bg-white hover:border-[#d4af37]/50 hover:bg-[#f5f8ff]/50'
                                             }`}
                                         >
                                             {isSelected && (
@@ -395,11 +395,11 @@ export const AlumnoFormEdit: React.FC<AlumnoFormEditProps> = ({
                                                 <span className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black ${c.bg} ${c.text} border ${c.border.replace('border-', 'border-')}`}>
                                                     {grupo.grado}
                                                 </span>
-                                                <span className={`font-black text-lg ${isSelected ? c.text : 'text-[#2b1b17]'}`}>
+                                                <span className={`font-black text-lg ${isSelected ? c.text : 'text-[#0a1628]'}`}>
                                                     {grupo.nombre}
                                                 </span>
                                             </div>
-                                            <span className="text-[10px] text-[#a1887f] truncate w-full font-medium italic">
+                                            <span className="text-[10px] text-[#6b8cba] truncate w-full font-medium italic">
                                                 {maestro ? `👤 ${maestro.nombre?.split(' ')[0]}` : 'Sin maestro'}
                                             </span>
                                         </button>
@@ -417,8 +417,8 @@ export const AlumnoFormEdit: React.FC<AlumnoFormEditProps> = ({
                                         </span>
                                     </div>
                                 ) : (
-                                    <div className="px-4 py-3 rounded-xl border-2 border-dashed border-[#e3dac9] bg-[#fbf8f1]/50 text-center">
-                                        <span className="text-sm text-[#a1887f] italic font-medium">
+                                    <div className="px-4 py-3 rounded-xl border-2 border-dashed border-[#c8d8f0] bg-[#f5f8ff]/50 text-center">
+                                        <span className="text-sm text-[#6b8cba] italic font-medium">
                                             Sin grupo asignado (el alumno se quitará del grupo actual si lo tiene)
                                         </span>
                                     </div>
@@ -438,7 +438,7 @@ export const AlumnoFormEdit: React.FC<AlumnoFormEditProps> = ({
                             onChange={handleChange}
                             placeholder="Ej: 2024-2025"
                             disabled={isLoading}
-                            className="w-full px-4 py-3 rounded-xl border-2 border-[#e3dac9] bg-white font-lora text-sm transition-all duration-300 focus:outline-none focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10"
+                            className="w-full px-4 py-3 rounded-xl border-2 border-[#c8d8f0] bg-white font-lora text-sm transition-all duration-300 focus:outline-none focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10"
                         />
                     </div>
                 </div>
@@ -446,13 +446,13 @@ export const AlumnoFormEdit: React.FC<AlumnoFormEditProps> = ({
 
             {/* Seguridad */}
             <div>
-                <h3 className="text-lg font-playfair font-bold text-[#2b1b17] mb-4 flex items-center gap-2">
+                <h3 className="text-lg font-playfair font-bold text-[#0a1628] mb-4 flex items-center gap-2">
                     <div className="w-1 h-6 bg-gradient-to-b from-[#d4af37] to-[#c19a2e] rounded-full"></div>
                     Seguridad
                 </h3>
 
-                <div className="bg-[#fbf8f1] rounded-xl p-4 mb-4">
-                    <p className="text-sm text-[#8d6e3f] flex items-center gap-2">
+                <div className="bg-[#f5f8ff] rounded-xl p-4 mb-4">
+                    <p className="text-sm text-[#1e3a6e] flex items-center gap-2">
                         <svg className="w-4 h-4 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -463,7 +463,7 @@ export const AlumnoFormEdit: React.FC<AlumnoFormEditProps> = ({
                 <div className="relative">
                     <label className={labelClass}>
                         Nueva Contraseña
-                        <span className="ml-2 font-normal text-[#a1887f] text-xs">(opcional)</span>
+                        <span className="ml-2 font-normal text-[#6b8cba] text-xs">(opcional)</span>
                     </label>
                     <input
                         type={showPassword ? 'text' : 'password'}
@@ -478,7 +478,7 @@ export const AlumnoFormEdit: React.FC<AlumnoFormEditProps> = ({
                     <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-4 top-[42px] text-[#a1887f] hover:text-[#2b1b17] transition-colors"
+                        className="absolute right-4 top-[42px] text-[#6b8cba] hover:text-[#0a1628] transition-colors"
                     >
                         {showPassword ? (
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -496,19 +496,19 @@ export const AlumnoFormEdit: React.FC<AlumnoFormEditProps> = ({
             </div>
 
             {/* Botones */}
-            <div className="flex justify-end gap-3 pt-6 border-t border-[#e3dac9]">
+            <div className="flex justify-end gap-3 pt-6 border-t border-[#c8d8f0]">
                 <button
                     type="button"
                     onClick={onCancel}
                     disabled={isLoading}
-                    className="px-6 py-3 rounded-xl border-2 border-[#e3dac9] text-[#5d4037] font-bold hover:bg-[#fbf8f1] transition-colors disabled:opacity-50"
+                    className="px-6 py-3 rounded-xl border-2 border-[#c8d8f0] text-[#1e3a6e] font-bold hover:bg-[#f5f8ff] transition-colors disabled:opacity-50"
                 >
                     Cancelar
                 </button>
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#2b1b17] to-[#3e2723] text-[#f0e6d2] font-bold hover:from-[#3e2723] hover:to-[#4e342e] shadow-lg transition-all disabled:opacity-50 flex items-center gap-2"
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#0a1628] to-[#1e3a6e] text-[#f5f8ff] font-bold hover:from-[#1e3a6e] hover:to-[#1a2d5a] shadow-lg transition-all disabled:opacity-50 flex items-center gap-2"
                 >
                     {isLoading ? (
                         <>

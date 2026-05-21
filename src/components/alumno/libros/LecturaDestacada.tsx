@@ -22,7 +22,7 @@ export const LecturaDestacada: React.FC<LecturaDestacadaProps> = ({ libro, onCli
     return (
         <div
             onClick={() => onClick(libro.libroId)}
-            className="relative w-full h-auto min-h-[22rem] bg-gradient-to-br from-[#2b1b17] via-[#3e2723] to-[#2b1b17] rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col md:flex-row items-center p-8 md:p-12 group cursor-pointer border border-white/5"
+            className="relative w-full h-auto min-h-[22rem] bg-gradient-to-br from-[#0a1628] via-[#1e3a6e] to-[#0a1628] rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col md:flex-row items-center p-5 sm:p-8 md:p-12 group cursor-pointer border border-white/5"
         >
             {/* Fondo textura */}
             <div
@@ -37,12 +37,12 @@ export const LecturaDestacada: React.FC<LecturaDestacadaProps> = ({ libro, onCli
             {/* Contenido izquierdo */}
             <div className="relative z-10 flex-1 w-full order-2 md:order-1 mt-6 md:mt-0">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 bg-gradient-to-r from-[#d4af37] to-[#c19a2e] rounded-full shadow-lg border border-white/20">
-                    <span className="text-[10px] font-black tracking-widest uppercase text-[#2b1b17]">
+                    <span className="text-[10px] font-black tracking-widest uppercase text-[#0a1628]">
                         ⚡ {hasStarted ? 'Continúa donde lo dejaste' : 'Tu próxima lectura'}
                     </span>
                 </div>
 
-                <h2 className="text-3xl md:text-5xl font-playfair font-bold mb-4 leading-tight text-[#f0e6d2] group-hover:text-white transition-colors duration-300">
+                <h2 className="text-3xl md:text-5xl font-playfair font-bold mb-4 leading-tight text-[#f5f8ff] group-hover:text-white transition-colors duration-300">
                     {libro.titulo}
                 </h2>
 
@@ -61,7 +61,7 @@ export const LecturaDestacada: React.FC<LecturaDestacadaProps> = ({ libro, onCli
                 )}
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-8 mt-6">
-                    <button className="px-8 py-4 bg-white text-[#2b1b17] font-bold font-playfair uppercase tracking-[0.2em] rounded-2xl shadow-xl hover:shadow-[0_10px_30px_rgba(255,255,255,0.1)] hover:scale-105 active:scale-95 transition-all duration-300 text-sm w-full sm:w-auto">
+                    <button className="px-8 py-4 bg-white text-[#0a1628] font-bold font-playfair uppercase tracking-[0.2em] rounded-2xl shadow-xl hover:shadow-[0_10px_30px_rgba(255,255,255,0.1)] hover:scale-105 active:scale-95 transition-all duration-300 text-sm w-full sm:w-auto">
                         {hasStarted ? 'Continuar lectura' : 'Empezar a leer'}
                     </button>
 
@@ -83,7 +83,7 @@ export const LecturaDestacada: React.FC<LecturaDestacadaProps> = ({ libro, onCli
             {/* Portada derecha */}
             <div className="relative z-10 w-full md:w-auto order-1 md:order-2 flex justify-center">
                 <div className="relative w-40 md:w-56 h-56 md:h-72 transform rotate-2 md:rotate-6 group-hover:rotate-0 transition-transform duration-500">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#d4af37] to-[#8d6e3f] rounded-xl shadow-2xl flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#d4af37] to-[#1e3a6e] rounded-xl shadow-2xl flex items-center justify-center p-4">
                         {libro.portadaUrl ? (
                             <img src={libro.portadaUrl} alt={libro.titulo} className="w-full h-full object-cover rounded-lg" />
                         ) : (

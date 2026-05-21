@@ -47,7 +47,7 @@ export const TarjetaLibro: React.FC<TarjetaLibroProps> = ({ title, author, cover
 
                     {/* Overlay with button */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center p-2">
-                        <button className="px-3 py-2 md:px-6 md:py-3 text-[10px] md:text-sm bg-gradient-to-r from-[#d4af37] to-[#c19a2e] text-[#2b1b17] font-bold font-playfair uppercase tracking-wider rounded-lg shadow-xl hover:shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex items-center gap-1 md:gap-2">
+                        <button className="px-3 py-2 md:px-6 md:py-3 text-[10px] md:text-sm bg-gradient-to-r from-[#d4af37] to-[#c19a2e] text-[#0a1628] font-bold font-playfair uppercase tracking-wider rounded-lg shadow-xl hover:shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex items-center gap-1 md:gap-2">
                             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"></path>
                             </svg>
@@ -58,7 +58,7 @@ export const TarjetaLibro: React.FC<TarjetaLibroProps> = ({ title, author, cover
 
                 {/* Progress badge */}
                 {progress > 0 && (
-                    <div className="absolute top-2 right-2 px-2.5 py-1 bg-[#d4af37] text-[#2b1b17] text-xs font-bold rounded-full shadow-lg">
+                    <div className="absolute top-2 right-2 px-2.5 py-1 bg-[#d4af37] text-[#0a1628] text-xs font-bold rounded-full shadow-lg">
                         {progress}%
                     </div>
                 )}
@@ -66,10 +66,10 @@ export const TarjetaLibro: React.FC<TarjetaLibroProps> = ({ title, author, cover
 
             {/* Book Info */}
             <div className="flex-1 flex flex-col relative z-10">
-                <h3 className="font-playfair font-bold text-[#2b1b17] text-base md:text-lg leading-tight mb-1 line-clamp-2 group-hover:text-[#d4af37] transition-colors">
+                <h3 className="font-playfair font-bold text-[#0a1628] text-base md:text-lg leading-tight mb-1 line-clamp-2 group-hover:text-[#d4af37] transition-colors">
                     {title}
                 </h3>
-                <p className="font-lora text-xs text-[#8d6e3f] mb-3 line-clamp-1 flex items-center gap-1">
+                <p className="font-lora text-xs text-[#1e3a6e] mb-3 line-clamp-1 flex items-center gap-1">
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                     </svg>
@@ -77,19 +77,19 @@ export const TarjetaLibro: React.FC<TarjetaLibroProps> = ({ title, author, cover
                 </p>
 
                 {/* Progress Section */}
-                <div className="mt-auto pt-3 border-t border-[#e3dac9]">
+                <div className="mt-auto pt-3 border-t border-[#c8d8f0]">
                     <div className="flex items-center justify-between mb-2">
-                        <span className="text-[10px] text-[#a1887f] uppercase tracking-wider font-bold">Progreso</span>
-                        <span className="text-xs text-[#2b1b17] font-bold">{progress}%</span>
+                        <span className="text-[10px] text-[#6b8cba] uppercase tracking-wider font-bold">Progreso</span>
+                        <span className="text-xs text-[#0a1628] font-bold">{progress}%</span>
                     </div>
-                    <div className="w-full h-2 bg-gradient-to-r from-[#e3dac9] to-[#d4c4b0] rounded-full overflow-hidden shadow-inner">
+                    <div className="w-full h-2 bg-gradient-to-r from-[#c8d8f0] to-[#d4c4b0] rounded-full overflow-hidden shadow-inner">
                         <div
                             className="h-full bg-gradient-to-r from-[#d4af37] to-[#c19a2e] rounded-full shadow-md transition-all duration-500"
                             style={{ width: `${progress}%` }}
                         ></div>
                     </div>
                     {progress > 0 && progress < 100 && (
-                        <p className="text-[10px] text-[#a1887f] mt-1.5">
+                        <p className="text-[10px] text-[#6b8cba] mt-1.5">
                             {progress < 25 ? 'Recién comenzado' : progress < 75 ? 'A mitad de camino' : 'Casi terminado'}
                         </p>
                     )}

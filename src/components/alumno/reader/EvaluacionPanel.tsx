@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { UseEvaluacionReturn } from '../../../hooks/useEvaluacion';
 import { RespuestaItem, LetraRespuesta, PalabraGlosario } from '../../../types/alumno/evaluacion';
 
@@ -20,9 +20,9 @@ function ScoreGauge({ score }: { score: number }) {
     const color = score >= 70 ? '#10b981' : score >= 50 ? '#f59e0b' : '#ef4444';
 
     return (
-        <div className="relative w-36 h-36 mx-auto">
+        <div className="relative w-28 h-28 sm:w-36 sm:h-36 mx-auto">
             <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
-                <circle cx="60" cy="60" r={radius} fill="none" stroke="#e3dac9" strokeWidth="10" />
+                <circle cx="60" cy="60" r={radius} fill="none" stroke="#c8d8f0" strokeWidth="10" />
                 <circle
                     cx="60" cy="60" r={radius} fill="none"
                     stroke={color} strokeWidth="10"
@@ -33,8 +33,8 @@ function ScoreGauge({ score }: { score: number }) {
                 />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-3xl font-playfair font-bold text-[#2b1b17]">{score}</span>
-                <span className="text-xs text-[#8d6e3f] font-bold uppercase tracking-widest">puntos</span>
+                <span className="text-2xl sm:text-3xl font-playfair font-bold text-[#0a1628]">{score}</span>
+                <span className="text-[10px] sm:text-xs text-[#1e3a6e] font-bold uppercase tracking-widest">puntos</span>
             </div>
         </div>
     );
@@ -49,6 +49,18 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
 
     // Timestamps de inicio por pregunta (para calcular tiempoMs)
     const preguntaStartRef = useRef<Record<number, number>>({});
+
+    // Bloquear scroll de fondo cuando la evaluación está abierta
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpen]);
 
     const handleSelect = useCallback((preguntaId: number, letra: LetraRespuesta) => {
         setSeleccion(prev => ({ ...prev, [preguntaId]: letra }));
@@ -110,19 +122,19 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
 
             {/* Panel */}
             <div className="fixed inset-x-0 bottom-0 z-[190] md:inset-0 md:flex md:items-center md:justify-center">
-                <div className="bg-[#fbf8f1] rounded-t-3xl md:rounded-3xl w-full md:max-w-2xl md:mx-4 shadow-2xl flex flex-col max-h-[90vh] md:max-h-[85vh] animate-in slide-in-from-bottom-4 duration-300">
+                <div className="bg-[#f5f8ff] rounded-t-3xl md:rounded-3xl w-full md:max-w-2xl md:mx-4 shadow-2xl flex flex-col max-h-[95vh] md:max-h-[85vh] animate-in slide-in-from-bottom-4 duration-300">
 
                     {/* Header */}
-                    <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-[#e3dac9] shrink-0">
+                    <div className="flex items-center justify-between px-4 sm:px-6 pt-6 pb-4 border-b border-[#c8d8f0] shrink-0">
                         <div className="flex items-center gap-3">
-                            <div className="w-9 h-9 rounded-xl bg-[#2b1b17] flex items-center justify-center">
+                            <div className="w-9 h-9 rounded-xl bg-[#0a1628] flex items-center justify-center">
                                 <svg className="w-5 h-5 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
                             </div>
                             <div>
-                                <h2 className="font-playfair font-bold text-[#2b1b17] text-lg leading-none">Evaluación de Comprensión</h2>
-                                <p className="text-[10px] text-[#a1887f] font-bold uppercase tracking-widest mt-0.5 line-clamp-1">{tituloSegmento}</p>
+                                <h2 className="font-playfair font-bold text-[#0a1628] text-lg leading-none">Evaluación de Comprensión</h2>
+                                <p className="text-[10px] text-[#6b8cba] font-bold uppercase tracking-widest mt-0.5 line-clamp-1">{tituloSegmento}</p>
                             </div>
                         </div>
 
@@ -137,13 +149,13 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                     </div>
 
                     {/* Body — scrollable */}
-                    <div className="flex-1 overflow-y-auto px-6 py-5">
+                    <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-5">
 
                         {/* Cargando */}
                         {estado === 'cargando' && (
                             <div className="flex flex-col items-center justify-center py-16 gap-4">
                                 <div className="w-10 h-10 border-4 border-[#d4af37] border-t-transparent rounded-full animate-spin" />
-                                <p className="text-[#8d6e3f] font-lora italic">Preparando tu evaluación...</p>
+                                <p className="text-[#1e3a6e] font-lora italic">Preparando tu evaluación...</p>
                             </div>
                         )}
 
@@ -151,7 +163,7 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                         {estado === 'pendiente' && evaluacion && (
                             <div className="space-y-6">
                                 {/* Info bar */}
-                                <div className="flex items-center justify-between text-xs text-[#8d6e3f] bg-[#f5f0e8] rounded-xl px-4 py-2.5">
+                                <div className="flex items-center justify-between text-xs text-[#1e3a6e] bg-[#f5f0e8] rounded-xl px-4 py-2.5">
                                     <div className="flex items-center gap-1.5">
                                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -177,13 +189,13 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                                     const letraSeleccionada = seleccion[p.preguntaId];
 
                                     return (
-                                        <div key={p.preguntaId} className="bg-white rounded-2xl p-5 border border-[#e3dac9] shadow-sm">
+                                        <div key={p.preguntaId} className="bg-white rounded-2xl p-4 sm:p-5 border border-[#c8d8f0] shadow-sm">
                                             {/* Enunciado */}
                                             <div className="flex items-start gap-2.5 mb-4">
-                                                <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#2b1b17] text-[#d4af37] text-xs font-black shrink-0 mt-0.5">
+                                                <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#0a1628] text-[#d4af37] text-xs font-black shrink-0 mt-0.5">
                                                     {idx + 1}
                                                 </span>
-                                                <p className="font-medium text-[#2b1b17] text-sm leading-relaxed">{p.texto}</p>
+                                                <p className="font-medium text-[#0a1628] text-sm leading-relaxed">{p.texto}</p>
                                             </div>
 
                                             {/* Opciones A/B/C/D reales */}
@@ -194,9 +206,9 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                                                         <button
                                                             key={letra}
                                                             onClick={() => handleSelect(p.preguntaId, letra)}
-                                                            className="w-full flex items-start gap-3 p-3.5 rounded-xl border-2 text-left transition-all duration-200"
+                                                            className="w-full flex items-start gap-3 p-2.5 sm:p-3.5 rounded-xl border-2 text-left transition-all duration-200"
                                                             style={{
-                                                                borderColor: isSelected ? '#d4af37' : '#e3dac9',
+                                                                borderColor: isSelected ? '#d4af37' : '#c8d8f0',
                                                                 background: isSelected
                                                                     ? 'linear-gradient(135deg,#d4af3712,#d4af3706)'
                                                                     : '#fafaf9',
@@ -207,14 +219,14 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                                                                 className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black transition-all duration-200"
                                                                 style={{
                                                                     background: isSelected ? '#d4af37' : '#f0ebe3',
-                                                                    color: isSelected ? '#2b1b17' : '#8d6e3f',
+                                                                    color: isSelected ? '#0a1628' : '#1e3a6e',
                                                                 }}
                                                             >
                                                                 {letra}
                                                             </span>
                                                             <span
                                                                 className="text-sm leading-snug pt-0.5 transition-colors duration-200"
-                                                                style={{ color: isSelected ? '#2b1b17' : '#5d4037', fontWeight: isSelected ? 600 : 400 }}
+                                                                style={{ color: isSelected ? '#0a1628' : '#1e3a6e', fontWeight: isSelected ? 600 : 400 }}
                                                             >
                                                                 {texto}
                                                             </span>
@@ -237,7 +249,7 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                         {estado === 'enviando' && (
                             <div className="flex flex-col items-center justify-center py-16 gap-4">
                                 <div className="w-10 h-10 border-4 border-[#d4af37] border-t-transparent rounded-full animate-spin" />
-                                <p className="text-[#8d6e3f] font-lora italic">Evaluando tus respuestas...</p>
+                                <p className="text-[#1e3a6e] font-lora italic">Evaluando tus respuestas...</p>
                             </div>
                         )}
 
@@ -252,7 +264,7 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                                         </svg>
                                         <span className="text-emerald-700 font-black text-xs uppercase tracking-widest">¡Aprobado!</span>
                                     </div>
-                                    <p className="text-[#5d4037] font-lora">Excelente comprensión del fragmento. Ya puedes avanzar al siguiente.</p>
+                                    <p className="text-[#1e3a6e] font-lora">Excelente comprensión del fragmento. Ya puedes avanzar al siguiente.</p>
                                 </div>
                             </div>
                         )}
@@ -268,7 +280,7 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                                         </svg>
                                         <span className="text-amber-700 font-black text-xs uppercase tracking-widest">Necesitas refuerzo</span>
                                     </div>
-                                    <p className="text-[#5d4037] font-lora text-sm">
+                                    <p className="text-[#1e3a6e] font-lora text-sm">
                                         Necesitas al menos {resultado.score >= 0 ? '70' : '?'} puntos.
                                         {evaluacion && evaluacion.intentosRestantes > 0
                                             ? ` Te quedan ${evaluacion.intentosRestantes} intento${evaluacion.intentosRestantes !== 1 ? 's' : ''}.`
@@ -278,7 +290,7 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
 
                                 {/* Apoyos pedagógicos */}
                                 {resultado.apoyos?.map((apoyo, idx) => (
-                                    <div key={idx} className="bg-white rounded-2xl p-4 border border-[#e3dac9]">
+                                    <div key={idx} className="bg-white rounded-2xl p-4 border border-[#c8d8f0]">
                                         {apoyo.tipo === 'pista' && (
                                             <>
                                                 <p className="text-[10px] font-black text-[#d4af37] uppercase tracking-widest mb-2 flex items-center gap-1">
@@ -287,7 +299,7 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                                                     </svg>
                                                     Pista
                                                 </p>
-                                                <p className="text-sm text-[#5d4037] font-lora leading-relaxed">{apoyo.contenido}</p>
+                                                <p className="text-sm text-[#1e3a6e] font-lora leading-relaxed">{apoyo.contenido}</p>
                                             </>
                                         )}
 
@@ -298,7 +310,7 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                                                     {(apoyo.palabras as PalabraGlosario[]).map((item, i) => (
                                                         <div key={i} className="flex gap-2">
                                                             <span className="font-bold text-blue-700 text-sm shrink-0">{item.palabra}:</span>
-                                                            <span className="text-sm text-[#5d4037] font-lora">{item.definicion}</span>
+                                                            <span className="text-sm text-[#1e3a6e] font-lora">{item.definicion}</span>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -308,7 +320,7 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                                         {apoyo.tipo === 'resumen' && (
                                             <>
                                                 <p className="text-[10px] font-black text-purple-600 uppercase tracking-widest mb-2">📄 Resumen del fragmento</p>
-                                                <p className="text-sm text-[#5d4037] font-lora leading-relaxed">{apoyo.contenido}</p>
+                                                <p className="text-sm text-[#1e3a6e] font-lora leading-relaxed">{apoyo.contenido}</p>
                                             </>
                                         )}
                                     </div>
@@ -327,16 +339,16 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                                         </svg>
                                         <span className="text-gray-600 font-black text-xs uppercase tracking-widest">Intentos agotados</span>
                                     </div>
-                                    <p className="text-[#5d4037] font-lora text-sm">Usaste todos tus intentos. Puedes continuar leyendo.</p>
+                                    <p className="text-[#1e3a6e] font-lora text-sm">Usaste todos tus intentos. Puedes continuar leyendo.</p>
                                 </div>
 
                                 {/* Todos los apoyos acumulados (pista + glosario + resumen) */}
                                 {resultado?.apoyos?.map((apoyo, idx) => (
-                                    <div key={idx} className="bg-white rounded-2xl p-4 border border-[#e3dac9]">
+                                    <div key={idx} className="bg-white rounded-2xl p-4 border border-[#c8d8f0]">
                                         {apoyo.tipo === 'pista' && (
                                             <>
                                                 <p className="text-[10px] font-black text-[#d4af37] uppercase tracking-widest mb-2">💡 Pista</p>
-                                                <p className="text-sm text-[#5d4037] font-lora leading-relaxed">{apoyo.contenido}</p>
+                                                <p className="text-sm text-[#1e3a6e] font-lora leading-relaxed">{apoyo.contenido}</p>
                                             </>
                                         )}
                                         {apoyo.tipo === 'glosario' && apoyo.palabras && (
@@ -346,7 +358,7 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                                                     {(apoyo.palabras as PalabraGlosario[]).map((item, i) => (
                                                         <div key={i} className="flex gap-2">
                                                             <span className="font-bold text-blue-700 text-sm shrink-0">{item.palabra}:</span>
-                                                            <span className="text-sm text-[#5d4037] font-lora">{item.definicion}</span>
+                                                            <span className="text-sm text-[#1e3a6e] font-lora">{item.definicion}</span>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -355,7 +367,7 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                                         {apoyo.tipo === 'resumen' && (
                                             <>
                                                 <p className="text-[10px] font-black text-purple-600 uppercase tracking-widest mb-2">📄 Resumen</p>
-                                                <p className="text-sm text-[#5d4037] font-lora leading-relaxed">{apoyo.contenido}</p>
+                                                <p className="text-sm text-[#1e3a6e] font-lora leading-relaxed">{apoyo.contenido}</p>
                                             </>
                                         )}
                                     </div>
@@ -365,12 +377,12 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                     </div>
 
                     {/* Footer */}
-                    <div className="px-6 pb-6 pt-4 border-t border-[#e3dac9] shrink-0 flex gap-3">
+                    <div className="px-4 sm:px-6 pb-6 pt-4 border-t border-[#c8d8f0] shrink-0 flex gap-3">
                         {estado === 'pendiente' && (
                             <button
                                 onClick={handleSubmit}
                                 disabled={!allAnswered}
-                                className="flex-1 py-3 rounded-xl bg-[#2b1b17] text-[#f0e6d2] font-bold hover:bg-[#3e2723] transition-all shadow-lg disabled:opacity-40 disabled:pointer-events-none flex items-center justify-center gap-2"
+                                className="flex-1 py-3 rounded-xl bg-[#0a1628] text-[#f5f8ff] font-bold hover:bg-[#1e3a6e] transition-all shadow-lg disabled:opacity-40 disabled:pointer-events-none flex items-center justify-center gap-2"
                             >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
@@ -383,13 +395,13 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                             <>
                                 <button
                                     onClick={cerrarPanel}
-                                    className="px-4 py-3 rounded-xl border border-[#e3dac9] text-[#8d6e3f] font-bold hover:bg-white transition-all text-sm"
+                                    className="px-4 py-3 rounded-xl border border-[#c8d8f0] text-[#1e3a6e] font-bold hover:bg-white transition-all text-sm"
                                 >
                                     Releer
                                 </button>
                                 <button
                                     onClick={handleReintento}
-                                    className="flex-1 py-3 rounded-xl bg-[#d4af37] text-[#2b1b17] font-bold hover:bg-[#c19b2f] transition-all shadow-lg flex items-center justify-center gap-2"
+                                    className="flex-1 py-3 rounded-xl bg-[#d4af37] text-[#0a1628] font-bold hover:bg-[#c19b2f] transition-all shadow-lg flex items-center justify-center gap-2"
                                 >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -402,7 +414,7 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                         {(estado === 'aprobado' || estado === 'intentos_agotados') && (
                             <button
                                 onClick={handleContinuar}
-                                className="flex-1 py-3 rounded-xl bg-[#2b1b17] text-[#f0e6d2] font-bold hover:bg-[#3e2723] transition-all shadow-lg flex items-center justify-center gap-2"
+                                className="flex-1 py-3 rounded-xl bg-[#0a1628] text-[#f5f8ff] font-bold hover:bg-[#1e3a6e] transition-all shadow-lg flex items-center justify-center gap-2"
                             >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />

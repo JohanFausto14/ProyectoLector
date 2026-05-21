@@ -219,10 +219,10 @@ export default function ProfesoresPage() {
                                     d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                             </svg>
                         </div>
-                        <h3 className="font-playfair text-xl font-bold text-[#2b1b17] text-center mb-2">Eliminar Profesor</h3>
-                        <p className="text-[#5d4037] text-center text-sm mb-1">¿Estás seguro de que deseas eliminar a:</p>
-                        <p className="text-[#2b1b17] font-bold text-center mb-1">{getNombreCompletoProfesor(profesorToDelete)}</p>
-                        <p className="text-[#8d6e3f] text-center text-xs mb-2">{profesorToDelete.persona.correo}</p>
+                        <h3 className="font-playfair text-xl font-bold text-[#0a1628] text-center mb-2">Eliminar Profesor</h3>
+                        <p className="text-[#1e3a6e] text-center text-sm mb-1">¿Estás seguro de que deseas eliminar a:</p>
+                        <p className="text-[#0a1628] font-bold text-center mb-1">{getNombreCompletoProfesor(profesorToDelete)}</p>
+                        <p className="text-[#1e3a6e] text-center text-xs mb-2">{profesorToDelete.persona.correo}</p>
                         <p className="text-red-600 text-center text-xs mb-6">
                             Esta acción eliminará también sus asignaciones con alumnos. No se puede deshacer.
                         </p>
@@ -237,7 +237,7 @@ export default function ProfesoresPage() {
                             <button
                                 onClick={handleDeleteCancel}
                                 disabled={isDeleting}
-                                className="flex-1 px-4 py-3 rounded-xl border-2 border-[#e3dac9] text-[#5d4037] font-bold hover:bg-[#fbf8f1] transition-colors disabled:opacity-50"
+                                className="flex-1 px-4 py-3 rounded-xl border-2 border-[#c8d8f0] text-[#1e3a6e] font-bold hover:bg-[#f5f8ff] transition-colors disabled:opacity-50"
                             >
                                 Cancelar
                             </button>

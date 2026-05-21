@@ -59,17 +59,17 @@ export default function ProfesorStats({
       {stats.map((stat) => (
         <div
           key={stat.label}
-          className="bg-gradient-to-br from-white to-[#faf8f5] rounded-xl p-6 shadow-md border border-[#e3dac9]/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+          className="bg-gradient-to-br from-white to-[#faf8f5] rounded-xl p-6 shadow-md border border-[#c8d8f0]/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
         >
           <div className="flex items-center gap-4">
             <div className={`p-3.5 rounded-xl bg-gradient-to-br ${stat.color} shadow-sm`}>
               {stat.icon}
             </div>
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-[#a1887f] mb-1">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#6b8cba] mb-1">
                 {stat.label}
               </p>
-              <h3 className="text-3xl font-playfair font-bold text-[#2b1b17]">
+              <h3 className="text-3xl font-playfair font-bold text-[#0a1628]">
                 {stat.value}
               </h3>
             </div>

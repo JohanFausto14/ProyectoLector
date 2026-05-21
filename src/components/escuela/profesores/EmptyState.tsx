@@ -4,9 +4,9 @@ interface Props {
 
 export default function EmptyState({ message }: Props) {
   return (
-    <div className="bg-white rounded-xl p-12 text-center shadow-lg border border-[#e3dac9]/50">
-      <div className="w-20 h-20 bg-[#fbf8f1] rounded-full mx-auto mb-4 flex items-center justify-center">
-        <svg className="w-10 h-10 text-[#a1887f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div className="bg-white rounded-xl p-12 text-center shadow-lg border border-[#c8d8f0]/50">
+      <div className="w-20 h-20 bg-[#f5f8ff] rounded-full mx-auto mb-4 flex items-center justify-center">
+        <svg className="w-10 h-10 text-[#6b8cba]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -15,8 +15,8 @@ export default function EmptyState({ message }: Props) {
           ></path>
         </svg>
       </div>
-      <h3 className="font-playfair text-xl font-bold text-[#2b1b17] mb-2">{message}</h3>
-      <p className="text-[#8d6e3f]">Intenta con otros términos de búsqueda</p>
+      <h3 className="font-playfair text-xl font-bold text-[#0a1628] mb-2">{message}</h3>
+      <p className="text-[#1e3a6e]">Intenta con otros términos de búsqueda</p>
     </div>
   );
 }

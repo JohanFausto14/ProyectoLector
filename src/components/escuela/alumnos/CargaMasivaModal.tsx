@@ -117,12 +117,12 @@ export const CargaMasivaModal: React.FC<CargaMasivaModalProps> = ({
             case 'inicio':
                 return (
                     <div className="space-y-6">
-                        <div className="bg-gradient-to-br from-[#fbf8f1] to-[#f0e6d2] rounded-xl p-5 border border-[#e3dac9]">
-                            <h4 className="font-playfair font-bold text-[#2b1b17] mb-3 flex items-center gap-2">
+                        <div className="bg-gradient-to-br from-[#f5f8ff] to-[#f5f8ff] rounded-xl p-5 border border-[#c8d8f0]">
+                            <h4 className="font-playfair font-bold text-[#0a1628] mb-3 flex items-center gap-2">
                                 <span className="text-[#d4af37]">📋</span>
                                 ¿Cómo funciona?
                             </h4>
-                            <ol className="space-y-3 text-sm text-[#5d4037]">
+                            <ol className="space-y-3 text-sm text-[#1e3a6e]">
                                 <li className="flex items-start gap-3">
                                     <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#d4af37] text-white text-xs flex items-center justify-center font-bold mt-0.5">1</span>
                                     <span>Descarga la plantilla Excel con el formato requerido.</span>
@@ -141,7 +141,7 @@ export const CargaMasivaModal: React.FC<CargaMasivaModalProps> = ({
                         <button
                             onClick={handleDescargarPlantilla}
                             disabled={isDescargando}
-                            className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl border-2 border-dashed border-[#d4af37] bg-[#d4af37]/5 text-[#8d6e3f] font-bold hover:bg-[#d4af37]/10 hover:border-[#c19a2e] transition-all duration-300 disabled:opacity-60 group"
+                            className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl border-2 border-dashed border-[#d4af37] bg-[#d4af37]/5 text-[#1e3a6e] font-bold hover:bg-[#d4af37]/10 hover:border-[#c19a2e] transition-all duration-300 disabled:opacity-60 group"
                         >
                             {isDescargando ? (
                                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#d4af37]" />
@@ -161,21 +161,21 @@ export const CargaMasivaModal: React.FC<CargaMasivaModalProps> = ({
                             className={`cursor-pointer rounded-xl border-2 border-dashed p-8 text-center transition-all duration-300 ${
                                 isDragging
                                     ? 'border-[#d4af37] bg-[#d4af37]/10 scale-[1.02]'
-                                    : 'border-[#e3dac9] bg-[#fbf8f1]/50 hover:border-[#d4af37]/50 hover:bg-[#fbf8f1]'
+                                    : 'border-[#c8d8f0] bg-[#f5f8ff]/50 hover:border-[#d4af37]/50 hover:bg-[#f5f8ff]'
                             }`}
                         >
                             <div className="flex flex-col items-center gap-3">
-                                <div className={`w-14 h-14 rounded-full flex items-center justify-center transition-all ${isDragging ? 'bg-[#d4af37]/20' : 'bg-[#e3dac9]/50'}`}>
-                                    <svg className="w-7 h-7 text-[#a1887f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div className={`w-14 h-14 rounded-full flex items-center justify-center transition-all ${isDragging ? 'bg-[#d4af37]/20' : 'bg-[#c8d8f0]/50'}`}>
+                                    <svg className="w-7 h-7 text-[#6b8cba]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                                     </svg>
                                 </div>
                                 <div>
-                                    <p className="font-bold text-[#2b1b17] text-sm">
+                                    <p className="font-bold text-[#0a1628] text-sm">
                                         {isDragging ? '¡Suelta el archivo aquí!' : 'Arrastra tu archivo Excel aquí'}
                                     </p>
-                                    <p className="text-[#a1887f] text-xs mt-1">o haz clic para seleccionar</p>
-                                    <p className="text-[#a1887f] text-xs mt-1">.xlsx, .xls · Máx. 10MB</p>
+                                    <p className="text-[#6b8cba] text-xs mt-1">o haz clic para seleccionar</p>
+                                    <p className="text-[#6b8cba] text-xs mt-1">.xlsx, .xls · Máx. 10MB</p>
                                 </div>
                             </div>
                             <input
@@ -215,8 +215,8 @@ export const CargaMasivaModal: React.FC<CargaMasivaModalProps> = ({
                             </button>
                         </div>
 
-                        <div className="bg-[#fbf8f1] rounded-xl p-4 border border-[#e3dac9]">
-                            <p className="text-sm text-[#8d6e3f] flex items-start gap-2">
+                        <div className="bg-[#f5f8ff] rounded-xl p-4 border border-[#c8d8f0]">
+                            <p className="text-sm text-[#1e3a6e] flex items-start gap-2">
                                 <svg className="w-4 h-4 text-[#d4af37] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
@@ -227,13 +227,13 @@ export const CargaMasivaModal: React.FC<CargaMasivaModalProps> = ({
                         <div className="flex gap-3">
                             <button
                                 onClick={handleReintentar}
-                                className="flex-1 px-4 py-3 rounded-xl border-2 border-[#e3dac9] text-[#5d4037] font-bold hover:bg-[#fbf8f1] transition-colors"
+                                className="flex-1 px-4 py-3 rounded-xl border-2 border-[#c8d8f0] text-[#1e3a6e] font-bold hover:bg-[#f5f8ff] transition-colors"
                             >
                                 Cambiar archivo
                             </button>
                             <button
                                 onClick={handleSubir}
-                                className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-[#2b1b17] to-[#3e2723] text-[#f0e6d2] font-bold hover:from-[#3e2723] hover:to-[#4e342e] shadow-lg transition-all flex items-center justify-center gap-2"
+                                className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-[#0a1628] to-[#1e3a6e] text-[#f5f8ff] font-bold hover:from-[#1e3a6e] hover:to-[#1a2d5a] shadow-lg transition-all flex items-center justify-center gap-2"
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
@@ -248,7 +248,7 @@ export const CargaMasivaModal: React.FC<CargaMasivaModalProps> = ({
                 return (
                     <div className="flex flex-col items-center justify-center py-12 gap-6">
                         <div className="relative">
-                            <div className="w-20 h-20 rounded-full border-4 border-[#e3dac9]" />
+                            <div className="w-20 h-20 rounded-full border-4 border-[#c8d8f0]" />
                             <div className="w-20 h-20 rounded-full border-4 border-[#d4af37] border-t-transparent animate-spin absolute inset-0" />
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <svg className="w-8 h-8 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -257,8 +257,8 @@ export const CargaMasivaModal: React.FC<CargaMasivaModalProps> = ({
                             </div>
                         </div>
                         <div className="text-center">
-                            <p className="font-playfair font-bold text-[#2b1b17] text-lg">Procesando archivo...</p>
-                            <p className="text-[#8d6e3f] text-sm mt-1">Esto puede tardar unos segundos</p>
+                            <p className="font-playfair font-bold text-[#0a1628] text-lg">Procesando archivo...</p>
+                            <p className="text-[#1e3a6e] text-sm mt-1">Esto puede tardar unos segundos</p>
                         </div>
                     </div>
                 );
@@ -280,18 +280,18 @@ export const CargaMasivaModal: React.FC<CargaMasivaModalProps> = ({
                                     </svg>
                                 )}
                             </div>
-                            <h3 className="font-playfair font-bold text-[#2b1b17] text-lg">
+                            <h3 className="font-playfair font-bold text-[#0a1628] text-lg">
                                 {soloErrores ? 'Error al procesar' : 'Carga completada'}
                             </h3>
-                            <p className="text-[#8d6e3f] text-sm mt-1">{resultado?.message}</p>
+                            <p className="text-[#1e3a6e] text-sm mt-1">{resultado?.message}</p>
                         </div>
 
                         {(resultado?.total !== undefined || resultado?.exitosos !== undefined) && (
                             <div className="grid grid-cols-3 gap-3">
                                 {resultado.total !== undefined && (
-                                    <div className="bg-[#fbf8f1] rounded-xl p-3 text-center border border-[#e3dac9]">
-                                        <p className="text-2xl font-playfair font-bold text-[#2b1b17]">{resultado.total}</p>
-                                        <p className="text-xs text-[#8d6e3f] font-bold uppercase mt-1">Total</p>
+                                    <div className="bg-[#f5f8ff] rounded-xl p-3 text-center border border-[#c8d8f0]">
+                                        <p className="text-2xl font-playfair font-bold text-[#0a1628]">{resultado.total}</p>
+                                        <p className="text-xs text-[#1e3a6e] font-bold uppercase mt-1">Total</p>
                                     </div>
                                 )}
                                 {resultado.exitosos !== undefined && (
@@ -325,13 +325,13 @@ export const CargaMasivaModal: React.FC<CargaMasivaModalProps> = ({
                         <div className="flex gap-3 pt-2">
                             <button
                                 onClick={handleReintentar}
-                                className="flex-1 px-4 py-3 rounded-xl border-2 border-[#e3dac9] text-[#5d4037] font-bold hover:bg-[#fbf8f1] transition-colors"
+                                className="flex-1 px-4 py-3 rounded-xl border-2 border-[#c8d8f0] text-[#1e3a6e] font-bold hover:bg-[#f5f8ff] transition-colors"
                             >
                                 Subir otro archivo
                             </button>
                             <button
                                 onClick={handleClose}
-                                className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-[#2b1b17] to-[#3e2723] text-[#f0e6d2] font-bold hover:from-[#3e2723] hover:to-[#4e342e] shadow-lg transition-all"
+                                className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-[#0a1628] to-[#1e3a6e] text-[#f5f8ff] font-bold hover:from-[#1e3a6e] hover:to-[#1a2d5a] shadow-lg transition-all"
                             >
                                 Finalizar
                             </button>

@@ -8,7 +8,7 @@ export const CanjeCodigo: React.FC = () => {
     const [code, setCode] = useState('');
     const [message, setMessage] = useState<{ text: string; color: string; opacity: number }>({
         text: 'Validando...',
-        color: '#8d6e3f',
+        color: '#1e3a6e',
         opacity: 0
     });
 
@@ -31,7 +31,7 @@ export const CanjeCodigo: React.FC = () => {
         }
 
         // Show validating state
-        setMessage({ text: 'Verificando...', color: '#8d6e3f', opacity: 1 });
+        setMessage({ text: 'Verificando...', color: '#1e3a6e', opacity: 1 });
 
         try {
             const response = await LicenciaService.canjearLicencia({ clave: code });
@@ -68,20 +68,20 @@ export const CanjeCodigo: React.FC = () => {
 
     return (
         <div className={`${styles.animateFadeIn} flex items-center justify-center min-h-[60vh]`}>
-            <div className="bg-white p-8 md:p-12 rounded-xl shadow-xl w-full max-w-2xl border border-[#e3dac9] text-center">
-                <div className="w-20 h-20 bg-[#fbf8f1] rounded-full mx-auto mb-6 flex items-center justify-center">
+            <div className="bg-white p-6 sm:p-8 md:p-12 rounded-xl shadow-xl w-full max-w-2xl border border-[#c8d8f0] text-center">
+                <div className="w-20 h-20 bg-[#f5f8ff] rounded-full mx-auto mb-6 flex items-center justify-center">
                     <svg className="w-10 h-10 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path></svg>
                 </div>
 
-                <h2 className="font-playfair text-3xl font-bold text-[#2b1b17] mb-2">Canjear Libro</h2>
-                <p className="font-lora text-[#5d4037] mb-8">Ingresa el código de 16 dígitos proporcionado por tu institución.</p>
+                <h2 className="font-playfair text-3xl font-bold text-[#0a1628] mb-2">Canjear Libro</h2>
+                <p className="font-lora text-[#1e3a6e] mb-8">Ingresa el código de 16 dígitos proporcionado por tu institución.</p>
 
                 <form onSubmit={handleSubmit} className="max-w-md mx-auto relative group">
                     <input type="text"
                         value={code}
                         onChange={handleInput}
                         placeholder="XXXX-XXXX-XXXX-XXXX"
-                        className="w-full text-center text-2xl font-mono uppercase tracking-widest py-4 border-b-2 border-[#e3dac9] focus:outline-none focus:border-[#d4af37] bg-transparent transition-colors placeholder-[#a1887f]/30"
+                        className="w-full text-center text-lg sm:text-2xl font-mono uppercase tracking-widest py-4 border-b-2 border-[#c8d8f0] focus:outline-none focus:border-[#d4af37] bg-transparent transition-colors placeholder-[#6b8cba]/30"
                         maxLength={19}
                     />
 
@@ -92,7 +92,7 @@ export const CanjeCodigo: React.FC = () => {
                         {message.text}
                     </p>
 
-                    <button type="submit" className="mt-8 bg-[#2b1b17] text-[#f0e6d2] px-8 py-3 rounded-lg font-playfair font-bold uppercase tracking-widest hover:bg-[#3e2723] hover:shadow-lg transition-all w-full">
+                    <button type="submit" className="mt-8 bg-[#0a1628] text-[#f5f8ff] px-8 py-3 rounded-lg font-playfair font-bold uppercase tracking-widest hover:bg-[#1e3a6e] hover:shadow-lg transition-all w-full">
                         Canjear Ahora
                     </button>
                 </form>

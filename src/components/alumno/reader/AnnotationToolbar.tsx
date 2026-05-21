@@ -54,6 +54,7 @@ export default function AnnotationToolbar({
   const [pos, setPos]       = useState({ top: 0, left: 0 });
   const [visible, setVisible] = useState(false);
   const [hoveredColor, setHoveredColor] = useState<HighlightColor | null>(null);
+  const [showBelow, setShowBelow] = useState(false);
 
   const [showGlosario, setShowGlosario] = useState(false);
   const [isLoadingGlosario, setIsLoadingGlosario] = useState(false);
@@ -70,19 +71,30 @@ export default function AnnotationToolbar({
     let left = rect.left + rect.width / 2 - toolbarW / 2;
     left = Math.max(8, Math.min(left, window.innerWidth - toolbarW - 8));
 
-    setPos({ top: rect.top - gap, left });
+    const shouldBelow = rect.top < 150;
+    setShowBelow(shouldBelow);
+
+    if (shouldBelow) {
+      setPos({ top: rect.bottom + gap, left });
+    } else {
+      setPos({ top: rect.top - gap, left });
+    }
+
     // Pequeño delay para permitir la animación de entrada
-    setTimeout(() => setVisible(true), 10);
+    const timer = setTimeout(() => setVisible(true), 10);
     
     setShowGlosario(false);
     setRemoteDefinicion(null);
     setGlosarioError(null);
+
+    return () => clearTimeout(timer);
   }, [selection]);
 
   // Focus en textarea al abrir comentario
   useEffect(() => {
     if (pendingType === 'comentario') {
-      setTimeout(() => textareaRef.current?.focus(), 80);
+      const timer = setTimeout(() => textareaRef.current?.focus(), 80);
+      return () => clearTimeout(timer);
     }
   }, [pendingType]);
 
@@ -102,23 +114,38 @@ export default function AnnotationToolbar({
           width: '280px',
           opacity: visible ? 1 : 0,
           transform: visible
-            ? 'translateY(-100%) scale(1)'
-            : 'translateY(-90%) scale(0.92)',
+            ? (showBelow ? 'translateY(0) scale(1)' : 'translateY(-100%) scale(1)')
+            : (showBelow ? 'translateY(10%) scale(0.92)' : 'translateY(-90%) scale(0.92)'),
           transition: 'opacity 0.18s ease, transform 0.22s cubic-bezier(0.34,1.56,0.64,1)',
         }}
         className="fixed z-[500]"
       >
+        {/* Flecha apuntando hacia arriba (cuando el toolbar está abajo de la selección) */}
+        {showBelow && (
+          <div className="flex justify-center mb-[-1px]">
+            <div
+              className="w-3 h-3 rotate-45 rounded-sm"
+              style={{
+                background: 'rgba(10, 22, 40, 0.95)',
+                border: '1px solid rgba(255,255,255,0.12)',
+                borderBottom: 'none',
+                borderRight: 'none',
+              }}
+            />
+          </div>
+        )}
+
         {/* Contenedor principal */}
         <div
           className="rounded-2xl shadow-2xl"
           style={{
-            background: 'rgba(20,10,4,0.92)',
+            background: 'rgba(10, 22, 40, 0.95)',
             backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255,255,255,0.1)',
+            border: '1px solid rgba(255,255,255,0.12)',
             boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05), inset 0 1px 0 rgba(255,255,255,0.08)',
           }}
         >
-        {/* Sub-panel: Glosario / Definición */}
+          {/* Sub-panel: Glosario / Definición */}
           {showGlosario && (
             <div
               className="px-3 py-3 flex flex-col gap-2"
@@ -196,7 +223,6 @@ export default function AnnotationToolbar({
                 setShowGlosario(nextShow);
                 setPendingType(null);
 
-                // Disparamos la petición solo al abrir y si no tenemos definición guardada
                 if (nextShow && selection?.text && !remoteDefinicion && !isLoadingGlosario) {
                   try {
                     setIsLoadingGlosario(true);
@@ -322,28 +348,28 @@ export default function AnnotationToolbar({
           )}
         </div>
 
-        {/* Flecha apuntando hacia abajo (hacia la selección) */}
-        <div className="flex justify-center mt-[-1px]">
-          <div
-            className="w-3 h-3 rotate-45 rounded-sm"
-            style={{
-              background: 'rgba(20,10,4,0.92)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderTop: 'none',
-              borderLeft: 'none',
-            }}
-          />
-        </div>
+        {/* Flecha apuntando hacia abajo (cuando el toolbar está arriba de la selección) */}
+        {!showBelow && (
+          <div className="flex justify-center mt-[-1px]">
+            <div
+              className="w-3 h-3 rotate-45 rounded-sm"
+              style={{
+                background: 'rgba(10, 22, 40, 0.95)',
+                border: '1px solid rgba(255,255,255,0.12)',
+                borderTop: 'none',
+                borderLeft: 'none',
+              }}
+            />
+          </div>
+        )}
       </div>
-
-
 
       {/* ── Modal de comentario ─────────────────────────────────── */}
       {showCommentModal && (
         <div
           className="fixed inset-0 z-[600] flex items-center justify-center p-4"
           style={{
-            background: 'rgba(20,10,4,0.5)',
+            background: 'rgba(10, 22, 40, 0.4)',
             backdropFilter: 'blur(12px)',
             animation: 'fadeInBackdrop 0.2s ease both',
           }}
@@ -351,17 +377,17 @@ export default function AnnotationToolbar({
           <div
             className="w-full max-w-sm rounded-2xl overflow-hidden"
             style={{
-              background: 'rgba(255,251,245,0.97)',
+              background: 'rgba(255, 255, 255, 0.90)',
               backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(212,175,55,0.2)',
-              boxShadow: '0 32px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(212,175,55,0.1)',
+              border: '1px solid rgba(226, 232, 240, 0.8)',
+              boxShadow: '0 20px 40px -15px rgba(0,0,0,0.1), 0 0 0 1px rgba(226, 232, 240, 0.5)',
               animation: 'scaleInModal 0.25s cubic-bezier(0.34,1.56,0.64,1) both',
             }}
           >
             {/* Header del modal */}
             <div
               className="px-6 pt-6 pb-4"
-              style={{ borderBottom: '1px solid rgba(212,175,55,0.12)' }}
+              style={{ borderBottom: '1px solid rgba(226, 232, 240, 0.8)' }}
             >
               <div className="flex items-start justify-between gap-3">
                 <div>
@@ -369,27 +395,27 @@ export default function AnnotationToolbar({
                   <div className="flex items-center gap-2 mb-1">
                     <div
                       className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
-                      style={{ background: 'linear-gradient(135deg, #f59e0b, #d4af37)' }}
+                      style={{ background: 'linear-gradient(135deg, #0a1628, #1e3a8a)' }}
                     >
                       <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                         <path d="M12 20h9"/>
                         <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
                       </svg>
                     </div>
-                    <h3 className="font-playfair font-bold text-[#2b1b17] text-base">
+                    <h3 className="font-playfair font-bold text-[#0a1628] text-base">
                       Nueva nota
                     </h3>
                   </div>
                   {/* Texto seleccionado */}
-                  <p className="text-[10px] text-[#a1887f] italic line-clamp-2 pl-9">
+                  <p className="text-[10px] text-[#6b8cba] italic line-clamp-2 pl-9">
                     &ldquo;{selection.text.slice(0, 80)}{selection.text.length > 80 ? '…' : ''}&rdquo;
                   </p>
                 </div>
                 <button
                   onClick={() => setPendingType(null)}
-                  className="p-1.5 rounded-full hover:bg-[#fbf8f1] transition-colors shrink-0 mt-0.5"
+                  className="p-1.5 rounded-full hover:bg-slate-100 transition-colors shrink-0 mt-0.5"
                 >
-                  <svg className="w-3.5 h-3.5 text-[#c9b99a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3.5 h-3.5 text-[#94a3b8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
@@ -408,22 +434,22 @@ export default function AnnotationToolbar({
                 }}
                 placeholder="Escribe tu nota aquí..."
                 rows={4}
-                className="w-full resize-none rounded-xl p-3.5 text-sm font-lora text-[#2b1b17] placeholder-[#c9b99a] transition-all"
+                className="w-full resize-none rounded-xl p-3.5 text-sm font-lora text-[#0a1628] placeholder-[#94a3b8] transition-all"
                 style={{
-                  background: '#faf7f0',
-                  border: '1.5px solid rgba(212,175,55,0.2)',
+                  background: '#f8fafc',
+                  border: '1.5px solid rgba(226, 232, 240, 1)',
                   outline: 'none',
                 }}
                 onFocus={e => {
-                  e.target.style.border = '1.5px solid rgba(212,175,55,0.6)';
-                  e.target.style.boxShadow = '0 0 0 3px rgba(212,175,55,0.1)';
+                  e.target.style.border = '1.5px solid #0a1628';
+                  e.target.style.boxShadow = '0 0 0 3px rgba(10, 22, 40, 0.08)';
                 }}
                 onBlur={e => {
-                  e.target.style.border = '1.5px solid rgba(212,175,55,0.2)';
+                  e.target.style.border = '1.5px solid rgba(226, 232, 240, 1)';
                   e.target.style.boxShadow = 'none';
                 }}
               />
-              <p className="text-[9px] text-[#c9b99a] mt-1.5 text-right select-none">
+              <p className="text-[9px] text-[#94a3b8] mt-1.5 text-right select-none">
                 Ctrl+Enter para guardar · Esc para cancelar
               </p>
             </div>
@@ -432,14 +458,13 @@ export default function AnnotationToolbar({
             <div className="flex gap-3 px-6 pb-6">
               <button
                 onClick={() => setPendingType(null)}
-                className="flex-1 py-2.5 rounded-xl text-sm font-bold transition-all"
+                className="flex-1 py-2.5 rounded-xl text-sm font-bold transition-all text-slate-700"
                 style={{
                   background: 'transparent',
-                  border: '1.5px solid rgba(212,175,55,0.25)',
-                  color: '#8d6e3f',
+                  border: '1.5px solid rgba(226, 232, 240, 1)',
                 }}
                 onMouseEnter={e => {
-                  (e.target as HTMLElement).style.background = '#fbf8f1';
+                  (e.target as HTMLElement).style.background = '#f1f5f9';
                 }}
                 onMouseLeave={e => {
                   (e.target as HTMLElement).style.background = 'transparent';
@@ -452,8 +477,8 @@ export default function AnnotationToolbar({
                 disabled={!commentDraft.trim()}
                 className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-40 disabled:pointer-events-none flex items-center justify-center gap-2"
                 style={{
-                  background: 'linear-gradient(135deg, #3e2723, #2b1b17)',
-                  boxShadow: '0 4px 12px rgba(43,27,23,0.3)',
+                  background: 'linear-gradient(135deg, #0a1628, #1e3a8a)',
+                  boxShadow: '0 4px 12px rgba(10, 22, 40, 0.15)',
                 }}
               >
                 <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">

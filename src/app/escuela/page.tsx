@@ -21,13 +21,13 @@ export default function EscuelaPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-[#f5f1e8] to-[#e8dcc4] p-4 md:p-8">
+        <div className="min-h-screen bg-gradient-to-br from-[#f5f5f5] to-[#f5f8ff] p-4 md:p-8">
             {/* Header */}
             <div className="mb-8">
-                <h1 className="text-4xl font-playfair font-bold text-[#2b1b17] mb-2">
+                <h1 className="text-4xl font-playfair font-bold text-[#0a1628] mb-2">
                     Portal de la Escuela
                 </h1>
-                <p className="text-[#5d4037] text-lg">
+                <p className="text-[#1e3a6e] text-lg">
                     Preparatoria Central - Administración Institucional
                 </p>
             </div>
@@ -51,8 +51,8 @@ export default function EscuelaPage() {
                                 </span>
                             )}
                         </div>
-                        <h3 className="text-3xl font-bold text-[#2b1b17] mb-1">{stat.value}</h3>
-                        <p className="text-[#8d6e63] text-sm">{stat.label}</p>
+                        <h3 className="text-3xl font-bold text-[#0a1628] mb-1">{stat.value}</h3>
+                        <p className="text-[#6b8cba] text-sm">{stat.label}</p>
                     </div>
                 ))}
             </div>
@@ -67,7 +67,7 @@ export default function EscuelaPage() {
                                 onClick={() => setActiveTab(tab)}
                                 className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === tab
                                     ? 'border-[#d4af37] text-[#d4af37]'
-                                    : 'border-transparent text-[#8d6e63] hover:text-[#5d4037] hover:border-gray-300'
+                                    : 'border-transparent text-[#6b8cba] hover:text-[#1e3a6e] hover:border-gray-300'
                                     }`}
                             >
                                 {tab === 'overview' && 'Resumen'}
@@ -85,7 +85,7 @@ export default function EscuelaPage() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             {/* Recent Activity */}
                             <div>
-                                <h3 className="text-xl font-playfair font-bold text-[#2b1b17] mb-4">
+                                <h3 className="text-xl font-playfair font-bold text-[#0a1628] mb-4">
                                     Actividad Reciente
                                 </h3>
                                 <div className="space-y-4">
@@ -95,12 +95,12 @@ export default function EscuelaPage() {
                                         { action: 'Reporte mensual generado', time: 'Hace 3 horas', type: 'info' },
                                         { action: 'Prof. García actualizó calificaciones', time: 'Ayer', type: 'success' },
                                     ].map((activity, index) => (
-                                        <div key={index} className="flex items-start gap-4 p-4 bg-[#f5f1e8] rounded-lg">
+                                        <div key={index} className="flex items-start gap-4 p-4 bg-[#f5f5f5] rounded-lg">
                                             <div className={`w-2 h-2 mt-2 rounded-full ${activity.type === 'success' ? 'bg-green-500' : 'bg-blue-500'
                                                 }`}></div>
                                             <div className="flex-1">
-                                                <p className="text-[#2b1b17] font-medium">{activity.action}</p>
-                                                <p className="text-[#8d6e63] text-sm">{activity.time}</p>
+                                                <p className="text-[#0a1628] font-medium">{activity.action}</p>
+                                                <p className="text-[#6b8cba] text-sm">{activity.time}</p>
                                             </div>
                                         </div>
                                     ))}
@@ -109,7 +109,7 @@ export default function EscuelaPage() {
 
                             {/* Performance Chart */}
                             <div>
-                                <h3 className="text-xl font-playfair font-bold text-[#2b1b17] mb-4">
+                                <h3 className="text-xl font-playfair font-bold text-[#0a1628] mb-4">
                                     Rendimiento por Área
                                 </h3>
                                 <div className="space-y-4">
@@ -121,12 +121,12 @@ export default function EscuelaPage() {
                                     ].map((item, index) => (
                                         <div key={index}>
                                             <div className="flex justify-between text-sm mb-2">
-                                                <span className="text-[#2b1b17] font-medium">{item.subject}</span>
+                                                <span className="text-[#0a1628] font-medium">{item.subject}</span>
                                                 <span className="text-[#d4af37] font-bold">{item.score}%</span>
                                             </div>
                                             <div className="w-full bg-gray-200 rounded-full h-3">
                                                 <div
-                                                    className="bg-gradient-to-r from-[#d4af37] to-[#f0e6d2] h-3 rounded-full transition-all duration-500"
+                                                    className="bg-gradient-to-r from-[#d4af37] to-[#f5f8ff] h-3 rounded-full transition-all duration-500"
                                                     style={{ width: `${item.score}%` }}
                                                 ></div>
                                             </div>
@@ -140,31 +140,31 @@ export default function EscuelaPage() {
                     {activeTab === 'groups' && (
                         <div>
                             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-                                <h3 className="text-xl font-playfair font-bold text-[#2b1b17]">
+                                <h3 className="text-xl font-playfair font-bold text-[#0a1628]">
                                     Grupos Activos
                                 </h3>
-                                <button className="bg-[#d4af37] text-[#2b1b17] w-full sm:w-auto px-4 py-2 rounded-lg font-semibold hover:bg-[#c19b2f] transition-colors">
+                                <button className="bg-[#d4af37] text-[#0a1628] w-full sm:w-auto px-4 py-2 rounded-lg font-semibold hover:bg-[#c19b2f] transition-colors">
                                     + Nuevo Grupo
                                 </button>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {groups.map((group, index) => (
-                                    <div key={index} className="bg-[#f5f1e8] rounded-lg p-6 hover:shadow-lg transition-shadow">
+                                    <div key={index} className="bg-[#f5f5f5] rounded-lg p-6 hover:shadow-lg transition-shadow">
                                         <div className="flex items-center justify-between mb-4">
-                                            <h4 className="text-2xl font-bold text-[#2b1b17]">{group.name}</h4>
-                                            <div className="bg-[#d4af37] text-[#2b1b17] rounded-full w-12 h-12 flex items-center justify-center font-bold">
+                                            <h4 className="text-2xl font-bold text-[#0a1628]">{group.name}</h4>
+                                            <div className="bg-[#d4af37] text-[#0a1628] rounded-full w-12 h-12 flex items-center justify-center font-bold">
                                                 {group.avg}
                                             </div>
                                         </div>
                                         <div className="space-y-2 text-sm">
-                                            <p className="text-[#5d4037]">
+                                            <p className="text-[#1e3a6e]">
                                                 <span className="font-semibold">Estudiantes:</span> {group.students}
                                             </p>
-                                            <p className="text-[#5d4037]">
+                                            <p className="text-[#1e3a6e]">
                                                 <span className="font-semibold">Profesor:</span> {group.teacher}
                                             </p>
                                         </div>
-                                        <button className="mt-4 w-full bg-white text-[#2b1b17] py-2 rounded-lg font-medium hover:bg-[#d4af37] transition-colors">
+                                        <button className="mt-4 w-full bg-white text-[#0a1628] py-2 rounded-lg font-medium hover:bg-[#d4af37] transition-colors">
                                             Ver Detalles
                                         </button>
                                     </div>
@@ -175,13 +175,13 @@ export default function EscuelaPage() {
 
                     {activeTab === 'teachers' && (
                         <div className="text-center py-12">
-                            <p className="text-[#8d6e63]">Módulo de gestión de profesores en desarrollo</p>
+                            <p className="text-[#6b8cba]">Módulo de gestión de profesores en desarrollo</p>
                         </div>
                     )}
 
                     {activeTab === 'reports' && (
                         <div className="text-center py-12">
-                            <p className="text-[#8d6e63]">Módulo de reportes en desarrollo</p>
+                            <p className="text-[#6b8cba]">Módulo de reportes en desarrollo</p>
                         </div>
                     )}
                 </div>

@@ -28,9 +28,9 @@ export const Button: React.FC<ButtonProps> = ({
     const baseClasses = 'font-bold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-md';
 
     const variantClasses = {
-        primary: 'bg-gradient-to-r from-[#2b1b17] to-[#3e2723] text-[#f0e6d2] hover:from-[#3e2723] hover:to-[#4e342e] hover:-translate-y-0.5 active:translate-y-0',
-        secondary: 'bg-gradient-to-r from-[#d4af37] to-[#c19a2e] text-[#2b1b17] hover:from-[#c19a2e] hover:to-[#b08a28] hover:-translate-y-0.5 active:translate-y-0',
-        outline: 'bg-white border-2 border-[#e3dac9] text-[#2b1b17] hover:border-[#d4af37] hover:bg-[#fbf8f1]',
+        primary: 'bg-gradient-to-r from-[#0a1628] to-[#1e3a6e] text-white hover:from-[#0d1b2a] hover:to-[#1a2d5a] hover:-translate-y-0.5 active:translate-y-0',
+        secondary: 'bg-gradient-to-r from-[#d4af37] to-[#c19a2e] text-[#0a1628] hover:from-[#c19a2e] hover:to-[#b08a28] hover:-translate-y-0.5 active:translate-y-0',
+        outline: 'bg-white border-2 border-[#c8d8f0]/60 text-[#0a1628] hover:border-[#d4af37] hover:bg-[#d4af37]/5',
         danger: 'bg-gradient-to-r from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700 hover:-translate-y-0.5 active:translate-y-0',
         success: 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white hover:from-emerald-600 hover:to-emerald-700 hover:-translate-y-0.5 active:translate-y-0'
     };

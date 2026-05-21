@@ -81,7 +81,7 @@ export default function NuevaCompraModal({ open, onClose, onSubmit }: Props) {
     <Modal isOpen={open} onClose={handleClose} title="Nueva Compra" size="md">
       <form onSubmit={handleSubmit} className="space-y-6" noValidate>
         <div>
-          <label className="block text-sm font-bold text-[#2b1b17] mb-2">
+          <label className="block text-sm font-bold text-[#0a1628] mb-2">
             Tipo de Compra <span className="text-red-500">*</span>
           </label>
           <select
@@ -89,7 +89,7 @@ export default function NuevaCompraModal({ open, onClose, onSubmit }: Props) {
             value={formData.tipo}
             onChange={handleChange}
             disabled={isLoading}
-            className={`w-full px-4 py-3 rounded-xl border-2 bg-white focus:outline-none focus:ring-4 font-lora text-sm transition-all duration-300 ${errors.tipo ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' : 'border-[#e3dac9] focus:border-[#d4af37] focus:ring-[#d4af37]/10'
+            className={`w-full px-4 py-3 rounded-xl border-2 bg-white focus:outline-none focus:ring-4 font-lora text-sm transition-all duration-300 ${errors.tipo ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' : 'border-[#c8d8f0] focus:border-[#d4af37] focus:ring-[#d4af37]/10'
               }`}
           >
             <option value="">Seleccionar tipo...</option>
@@ -100,7 +100,7 @@ export default function NuevaCompraModal({ open, onClose, onSubmit }: Props) {
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-[#2b1b17] mb-2">
+          <label className="block text-sm font-bold text-[#0a1628] mb-2">
             Nombre del Producto <span className="text-red-500">*</span>
           </label>
           <input
@@ -110,15 +110,15 @@ export default function NuevaCompraModal({ open, onClose, onSubmit }: Props) {
             onChange={handleChange}
             disabled={isLoading}
             placeholder="Ej: Licencia Premium, Cien Años de Soledad"
-            className={`w-full px-4 py-3 rounded-xl border-2 bg-white focus:outline-none focus:ring-4 font-lora text-sm transition-all duration-300 ${errors.nombre ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' : 'border-[#e3dac9] focus:border-[#d4af37] focus:ring-[#d4af37]/10'
+            className={`w-full px-4 py-3 rounded-xl border-2 bg-white focus:outline-none focus:ring-4 font-lora text-sm transition-all duration-300 ${errors.nombre ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' : 'border-[#c8d8f0] focus:border-[#d4af37] focus:ring-[#d4af37]/10'
               }`}
           />
           {errors.nombre && <p className="mt-1 text-sm text-red-600">{errors.nombre}</p>}
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-bold text-[#2b1b17] mb-2">
+            <label className="block text-sm font-bold text-[#0a1628] mb-2">
               Cantidad <span className="text-red-500">*</span>
             </label>
             <input
@@ -129,14 +129,14 @@ export default function NuevaCompraModal({ open, onClose, onSubmit }: Props) {
               disabled={isLoading}
               min="1"
               placeholder="0"
-              className={`w-full px-4 py-3 rounded-xl border-2 bg-white focus:outline-none focus:ring-4 font-lora text-sm transition-all duration-300 ${errors.cantidad ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' : 'border-[#e3dac9] focus:border-[#d4af37] focus:ring-[#d4af37]/10'
+              className={`w-full px-4 py-3 rounded-xl border-2 bg-white focus:outline-none focus:ring-4 font-lora text-sm transition-all duration-300 ${errors.cantidad ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' : 'border-[#c8d8f0] focus:border-[#d4af37] focus:ring-[#d4af37]/10'
                 }`}
             />
             {errors.cantidad && <p className="mt-1 text-sm text-red-600">{errors.cantidad}</p>}
           </div>
 
           <div>
-            <label className="block text-sm font-bold text-[#2b1b17] mb-2">
+            <label className="block text-sm font-bold text-[#0a1628] mb-2">
               Precio Unitario <span className="text-red-500">*</span>
             </label>
             <input
@@ -148,26 +148,26 @@ export default function NuevaCompraModal({ open, onClose, onSubmit }: Props) {
               min="0"
               step="0.01"
               placeholder="$0.00"
-              className={`w-full px-4 py-3 rounded-xl border-2 bg-white focus:outline-none focus:ring-4 font-lora text-sm transition-all duration-300 ${errors.precioUnitario ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' : 'border-[#e3dac9] focus:border-[#d4af37] focus:ring-[#d4af37]/10'
+              className={`w-full px-4 py-3 rounded-xl border-2 bg-white focus:outline-none focus:ring-4 font-lora text-sm transition-all duration-300 ${errors.precioUnitario ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' : 'border-[#c8d8f0] focus:border-[#d4af37] focus:ring-[#d4af37]/10'
                 }`}
             />
             {errors.precioUnitario && <p className="mt-1 text-sm text-red-600">{errors.precioUnitario}</p>}
           </div>
         </div>
 
-        <div className="flex gap-3 pt-4 border-t border-[#e3dac9]">
+        <div className="flex gap-3 pt-4 border-t border-[#c8d8f0]">
           <button
             type="button"
             onClick={handleClose}
             disabled={isLoading}
-            className="flex-1 px-6 py-3 bg-white border-2 border-[#e3dac9] hover:border-[#d4af37] hover:bg-[#fbf8f1] text-[#2b1b17] rounded-xl font-bold transition-all duration-300 disabled:opacity-50"
+            className="flex-1 px-6 py-3 bg-white border-2 border-[#c8d8f0] hover:border-[#d4af37] hover:bg-[#f5f8ff] text-[#0a1628] rounded-xl font-bold transition-all duration-300 disabled:opacity-50"
           >
             Cancelar
           </button>
           <button
             type="submit"
             disabled={isLoading}
-            className="flex-1 px-6 py-3 bg-gradient-to-r from-[#2b1b17] to-[#3e2723] text-[#f0e6d2] rounded-xl font-bold hover:from-[#3e2723] hover:to-[#4e342e] shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2"
+            className="flex-1 px-6 py-3 bg-gradient-to-r from-[#0a1628] to-[#1e3a6e] text-[#f5f8ff] rounded-xl font-bold hover:from-[#1e3a6e] hover:to-[#1a2d5a] shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2"
           >
             {isLoading ? 'Procesando...' : 'Guardar Compra'}
           </button>

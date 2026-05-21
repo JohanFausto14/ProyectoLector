@@ -65,18 +65,18 @@ export default function ComprasPage() {
       <CompraStats {...stats} />
 
       {/* 🔍 Search and Actions */}
-      <div className="bg-white rounded-xl p-4 md:p-6 shadow-lg border border-[#e3dac9]/50">
+      <div className="bg-white rounded-xl p-4 md:p-6 shadow-lg border border-[#c8d8f0]/50">
         <div className="flex flex-col gap-6">
           {/* Header */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-              <h3 className="font-playfair text-2xl font-bold text-[#2b1b17] flex items-center gap-2">
+              <h3 className="font-playfair text-2xl font-bold text-[#0a1628] flex items-center gap-2">
                 Gestión de Compras
                 <span className="px-2.5 py-0.5 bg-[#d4af37]/10 text-[#d4af37] text-sm font-sans rounded-full">
                   {filtered.length}
                 </span>
               </h3>
-              <p className="text-sm text-[#8d6e3f] mt-1">Administra las compras de licencias y libros</p>
+              <p className="text-sm text-[#1e3a6e] mt-1">Administra las compras de licencias y libros</p>
             </div>
 
             <CompraSearch
@@ -95,7 +95,7 @@ export default function ComprasPage() {
       {filtered.length === 0 ? (
         <EmptyState text="No se encontraron compras" />
       ) : (
-        <div className="bg-white rounded-xl shadow-lg border border-[#e3dac9]/50 overflow-hidden">
+        <div className="bg-white rounded-xl shadow-lg border border-[#c8d8f0]/50 overflow-hidden">
           <CompraTable compras={filtered} />
         </div>
       )}
