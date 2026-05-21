@@ -51,7 +51,7 @@
 
 .readBtn {
     background-color: white;
-    color: #2b1b17;
+    color: #0a1628;
     padding: 0.5rem 1rem;
     border-radius: 9999px;
     font-size: 0.875rem;
@@ -71,7 +71,7 @@
 .bookTitle {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    color: #2b1b17;
+    color: #0a1628;
     line-height: 1.2;
     margin-bottom: 0.25rem;
 }
@@ -79,7 +79,7 @@
 .bookAuthor {
     font-family: 'Lora', serif;
     font-size: 0.875rem;
-    color: #8d6e3f;
+    color: #1e3a6e;
     margin-bottom: 0.75rem;
 }
 
@@ -99,6 +99,6 @@
 
 .progressText {
     font-size: 0.75rem;
-    color: #a1887f;
+    color: #6b8cba;
     text-align: right;
 }

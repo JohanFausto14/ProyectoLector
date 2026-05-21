@@ -39,18 +39,18 @@ export const Pagination: React.FC<PaginationProps> = ({
     };
 
     return (
-        <div className="bg-white px-4 md:px-6 py-4 border-t border-[#e3dac9]/50 flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
+        <div className="bg-white px-4 md:px-6 py-4 border-t border-[#c8d8f0]/60 flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
             {/* Información del total */}
-            <div className="text-sm font-medium text-[#5d4037] text-center sm:text-left">
+            <div className="text-sm font-medium text-[#1e3a6e] text-center sm:text-left">
                 {totalItems !== undefined && itemsPerPage !== undefined && totalItems > 0 ? (
                     <>
-                        Mostrando <span className="font-bold text-[#2b1b17]">{(currentPage - 1) * itemsPerPage + 1}</span> a{' '}
-                        <span className="font-bold text-[#2b1b17]">{Math.min(currentPage * itemsPerPage, totalItems)}</span> de{' '}
-                        <span className="font-bold text-[#2b1b17]">{totalItems}</span> resultados
+                        Mostrando <span className="font-bold text-[#0a1628]">{(currentPage - 1) * itemsPerPage + 1}</span> a{' '}
+                        <span className="font-bold text-[#0a1628]">{Math.min(currentPage * itemsPerPage, totalItems)}</span> de{' '}
+                        <span className="font-bold text-[#0a1628]">{totalItems}</span> resultados
                     </>
                 ) : (
                     <>
-                        Página <span className="font-bold text-[#2b1b17]">{currentPage}</span> de <span className="font-bold text-[#2b1b17]">{totalPages}</span>
+                        Página <span className="font-bold text-[#0a1628]">{currentPage}</span> de <span className="font-bold text-[#0a1628]">{totalPages}</span>
                     </>
                 )}
             </div>
@@ -60,7 +60,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                 <button
                     onClick={() => onPageChange(Math.max(1, currentPage - 1))}
                     disabled={currentPage === 1}
-                    className="p-2 px-3 md:px-4 rounded-xl border-2 border-[#e3dac9] text-[#2b1b17] hover:bg-[#fbf8f1] hover:border-[#d4af37] disabled:opacity-30 disabled:hover:border-[#e3dac9] disabled:hover:bg-transparent transition-all font-bold text-xs uppercase tracking-widest flex items-center gap-1 md:gap-2 shadow-sm"
+                    className="p-2 px-3 md:px-4 rounded-xl border-2 border-[#c8d8f0]/60 text-[#0a1628] hover:bg-[#d4af37]/5 hover:border-[#d4af37] disabled:opacity-30 disabled:hover:border-[#c8d8f0]/60 disabled:hover:bg-transparent transition-all font-bold text-xs uppercase tracking-widest flex items-center gap-1 md:gap-2 shadow-sm"
                 >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
@@ -72,7 +72,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                     {getPageNumbers().map((page, index) => (
                         <React.Fragment key={index}>
                             {page === '...' ? (
-                                <span className="text-[#a1887f] self-end pb-2 font-black tracking-tighter px-1">
+                                <span className="text-[#6b8cba] self-end pb-2 font-black tracking-tighter px-1">
                                     ...
                                 </span>
                             ) : (
@@ -81,7 +81,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                                     className={`w-8 h-8 md:w-10 md:h-10 rounded-xl font-black transition-all border-2 text-sm flex items-center justify-center ${
                                         currentPage === page
                                             ? 'bg-[#d4af37] border-[#d4af37] text-white shadow-md transform -translate-y-0.5'
-                                            : 'bg-white border-[#e3dac9] text-[#8d6e3f] hover:border-[#d4af37] hover:bg-[#fbf8f1]'
+                                            : 'bg-white border-[#c8d8f0]/60 text-[#1e3a6e] hover:border-[#d4af37] hover:bg-[#d4af37]/5'
                                     }`}
                                 >
                                     {page}
@@ -91,14 +91,14 @@ export const Pagination: React.FC<PaginationProps> = ({
                     ))}
                 </div>
 
-                <div className="flex sm:hidden items-center justify-center min-w-[3rem] font-bold text-sm text-[#2b1b17]">
+                <div className="flex sm:hidden items-center justify-center min-w-[3rem] font-bold text-sm text-[#0a1628]">
                     {currentPage}
                 </div>
 
                 <button
                     onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
                     disabled={currentPage === totalPages}
-                    className="p-2 px-3 md:px-4 rounded-xl border-2 border-[#e3dac9] text-[#2b1b17] hover:bg-[#fbf8f1] hover:border-[#d4af37] disabled:opacity-30 disabled:hover:border-[#e3dac9] disabled:hover:bg-transparent transition-all font-bold text-xs uppercase tracking-widest flex items-center gap-1 md:gap-2 shadow-sm"
+                    className="p-2 px-3 md:px-4 rounded-xl border-2 border-[#c8d8f0]/60 text-[#0a1628] hover:bg-[#d4af37]/5 hover:border-[#d4af37] disabled:opacity-30 disabled:hover:border-[#c8d8f0]/60 disabled:hover:bg-transparent transition-all font-bold text-xs uppercase tracking-widest flex items-center gap-1 md:gap-2 shadow-sm"
                 >
                     <span className="hidden sm:inline">Siguiente</span>
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

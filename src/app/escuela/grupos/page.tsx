@@ -189,15 +189,15 @@ export default function GruposDirectorPage() {
                 ].map(({ label, value, iconColor, gradient, icon }) => (
                     <div
                         key={label}
-                        className="bg-gradient-to-br from-white to-[#faf8f5] rounded-xl p-6 shadow-md border border-[#e3dac9]/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
+                        className="bg-gradient-to-br from-white to-[#faf8f5] rounded-xl p-6 shadow-md border border-[#c8d8f0]/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
                     >
                         <div className="flex items-center gap-4">
                             <div className={`p-3.5 rounded-xl bg-gradient-to-br ${gradient} shadow-sm group-hover:scale-110 transition-transform duration-300`}>
                                 <div className={iconColor}>{icon}</div>
                             </div>
                             <div>
-                                <p className="text-xs font-bold uppercase tracking-wider text-[#a1887f] mb-1">{label}</p>
-                                <h3 className="text-3xl font-playfair font-bold text-[#2b1b17] group-hover:text-[#d4af37] transition-colors duration-300">
+                                <p className="text-xs font-bold uppercase tracking-wider text-[#6b8cba] mb-1">{label}</p>
+                                <h3 className="text-3xl font-playfair font-bold text-[#0a1628] group-hover:text-[#d4af37] transition-colors duration-300">
                                     {value}
                                 </h3>
                             </div>
@@ -223,16 +223,16 @@ export default function GruposDirectorPage() {
             )}
 
             {/* Buscador y filtros */}
-            <div className="bg-white rounded-xl p-4 md:p-6 shadow-lg border border-[#e3dac9]/50">
+            <div className="bg-white rounded-xl p-4 md:p-6 shadow-lg border border-[#c8d8f0]/50">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                        <h3 className="font-playfair text-2xl font-bold text-[#2b1b17] flex items-center gap-2">
+                        <h3 className="font-playfair text-2xl font-bold text-[#0a1628] flex items-center gap-2">
                             Gestión de Grupos
                             <span className="px-2.5 py-0.5 bg-[#d4af37]/10 text-[#d4af37] text-sm font-sans rounded-full">
                                 {isLoading ? '...' : grupos.length}
                             </span>
                         </h3>
-                        <p className="text-sm text-[#8d6e3f] mt-1">Administra los grupos de tu escuela</p>
+                        <p className="text-sm text-[#1e3a6e] mt-1">Administra los grupos de tu escuela</p>
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto mt-4 md:mt-0">
@@ -243,15 +243,15 @@ export default function GruposDirectorPage() {
                                 placeholder="Buscar grupo..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full pl-11 pr-10 py-3 rounded-xl border-2 border-[#e3dac9] bg-white focus:outline-none focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10 font-lora text-sm transition-all duration-300"
+                                className="w-full pl-11 pr-10 py-3 rounded-xl border-2 border-[#c8d8f0] bg-white focus:outline-none focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10 font-lora text-sm transition-all duration-300"
                             />
-                            <svg className="w-5 h-5 text-[#a1887f] absolute left-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 text-[#6b8cba] absolute left-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                             {searchTerm && (
                                 <button
                                     onClick={() => setSearchTerm('')}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#a1887f] hover:text-[#2b1b17] transition-colors"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b8cba] hover:text-[#0a1628] transition-colors"
                                 >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -263,7 +263,7 @@ export default function GruposDirectorPage() {
                         {/* Nuevo grupo */}
                         <button
                             onClick={() => setShowAddModal(true)}
-                            className="w-full sm:w-auto justify-center px-6 py-3 bg-gradient-to-r from-[#2b1b17] to-[#3e2723] text-[#f0e6d2] rounded-xl font-bold hover:from-[#3e2723] hover:to-[#4e342e] shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 whitespace-nowrap hover:-translate-y-0.5 active:translate-y-0"
+                            className="w-full sm:w-auto justify-center px-6 py-3 bg-gradient-to-r from-[#0a1628] to-[#1e3a6e] text-[#f5f8ff] rounded-xl font-bold hover:from-[#1e3a6e] hover:to-[#1a2d5a] shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 whitespace-nowrap hover:-translate-y-0.5 active:translate-y-0"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
@@ -279,8 +279,8 @@ export default function GruposDirectorPage() {
                         onClick={() => setFiltroGrado('todos')}
                         className={`px-4 py-2 rounded-lg text-sm font-bold transition-all duration-300 shadow-sm ${
                             filtroGrado === 'todos'
-                                ? 'bg-[#d4af37] text-[#2b1b17] shadow-md'
-                                : 'bg-[#fbf8f1] text-[#5d4037] hover:bg-[#e3dac9]'
+                                ? 'bg-[#d4af37] text-[#0a1628] shadow-md'
+                                : 'bg-[#f5f8ff] text-[#1e3a6e] hover:bg-[#c8d8f0]'
                         }`}
                     >
                         Todos los Grados
@@ -292,7 +292,7 @@ export default function GruposDirectorPage() {
                             className={`px-4 py-2 rounded-lg text-sm font-bold transition-all duration-300 shadow-sm ${
                                 filtroGrado === grado
                                     ? 'bg-purple-500 text-white shadow-md'
-                                    : 'bg-[#fbf8f1] text-[#5d4037] hover:bg-[#e3dac9]'
+                                    : 'bg-[#f5f8ff] text-[#1e3a6e] hover:bg-[#c8d8f0]'
                             }`}
                         >
                             {grado}° Grado
@@ -300,7 +300,7 @@ export default function GruposDirectorPage() {
                     ))}
 
                     {/* Separador */}
-                    <div className="w-px bg-[#e3dac9] self-stretch mx-1" />
+                    <div className="w-px bg-[#c8d8f0] self-stretch mx-1" />
 
                     {/* Filtro activo/inactivo */}
                     {([
@@ -317,8 +317,8 @@ export default function GruposDirectorPage() {
                                         ? 'bg-emerald-500 text-white shadow-md'
                                         : key === 'inactivos'
                                             ? 'bg-gray-500 text-white shadow-md'
-                                            : 'bg-[#d4af37] text-[#2b1b17] shadow-md'
-                                    : 'bg-[#fbf8f1] text-[#5d4037] hover:bg-[#e3dac9]'
+                                            : 'bg-[#d4af37] text-[#0a1628] shadow-md'
+                                    : 'bg-[#f5f8ff] text-[#1e3a6e] hover:bg-[#c8d8f0]'
                             }`}
                         >
                             {label}
@@ -329,9 +329,9 @@ export default function GruposDirectorPage() {
 
             {/* Grid de grupos */}
             {isLoading ? (
-                <div className="bg-white rounded-xl p-12 text-center shadow-lg border border-[#e3dac9]/50">
+                <div className="bg-white rounded-xl p-12 text-center shadow-lg border border-[#c8d8f0]/50">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#d4af37] mx-auto mb-4" />
-                    <p className="text-[#8d6e3f]">Cargando grupos...</p>
+                    <p className="text-[#1e3a6e]">Cargando grupos...</p>
                 </div>
             ) : grupos.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -346,14 +346,14 @@ export default function GruposDirectorPage() {
                 </div>
             ) : (
                 /* Empty State */
-                <div className="bg-white rounded-xl p-12 text-center shadow-lg border border-[#e3dac9]/50">
-                    <div className="w-20 h-20 bg-[#fbf8f1] rounded-full mx-auto mb-4 flex items-center justify-center">
-                        <svg className="w-10 h-10 text-[#a1887f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="bg-white rounded-xl p-12 text-center shadow-lg border border-[#c8d8f0]/50">
+                    <div className="w-20 h-20 bg-[#f5f8ff] rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <svg className="w-10 h-10 text-[#6b8cba]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                         </svg>
                     </div>
-                    <h3 className="font-playfair text-xl font-bold text-[#2b1b17] mb-2">No se encontraron grupos</h3>
-                    <p className="text-[#8d6e3f] mb-4">
+                    <h3 className="font-playfair text-xl font-bold text-[#0a1628] mb-2">No se encontraron grupos</h3>
+                    <p className="text-[#1e3a6e] mb-4">
                         {searchTerm || filtroGrado !== 'todos' || filtroActivo !== 'todos'
                             ? 'Intenta con otros términos de búsqueda o filtros'
                             : 'Comienza creando el primer grupo de tu escuela'}
@@ -361,7 +361,7 @@ export default function GruposDirectorPage() {
                     {!searchTerm && filtroGrado === 'todos' && filtroActivo === 'todos' && (
                         <button
                             onClick={() => setShowAddModal(true)}
-                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#2b1b17] to-[#3e2723] text-[#f0e6d2] rounded-xl font-bold text-sm hover:from-[#3e2723] hover:to-[#4e342e] shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5"
+                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#0a1628] to-[#1e3a6e] text-[#f5f8ff] rounded-xl font-bold text-sm hover:from-[#1e3a6e] hover:to-[#1a2d5a] shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5"
                         >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
@@ -383,13 +383,13 @@ export default function GruposDirectorPage() {
                             </svg>
                         </div>
 
-                        <h3 className="font-playfair text-xl font-bold text-[#2b1b17] text-center mb-2">
+                        <h3 className="font-playfair text-xl font-bold text-[#0a1628] text-center mb-2">
                             Eliminar Grupo
                         </h3>
-                        <p className="text-[#5d4037] text-center text-sm mb-1">
+                        <p className="text-[#1e3a6e] text-center text-sm mb-1">
                             ¿Estás seguro de que deseas eliminar el grupo:
                         </p>
-                        <p className="text-[#2b1b17] font-bold text-center text-lg mb-1">
+                        <p className="text-[#0a1628] font-bold text-center text-lg mb-1">
                             {grupoToDelete.grado}° {grupoToDelete.nombre}
                         </p>
                         <p className="text-red-600 text-center text-xs mb-6">
@@ -406,7 +406,7 @@ export default function GruposDirectorPage() {
                             <button
                                 onClick={handleDeleteCancel}
                                 disabled={isDeleting}
-                                className="flex-1 px-4 py-3 rounded-xl border-2 border-[#e3dac9] text-[#5d4037] font-bold hover:bg-[#fbf8f1] transition-colors disabled:opacity-50"
+                                className="flex-1 px-4 py-3 rounded-xl border-2 border-[#c8d8f0] text-[#1e3a6e] font-bold hover:bg-[#f5f8ff] transition-colors disabled:opacity-50"
                             >
                                 Cancelar
                             </button>

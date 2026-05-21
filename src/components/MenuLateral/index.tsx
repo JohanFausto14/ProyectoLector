@@ -19,7 +19,7 @@
 
 //     return (
 //         <aside
-//             className={`fixed left-0 top-0 h-full w-64 bg-[#2b1b17] text-[#f0e6d2] flex flex-col items-stretch py-8 shadow-2xl z-50 transition-transform duration-300 transform ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
+//             className={`fixed left-0 top-0 h-full w-64 bg-[#0a1628] text-[#f5f8ff] flex flex-col items-stretch py-8 shadow-2xl z-50 transition-transform duration-300 transform ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
 //         >
 //             <div className="mb-10 px-6 flex flex-col items-center text-center">
 //                 <span className="text-[#d4af37] font-black tracking-[0.2em] text-xl leading-none">PROYECTO</span>
@@ -38,7 +38,7 @@
 //                             className={`w-full flex items-center gap-4 p-3 rounded-lg transition-all duration-200 group relative overflow-hidden focus:outline-none
 //                                 ${isActive
 //                                     ? 'bg-[#d4af37]/10 text-[#d4af37]'
-//                                     : 'text-[#a1887f] hover:bg-[#d4af37]/5 hover:text-[#f0e6d2]'
+//                                     : 'text-[#6b8cba] hover:bg-[#d4af37]/5 hover:text-[#f5f8ff]'
 //                                 }`}
 //                         >
 //                             {/* Active Indicator */}
@@ -61,15 +61,15 @@
 //                 })}
 //             </nav>
 
-//             <div className="mt-auto px-4 py-6 border-t border-[#4e342e]">
+//             <div className="mt-auto px-4 py-6 border-t border-[#1a2d5a]">
 //                 <div className="flex items-center gap-3">
-//                     <div className="w-10 h-10 rounded-full bg-[#8d6e3f] overflow-hidden border-2 border-[#d4af37] flex items-center justify-center">
+//                     <div className="w-10 h-10 rounded-full bg-[#1e3a6e] overflow-hidden border-2 border-[#d4af37] flex items-center justify-center">
 //                         {/* Avatar Icon (using SVG to avoid image requirement) */}
-//                         <svg className="w-6 h-6 text-[#2b1b17]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" /></svg>
+//                         <svg className="w-6 h-6 text-[#0a1628]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" /></svg>
 //                     </div>
 //                     <div className="block">
-//                         <p className="text-[#f0e6d2] text-sm font-playfair font-bold">Estudiante</p>
-//                         <p className="text-[#a1887f] text-xs">Clase A-1</p>
+//                         <p className="text-[#f5f8ff] text-sm font-playfair font-bold">Estudiante</p>
+//                         <p className="text-[#6b8cba] text-xs">Clase A-1</p>
 //                     </div>
 //                 </div>
 //             </div>

@@ -26,13 +26,13 @@ export default function LandingPage() {
         <div className="flex items-center gap-3 group">
           <div className="relative">
             <div className="absolute inset-0 bg-[#d4af37] rounded-full blur-lg opacity-50 group-hover:opacity-100 transition-opacity"></div>
-            <div className="relative w-10 h-10 bg-gradient-to-br from-[#d4af37] to-[#f0e6d2] rounded-full flex items-center justify-center transform group-hover:rotate-180 transition-transform duration-500">
+            <div className="relative w-10 h-10 bg-gradient-to-br from-[#d4af37] to-[#f5f8ff] rounded-full flex items-center justify-center transform group-hover:rotate-180 transition-transform duration-500">
               <svg className="w-6 h-6 text-[#0a0a0a]" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12,3L1,9L12,15L21,10.09V17H23V9M5,13.18V17.18L12,21L19,17.18V13.18L12,17L5,13.18Z" />
               </svg>
             </div>
           </div>
-          <span className="font-playfair text-xl md:text-2xl font-bold tracking-widest bg-gradient-to-r from-[#d4af37] to-[#f0e6d2] bg-clip-text text-transparent">
+          <span className="font-playfair text-xl md:text-2xl font-bold tracking-widest bg-gradient-to-r from-[#d4af37] to-[#f5f8ff] bg-clip-text text-transparent">
             PROYECTO LECTOR
           </span>
         </div>
@@ -49,7 +49,7 @@ export default function LandingPage() {
             className="px-4 md:px-6 py-2 bg-gradient-to-r from-[#d4af37] to-[#c19b2f] text-[#0a0a0a] rounded-lg font-bold shadow-lg hover:shadow-[#d4af37]/50 transition-all transform hover:scale-105 relative overflow-hidden group text-sm md:text-base"
           >
             <span className="relative z-10">Registrarse</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#f0e6d2] to-[#d4af37] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#f5f8ff] to-[#d4af37] opacity-0 group-hover:opacity-100 transition-opacity"></div>
           </Link>
         </div>
       </nav>
@@ -71,7 +71,7 @@ export default function LandingPage() {
               El Conocimiento
             </span>
             <br />
-            <span className="bg-gradient-to-r from-[#d4af37] via-[#f0e6d2] to-[#d4af37] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#d4af37] via-[#f5f8ff] to-[#d4af37] bg-clip-text text-transparent">
               es Poder
             </span>
           </h1>
@@ -98,7 +98,7 @@ export default function LandingPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-[#f0e6d2] to-[#d4af37] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#f5f8ff] to-[#d4af37] opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </Link>
             <Link
               href="/registro"
@@ -120,7 +120,7 @@ export default function LandingPage() {
                 key={index}
                 className="p-4 md:p-6 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl hover:bg-white/10 transition-all transform hover:scale-105"
               >
-                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#d4af37] to-[#f0e6d2] bg-clip-text text-transparent">
+                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#d4af37] to-[#f5f8ff] bg-clip-text text-transparent">
                   {stat.value}
                 </div>
                 <div className="text-white/60 text-sm mt-2">{stat.label}</div>
@@ -162,7 +162,7 @@ export default function LandingPage() {
             title="Para Profesores"
             desc="Dashboard analytics avanzado, asignación inteligente de contenido y herramientas de evaluación automatizada."
             icon="chart"
-            gradient="from-[#d4af37] to-[#f0e6d2]"
+            gradient="from-[#d4af37] to-[#f5f8ff]"
           />
           <FeatureCard
             title="Para Escuelas"
@@ -177,7 +177,7 @@ export default function LandingPage() {
           <div className="space-y-6 md:space-y-8 order-2 lg:order-1">
             <h3 className="font-playfair text-3xl md:text-4xl font-bold text-center lg:text-left">
               Impulsado por{' '}
-              <span className="bg-gradient-to-r from-[#d4af37] to-[#f0e6d2] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#d4af37] to-[#f5f8ff] bg-clip-text text-transparent">
                 Inteligencia Artificial
               </span>
             </h3>
@@ -235,7 +235,7 @@ export default function LandingPage() {
           <div className="relative p-12 bg-white/5 backdrop-blur-md border border-[#d4af37]/30 rounded-3xl">
             <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 leading-tight">
               ¿Listo para Transformar{' '}
-              <span className="bg-gradient-to-r from-[#d4af37] to-[#f0e6d2] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#d4af37] to-[#f5f8ff] bg-clip-text text-transparent">
                 la Educación
               </span>
               ?
@@ -260,12 +260,12 @@ export default function LandingPage() {
       <footer className="relative z-10 border-t border-white/10 bg-white/5 backdrop-blur-md py-8 md:py-12 text-center mt-auto">
         <div className="max-w-6xl mx-auto px-4 md:px-6">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-10 h-10 bg-gradient-to-br from-[#d4af37] to-[#f0e6d2] rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-[#d4af37] to-[#f5f8ff] rounded-full flex items-center justify-center">
               <svg className="w-6 h-6 text-[#0a0a0a]" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12,3L1,9L12,15L21,10.09V17H23V9M5,13.18V17.18L12,21L19,17.18V13.18L12,17L5,13.18Z" />
               </svg>
             </div>
-            <span className="font-playfair text-2xl font-bold bg-gradient-to-r from-[#d4af37] to-[#f0e6d2] bg-clip-text text-transparent">
+            <span className="font-playfair text-2xl font-bold bg-gradient-to-r from-[#d4af37] to-[#f5f8ff] bg-clip-text text-transparent">
               PROYECTO LECTOR
             </span>
           </div>

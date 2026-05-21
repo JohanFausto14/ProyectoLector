@@ -72,7 +72,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
     return (
         <div className="relative w-full space-y-2" ref={containerRef}>
             {label && (
-                <label className="text-xs font-bold uppercase tracking-widest text-[#a1887f] ml-2">
+                <label className="text-xs font-bold uppercase tracking-widest text-[#6b8cba] ml-2">
                     {label} {required && <span className="text-red-500">*</span>}
                 </label>
             )}
@@ -80,21 +80,21 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
             <div 
                 onClick={() => !isOpen && setIsOpen(true)}
                 className={`w-full px-4 py-3 bg-white rounded-xl border-2 transition-all duration-300 cursor-pointer flex justify-between items-center ${
-                    isOpen ? 'border-[#d4af37] ring-4 ring-[#d4af37]/10' : 'border-[#e3dac9] hover:border-[#d4af37]/50'
+                    isOpen ? 'border-[#d4af37] ring-4 ring-[#d4af37]/10' : 'border-[#c8d8f0]/60 hover:border-[#d4af37]/50'
                 }`}
             >
                 <div className="flex flex-col truncate pr-4 text-sm font-lora">
-                    <span className={`font-semibold truncate ${selectedOption ? 'text-[#2b1b17]' : 'text-[#a1887f]'}`}>
+                    <span className={`font-semibold truncate ${selectedOption ? 'text-[#0a1628]' : 'text-[#6b8cba]'}`}>
                         {selectedOption ? selectedOption.label : placeholder}
                     </span>
                     {selectedOption?.subLabel && (
-                        <span className="text-[11px] leading-tight text-[#8d6e3f] truncate font-normal">{selectedOption.subLabel}</span>
+                        <span className="text-[11px] leading-tight text-[#1e3a6e] truncate font-normal">{selectedOption.subLabel}</span>
                     )}
                 </div>
                 
                 <svg 
                     onClick={(e) => { e.stopPropagation(); setIsOpen(!isOpen); }}
-                    className={`w-5 h-5 text-[#8d6e3f] transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`} 
+                    className={`w-5 h-5 text-[#1e3a6e] transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`} 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
@@ -106,11 +106,11 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
             {/* Menú Desplegable */}
             {isOpen && (
                 <div 
-                    className="absolute z-[100] w-full mt-2 bg-white rounded-2xl border-2 border-[#e3dac9] shadow-2xl overflow-hidden animate-fade-in origin-top"
+                    className="absolute z-[100] w-full mt-2 bg-white rounded-2xl border-2 border-[#c8d8f0]/60 shadow-2xl overflow-hidden animate-fade-in origin-top"
                 >
                     {/* Buscador */}
                     {showSearch && (
-                        <div className="p-2 border-b border-[#f0e6d2] bg-[#fbf8f1]/50">
+                        <div className="p-2 border-b border-[#c8d8f0]/60 bg-[#f5f8ff]/50">
                             <div className="relative">
                                 <input
                                     ref={searchInputRef}
@@ -118,35 +118,35 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
                                     placeholder="Buscar..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full pl-8 pr-4 py-1.5 bg-white border border-[#e3dac9] rounded-lg text-xs focus:outline-none focus:border-[#d4af37] text-[#2b1b17]"
+                                    className="w-full pl-8 pr-4 py-1.5 bg-white border border-[#c8d8f0]/60 rounded-lg text-xs focus:outline-none focus:border-[#d4af37] text-[#0a1628]"
                                     onClick={(e) => e.stopPropagation()}
                                 />
-                                <svg className="w-3.5 h-3.5 text-[#a1887f] absolute left-2.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-3.5 h-3.5 text-[#6b8cba] absolute left-2.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
                             </div>
                         </div>
                     )}
-
+ 
                     <div className="max-h-[250px] overflow-y-auto custom-scrollbar">
                         <div className="py-1">
                             {filteredOptions.length === 0 ? (
                                 <div className="px-4 py-6 text-center">
-                                    <p className="text-sm text-[#a1887f] italic">No se encontraron resultados</p>
+                                    <p className="text-sm text-[#6b8cba] italic">No se encontraron resultados</p>
                                 </div>
                             ) : (
                                 filteredOptions.map((opt) => (
                                     <div
                                         key={opt.id}
                                         onClick={() => handleSelect(opt)}
-                                        className={`px-3 py-2 border-b border-[#f0e6d2]/30 last:border-0 transition-all flex flex-col gap-0.5 ${
+                                        className={`px-3 py-2 border-b border-[#c8d8f0]/30 last:border-0 transition-all flex flex-col gap-0.5 ${
                                             String(opt.id) === String(value)
-                                                ? 'bg-[#d4af37]/10 text-[#2b1b17] border-l-4 border-[#d4af37]'
+                                                ? 'bg-[#d4af37]/10 text-[#0a1628] border-l-4 border-[#d4af37]'
                                                 : opt.disabled || opt.variant === 'danger'
                                                     ? 'bg-red-50/60 border-l-4 border-red-500/80 cursor-not-allowed select-none'
                                                     : opt.variant === 'success'
                                                         ? 'bg-emerald-50/60 border-l-4 border-emerald-500/80 hover:bg-emerald-100 hover:text-emerald-900 cursor-pointer'
-                                                        : 'text-[#5d4037] hover:bg-[#fbf8f1] hover:text-[#281b17] cursor-pointer'
+                                                        : 'text-[#1e3a6e] hover:bg-[#d4af37]/5 hover:text-[#0a1628] cursor-pointer'
                                         }`}
                                     >
                                         <div className="flex justify-between items-center w-full">
@@ -168,7 +168,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
                                         {opt.subLabel && (
                                             <span className={`text-xs font-medium ${
                                                 opt.disabled ? 'text-red-600/60' : 
-                                                opt.variant === 'success' ? 'text-emerald-600' : 'text-[#8d6e3f]'
+                                                opt.variant === 'success' ? 'text-emerald-600' : 'text-[#6b8cba]'
                                             }`}>
                                                 {opt.subLabel}
                                             </span>

@@ -18,6 +18,27 @@ export default function DashboardLayout({
     setIsSidebarOpen(false);
   }, [pathname]);
 
+  // Bloquear scroll de la página cuando el sidebar móvil está abierto
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isSidebarOpen]);
+
+  // Escuchar evento personalizado para abrir el sidebar desde el lector
+  useEffect(() => {
+    const handleOpenSidebar = () => setIsSidebarOpen(true);
+    window.addEventListener('open-student-sidebar', handleOpenSidebar);
+    return () => window.removeEventListener('open-student-sidebar', handleOpenSidebar);
+  }, []);
+
+  const isReader = pathname.includes('/reader');
+
   // 🔹 Titles por ruta
   const getTitle = () => {
     if (pathname.includes('/library'))
@@ -44,76 +65,88 @@ export default function DashboardLayout({
   const currentTitle = getTitle();
 
   return (
-    <div className="min-h-screen bg-[#f5f5f5] flex relative">
+    <div className="min-h-screen bg-[#f5f5f5] flex relative w-full max-w-full overflow-x-hidden">
       {/* Sidebar */}
       <SidebarAlumno isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
-      {/* Mobile overlay */}
+      {/* Overlay backdrop */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          className={`fixed inset-0 transition-opacity duration-300 ${
+            isReader 
+              ? 'bg-black/30 backdrop-blur-[1.5px] z-[990]' 
+              : 'bg-black/50 z-40 md:hidden'
+          }`}
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
       {/* Main */}
-      <main className="flex-1 md:ml-64 p-4 md:p-8 min-h-screen transition-all">
+      <main 
+        className={`flex-1 min-h-screen transition-all duration-300 ease-in-out ${
+          isReader 
+            ? `p-0 ${isSidebarOpen ? 'md:ml-64' : 'md:ml-0'}` 
+            : 'md:ml-64 p-4 md:p-8'
+        }`}
+      >
 
         {/* Header */}
-        <header className="flex justify-between items-center mb-8">
-          <div className="flex items-center gap-4">
+        {!isReader && (
+          <header className="flex justify-between items-center mb-8">
+            <div className="flex items-center gap-4">
 
-            {/* Burger */}
-            <button
-              className="md:hidden text-[#2b1b17] p-2 hover:bg-black/5 rounded-lg"
-              onClick={() => setIsSidebarOpen(true)}
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+              {/* Burger */}
+              <button
+                className="md:hidden text-[#0a1628] p-2 hover:bg-black/5 rounded-lg"
+                onClick={() => setIsSidebarOpen(true)}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button>
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              </button>
 
-            {/* Title */}
-            <div>
-              <h1 className="font-playfair text-2xl md:text-3xl font-bold text-[#2b1b17]">
-                {currentTitle.title}
-              </h1>
-              <p className="hidden md:block font-lora text-[#5d4037] italic mt-1 text-sm md:text-base">
-                {currentTitle.sub}
-              </p>
+              {/* Title */}
+              <div>
+                <h1 className="font-playfair text-2xl md:text-3xl font-bold text-[#0a1628]">
+                  {currentTitle.title}
+                </h1>
+                <p className="hidden md:block font-lora text-[#1e3a6e] italic mt-1 text-sm md:text-base">
+                  {currentTitle.sub}
+                </p>
+              </div>
             </div>
-          </div>
 
-          {/* Actions */}
-          <div className="flex items-center gap-4">
-            <button className="relative p-2 text-[#a1887f] hover:text-[#d4af37] transition-colors">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                />
-              </svg>
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
-            </button>
-          </div>
-        </header>
+            {/* Actions */}
+            <div className="flex items-center gap-4">
+              <button className="relative p-2 text-[#6b8cba] hover:text-[#d4af37] transition-colors">
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                  />
+                </svg>
+                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
+              </button>
+            </div>
+          </header>
+        )}
 
         {/* Content */}
         <div className="animate-fade">

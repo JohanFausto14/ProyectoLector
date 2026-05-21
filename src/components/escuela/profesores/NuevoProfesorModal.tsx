@@ -188,10 +188,10 @@ export default function NuevoProfesorModal({ open, onClose, onSuccess }: Props) 
     const inputClass = (field: keyof ProfesorFormErrors) =>
         `w-full px-4 py-3 rounded-xl border-2 bg-white font-lora text-sm transition-all duration-300 focus:outline-none ${errors[field]
             ? 'border-red-500 focus:border-red-500 focus:ring-4 focus:ring-red-500/10'
-            : 'border-[#e3dac9] focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10'
+            : 'border-[#c8d8f0] focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10'
         }`;
 
-    const labelClass = 'block text-sm font-bold text-[#2b1b17] mb-2';
+    const labelClass = 'block text-sm font-bold text-[#0a1628] mb-2';
 
     const ErrorMsg = ({ field }: { field: keyof ProfesorFormErrors }) =>
         errors[field] ? (
@@ -209,7 +209,7 @@ export default function NuevoProfesorModal({ open, onClose, onSuccess }: Props) 
 
                 {/* ── Información Personal ───────────────────────────────── */}
                 <div>
-                    <h3 className="text-lg font-playfair font-bold text-[#2b1b17] mb-4 flex items-center gap-2">
+                    <h3 className="text-lg font-playfair font-bold text-[#0a1628] mb-4 flex items-center gap-2">
                         <div className="w-1 h-6 bg-gradient-to-b from-[#d4af37] to-[#c19a2e] rounded-full" />
                         Información Personal
                     </h3>
@@ -287,7 +287,7 @@ export default function NuevoProfesorModal({ open, onClose, onSuccess }: Props) 
                         <div>
                             <label className={labelClass}>
                                 Teléfono
-                                <span className="ml-2 font-normal text-[#a1887f] text-xs">(opcional)</span>
+                                <span className="ml-2 font-normal text-[#6b8cba] text-xs">(opcional)</span>
                             </label>
                             <input
                                 type="tel"
@@ -305,7 +305,7 @@ export default function NuevoProfesorModal({ open, onClose, onSuccess }: Props) 
                         <div>
                             <label className={labelClass}>
                                 Fecha de Nacimiento
-                                <span className="ml-2 font-normal text-[#a1887f] text-xs">(opcional)</span>
+                                <span className="ml-2 font-normal text-[#6b8cba] text-xs">(opcional)</span>
                             </label>
                             <input
                                 type="date"
@@ -321,7 +321,7 @@ export default function NuevoProfesorModal({ open, onClose, onSuccess }: Props) 
 
                 {/* ── Información Académica ──────────────────────────────── */}
                 <div>
-                    <h3 className="text-lg font-playfair font-bold text-[#2b1b17] mb-4 flex items-center gap-2">
+                    <h3 className="text-lg font-playfair font-bold text-[#0a1628] mb-4 flex items-center gap-2">
                         <div className="w-1 h-6 bg-gradient-to-b from-[#d4af37] to-[#c19a2e] rounded-full" />
                         Información Académica
                     </h3>
@@ -331,7 +331,7 @@ export default function NuevoProfesorModal({ open, onClose, onSuccess }: Props) 
                         <div>
                             <label className={labelClass}>
                                 Especialidad
-                                <span className="ml-2 font-normal text-[#a1887f] text-xs">(opcional)</span>
+                                <span className="ml-2 font-normal text-[#6b8cba] text-xs">(opcional)</span>
                             </label>
                             <input
                                 type="text"
@@ -340,7 +340,7 @@ export default function NuevoProfesorModal({ open, onClose, onSuccess }: Props) 
                                 value={formData.especialidad || ''}
                                 onChange={handleChange('especialidad')}
                                 disabled={isLoading}
-                                className="w-full px-4 py-3 rounded-xl border-2 border-[#e3dac9] bg-white font-lora text-sm focus:outline-none focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10 transition-all"
+                                className="w-full px-4 py-3 rounded-xl border-2 border-[#c8d8f0] bg-white font-lora text-sm focus:outline-none focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10 transition-all"
                             />
                         </div>
 
@@ -348,7 +348,7 @@ export default function NuevoProfesorModal({ open, onClose, onSuccess }: Props) 
                         <div>
                             <label className={labelClass}>
                                 Fecha de Ingreso
-                                <span className="ml-2 font-normal text-[#a1887f] text-xs">(opcional)</span>
+                                <span className="ml-2 font-normal text-[#6b8cba] text-xs">(opcional)</span>
                             </label>
                             <input
                                 type="date"
@@ -356,14 +356,14 @@ export default function NuevoProfesorModal({ open, onClose, onSuccess }: Props) 
                                 value={formData.fechaIngreso || ''}
                                 onChange={handleChange('fechaIngreso')}
                                 disabled={isLoading}
-                                className="w-full px-4 py-3 rounded-xl border-2 border-[#e3dac9] bg-white font-lora text-sm focus:outline-none focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10 transition-all"
+                                className="w-full px-4 py-3 rounded-xl border-2 border-[#c8d8f0] bg-white font-lora text-sm focus:outline-none focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10 transition-all"
                             />
                         </div>
 
                         {/* ✅ Nuevo Selector de Grupo (Mismo Estilo que otros campos) */}
                         <div className="md:col-span-2">
                             <label className={labelClass}>
-                                Asignar a un Grupo <span className="text-[#a1887f] text-xs font-normal ml-1">(opcional)</span>
+                                Asignar a un Grupo <span className="text-[#6b8cba] text-xs font-normal ml-1">(opcional)</span>
                             </label>
                             <div className="max-w-[400px]">
                                 <CustomSelect
@@ -402,7 +402,7 @@ export default function NuevoProfesorModal({ open, onClose, onSuccess }: Props) 
 
                 {/* ── Seguridad ──────────────────────────────────────────── */}
                 <div>
-                    <h3 className="text-lg font-playfair font-bold text-[#2b1b17] mb-4 flex items-center gap-2">
+                    <h3 className="text-lg font-playfair font-bold text-[#0a1628] mb-4 flex items-center gap-2">
                         <div className="w-1 h-6 bg-gradient-to-b from-[#d4af37] to-[#c19a2e] rounded-full" />
                         Acceso al Sistema
                     </h3>
@@ -424,7 +424,7 @@ export default function NuevoProfesorModal({ open, onClose, onSuccess }: Props) 
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-4 top-[42px] text-[#a1887f] hover:text-[#2b1b17] transition-colors"
+                            className="absolute right-4 top-[42px] text-[#6b8cba] hover:text-[#0a1628] transition-colors"
                         >
                             {showPassword ? (
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -442,19 +442,19 @@ export default function NuevoProfesorModal({ open, onClose, onSuccess }: Props) 
                 </div>
 
                 {/* ── Botones ────────────────────────────────────────────── */}
-                <div className="flex gap-3 pt-6 border-t border-[#e3dac9]">
+                <div className="flex gap-3 pt-6 border-t border-[#c8d8f0]">
                     <button
                         type="button"
                         onClick={handleClose}
                         disabled={isLoading}
-                        className="flex-1 px-4 py-3 rounded-xl border-2 border-[#e3dac9] text-[#5d4037] font-bold hover:bg-[#fbf8f1] transition-colors disabled:opacity-50"
+                        className="flex-1 px-4 py-3 rounded-xl border-2 border-[#c8d8f0] text-[#1e3a6e] font-bold hover:bg-[#f5f8ff] transition-colors disabled:opacity-50"
                     >
                         Cancelar
                     </button>
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-[#2b1b17] to-[#3e2723] text-[#f0e6d2] font-bold hover:from-[#3e2723] hover:to-[#4e342e] shadow-lg transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                        className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-[#0a1628] to-[#1e3a6e] text-[#f5f8ff] font-bold hover:from-[#1e3a6e] hover:to-[#1a2d5a] shadow-lg transition-all disabled:opacity-50 flex items-center justify-center gap-2"
                     >
                         {isLoading ? (
                             <>

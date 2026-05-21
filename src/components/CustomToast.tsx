@@ -155,7 +155,7 @@ export function CustomToast({
         <div style={{ flex: 1, minWidth: 0 }}>
           <p style={{
             margin: 0,
-            color: '#f0e6d2',
+            color: '#f5f8ff',
             fontWeight: 600,
             fontSize: '14px',
             lineHeight: '1.4',

@@ -120,7 +120,7 @@ export const AlumnoForm: React.FC<AlumnoFormProps> = ({
 
             {/* ── Información Personal ─────────────────────────────────── */}
             <div>
-                <h3 className="text-lg font-playfair font-bold text-[#2b1b17] mb-4 flex items-center gap-2">
+                <h3 className="text-lg font-playfair font-bold text-[#0a1628] mb-4 flex items-center gap-2">
                     <div className="w-1 h-6 bg-gradient-to-b from-[#d4af37] to-[#c19a2e] rounded-full" />
                     Información Personal
                 </h3>
@@ -153,11 +153,11 @@ export const AlumnoForm: React.FC<AlumnoFormProps> = ({
 
                     {/* Password */}
                     <div className="w-full">
-                        <label className="block text-sm font-bold text-[#2b1b17] mb-2">
+                        <label className="block text-sm font-bold text-[#0a1628] mb-2">
                             Contraseña <span className="text-red-500 ml-1">*</span>
                         </label>
                         <div className="relative">
-                            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#a1887f]">
+                            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#6b8cba]">
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                             </div>
                             <input
@@ -165,10 +165,10 @@ export const AlumnoForm: React.FC<AlumnoFormProps> = ({
                                 name="password" value={formData.password}
                                 onChange={handleChange} placeholder="Mínimo 6 caracteres"
                                 required disabled={isLoading}
-                                className={`w-full pl-12 pr-12 py-3 rounded-xl border-2 bg-white font-lora text-sm transition-all duration-300 focus:outline-none ${errors.password ? 'border-red-500 focus:ring-4 focus:ring-red-500/10' : 'border-[#e3dac9] focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10'}`}
+                                className={`w-full pl-12 pr-12 py-3 rounded-xl border-2 bg-white font-lora text-sm transition-all duration-300 focus:outline-none ${errors.password ? 'border-red-500 focus:ring-4 focus:ring-red-500/10' : 'border-[#c8d8f0] focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10'}`}
                             />
                             <button type="button" onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#a1887f] hover:text-[#2b1b17] transition-colors">
+                                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#6b8cba] hover:text-[#0a1628] transition-colors">
                                 {showPassword
                                     ? <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
                                     : <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
@@ -197,7 +197,7 @@ export const AlumnoForm: React.FC<AlumnoFormProps> = ({
             {/* ── Información Académica (solo si no está oculta) ─────────── */}
             {!hideGrupoFields && (
                 <div>
-                    <h3 className="text-lg font-playfair font-bold text-[#2b1b17] mb-4 flex items-center gap-2">
+                    <h3 className="text-lg font-playfair font-bold text-[#0a1628] mb-4 flex items-center gap-2">
                         <div className="w-1 h-6 bg-gradient-to-b from-[#d4af37] to-[#c19a2e] rounded-full" />
                         Información Académica
                     </h3>
@@ -217,13 +217,13 @@ export const AlumnoForm: React.FC<AlumnoFormProps> = ({
                             }
                         />
                         <div className="w-full">
-                            <label className="block text-sm font-bold text-[#2b1b17] mb-2">Grupo</label>
+                            <label className="block text-sm font-bold text-[#0a1628] mb-2">Grupo</label>
                             <div className="relative">
-                                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#a1887f]">
+                                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#6b8cba]">
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                                 </div>
                                 <select name="grupo" value={formData.grupo || ''} onChange={handleChange} disabled={isLoading}
-                                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#e3dac9] bg-white font-lora text-sm transition-all duration-300 focus:outline-none focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10">
+                                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#c8d8f0] bg-white font-lora text-sm transition-all duration-300 focus:outline-none focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10">
                                     <option value="">Selecciona un grupo</option>
                                     {['A','B','C','D'].map(g => <option key={g} value={g}>{g}</option>)}
                                 </select>
@@ -250,7 +250,7 @@ export const AlumnoForm: React.FC<AlumnoFormProps> = ({
             )}
 
             {/* ── Actions ─────────────────────────────────────────────────── */}
-            <div className="flex justify-end gap-3 pt-6 border-t border-[#e3dac9]">
+            <div className="flex justify-end gap-3 pt-6 border-t border-[#c8d8f0]">
                 <Button type="button" variant="outline" onClick={onCancel} disabled={isLoading}>
                     Cancelar
                 </Button>

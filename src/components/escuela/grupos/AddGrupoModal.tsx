@@ -131,7 +131,7 @@ export const AddGrupoModal: React.FC<AddGrupoModalProps> = ({ isOpen, onClose, o
             <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md animate-fade-in">
 
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-[#e3dac9]">
+                <div className="flex items-center justify-between p-6 border-b border-[#c8d8f0]">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#d4af37] to-[#c19a2e] flex items-center justify-center shadow-md">
                             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,11 +139,11 @@ export const AddGrupoModal: React.FC<AddGrupoModalProps> = ({ isOpen, onClose, o
                             </svg>
                         </div>
                         <div>
-                            <h2 className="font-playfair text-xl font-bold text-[#2b1b17]">Nuevo Grupo</h2>
-                            <p className="text-xs text-[#8d6e3f]">Agrega un grupo a tu escuela</p>
+                            <h2 className="font-playfair text-xl font-bold text-[#0a1628]">Nuevo Grupo</h2>
+                            <p className="text-xs text-[#1e3a6e]">Agrega un grupo a tu escuela</p>
                         </div>
                     </div>
-                    <button onClick={onClose} className="p-2 hover:bg-[#fbf8f1] rounded-lg text-[#a1887f] hover:text-[#2b1b17] transition-colors">
+                    <button onClick={onClose} className="p-2 hover:bg-[#f5f8ff] rounded-lg text-[#6b8cba] hover:text-[#0a1628] transition-colors">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
@@ -163,7 +163,7 @@ export const AddGrupoModal: React.FC<AddGrupoModalProps> = ({ isOpen, onClose, o
 
                     {/* Grado */}
                     <div>
-                        <label className="block text-sm font-bold text-[#2b1b17] mb-2">
+                        <label className="block text-sm font-bold text-[#0a1628] mb-2">
                             Grado <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -176,7 +176,7 @@ export const AddGrupoModal: React.FC<AddGrupoModalProps> = ({ isOpen, onClose, o
                             className={`w-full px-4 py-3 rounded-xl border-2 bg-white font-lora text-sm transition-all duration-300 focus:outline-none ${
                                 errors.grado
                                     ? 'border-red-500 focus:border-red-500 focus:ring-4 focus:ring-red-500/10'
-                                    : 'border-[#e3dac9] focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10'
+                                    : 'border-[#c8d8f0] focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10'
                             }`}
                         />
                         {errors.grado && <p className="mt-1.5 text-xs text-red-600">{errors.grado}</p>}
@@ -184,7 +184,7 @@ export const AddGrupoModal: React.FC<AddGrupoModalProps> = ({ isOpen, onClose, o
 
                     {/* Nombre */}
                     <div>
-                        <label className="block text-sm font-bold text-[#2b1b17] mb-2">
+                        <label className="block text-sm font-bold text-[#0a1628] mb-2">
                             Nombre del Grupo <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -197,25 +197,25 @@ export const AddGrupoModal: React.FC<AddGrupoModalProps> = ({ isOpen, onClose, o
                             className={`w-full px-4 py-3 rounded-xl border-2 bg-white font-lora text-sm transition-all duration-300 focus:outline-none ${
                                 errors.nombre
                                     ? 'border-red-500 focus:border-red-500 focus:ring-4 focus:ring-red-500/10'
-                                    : 'border-[#e3dac9] focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10'
+                                    : 'border-[#c8d8f0] focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10'
                             }`}
                         />
                         {errors.nombre && <p className="mt-1.5 text-xs text-red-600">{errors.nombre}</p>}
-                        <p className="mt-1 text-xs text-[#8d6e3f]">Máximo 20 caracteres (Ej: A, B, C...)</p>
+                        <p className="mt-1 text-xs text-[#1e3a6e]">Máximo 20 caracteres (Ej: A, B, C...)</p>
                     </div>
 
                     {/* Selector de Maestro */}
                     <div>
-                        <label className="block text-sm font-bold text-[#2b1b17] mb-2">
-                            Asignar Profesor <span className="text-[#a1887f] font-normal">(opcional)</span>
+                        <label className="block text-sm font-bold text-[#0a1628] mb-2">
+                            Asignar Profesor <span className="text-[#6b8cba] font-normal">(opcional)</span>
                         </label>
                         {loadingMaestros ? (
-                            <div className="w-full px-4 py-3 rounded-xl border-2 border-[#e3dac9] bg-[#fbf8f1] flex items-center gap-2 text-sm text-[#8d6e3f]">
+                            <div className="w-full px-4 py-3 rounded-xl border-2 border-[#c8d8f0] bg-[#f5f8ff] flex items-center gap-2 text-sm text-[#1e3a6e]">
                                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#d4af37]" />
                                 Cargando profesores...
                             </div>
                         ) : maestros.length === 0 ? (
-                            <div className="w-full px-4 py-3 rounded-xl border-2 border-[#e3dac9] bg-[#fbf8f1] text-sm text-[#a1887f] italic">
+                            <div className="w-full px-4 py-3 rounded-xl border-2 border-[#c8d8f0] bg-[#f5f8ff] text-sm text-[#6b8cba] italic">
                                 No hay profesores registrados aún
                             </div>
                         ) : (
@@ -226,12 +226,12 @@ export const AddGrupoModal: React.FC<AddGrupoModalProps> = ({ isOpen, onClose, o
                                     onClick={() => setMaestroSeleccionado(null)}
                                     className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl border-2 text-sm transition-all duration-200 ${
                                         maestroSeleccionado === null
-                                            ? 'border-[#d4af37] bg-[#d4af37]/10 text-[#2b1b17]'
-                                            : 'border-[#e3dac9] bg-white text-[#8d6e3f] hover:bg-[#fbf8f1]'
+                                            ? 'border-[#d4af37] bg-[#d4af37]/10 text-[#0a1628]'
+                                            : 'border-[#c8d8f0] bg-white text-[#1e3a6e] hover:bg-[#f5f8ff]'
                                     }`}
                                 >
-                                    <div className="w-8 h-8 rounded-full bg-[#e3dac9] flex items-center justify-center flex-shrink-0">
-                                        <svg className="w-4 h-4 text-[#a1887f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div className="w-8 h-8 rounded-full bg-[#c8d8f0] flex items-center justify-center flex-shrink-0">
+                                        <svg className="w-4 h-4 text-[#6b8cba]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
                                         </svg>
                                     </div>
@@ -245,8 +245,8 @@ export const AddGrupoModal: React.FC<AddGrupoModalProps> = ({ isOpen, onClose, o
                                         onClick={() => setMaestroSeleccionado(maestro.id)}
                                         className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl border-2 text-sm transition-all duration-200 ${
                                             maestroSeleccionado === maestro.id
-                                                ? 'border-[#d4af37] bg-[#d4af37]/10 text-[#2b1b17]'
-                                                : 'border-[#e3dac9] bg-white text-[#5d4037] hover:bg-[#fbf8f1]'
+                                                ? 'border-[#d4af37] bg-[#d4af37]/10 text-[#0a1628]'
+                                                : 'border-[#c8d8f0] bg-white text-[#1e3a6e] hover:bg-[#f5f8ff]'
                                         }`}
                                     >
                                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
@@ -254,7 +254,7 @@ export const AddGrupoModal: React.FC<AddGrupoModalProps> = ({ isOpen, onClose, o
                                         </div>
                                         <div className="text-left min-w-0">
                                             <p className="font-bold truncate">{maestro.nombre ?? "Sin nombre"}</p>
-                                            <p className="text-xs text-[#8d6e3f] truncate">{maestro.correo}</p>
+                                            <p className="text-xs text-[#1e3a6e] truncate">{maestro.correo}</p>
                                         </div>
                                         {maestroSeleccionado === maestro.id && (
                                             <svg className="w-4 h-4 text-[#d4af37] ml-auto flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -269,17 +269,17 @@ export const AddGrupoModal: React.FC<AddGrupoModalProps> = ({ isOpen, onClose, o
 
                     {/* Preview */}
                     {formData.grado >= 1 && formData.nombre.trim() && (
-                        <div className="bg-[#fbf8f1] rounded-xl p-4 border border-[#e3dac9] flex items-center gap-3">
+                        <div className="bg-[#f5f8ff] rounded-xl p-4 border border-[#c8d8f0] flex items-center gap-3">
                             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#d4af37] to-[#c19a2e] flex items-center justify-center text-white font-playfair font-bold text-lg shadow-md">
                                 {formData.nombre.trim().toUpperCase().charAt(0)}
                             </div>
                             <div>
-                                <p className="text-xs text-[#8d6e3f] font-bold uppercase tracking-wider">Vista previa</p>
-                                <p className="font-playfair font-bold text-[#2b1b17] text-lg">
+                                <p className="text-xs text-[#1e3a6e] font-bold uppercase tracking-wider">Vista previa</p>
+                                <p className="font-playfair font-bold text-[#0a1628] text-lg">
                                     {formData.grado}° {formData.nombre.trim().toUpperCase()}
                                 </p>
                                 {maestroSeleccionado && (
-                                    <p className="text-xs text-[#8d6e3f]">
+                                    <p className="text-xs text-[#1e3a6e]">
                                         Prof. {maestros.find(m => m.id === maestroSeleccionado)?.nombre ?? maestros.find(m => m.id === maestroSeleccionado)?.correo}
                                     </p>
                                 )}
@@ -293,18 +293,18 @@ export const AddGrupoModal: React.FC<AddGrupoModalProps> = ({ isOpen, onClose, o
                             type="button"
                             onClick={onClose}
                             disabled={isLoading}
-                            className="flex-1 px-4 py-3 rounded-xl border-2 border-[#e3dac9] text-[#5d4037] font-bold hover:bg-[#fbf8f1] transition-colors disabled:opacity-50"
+                            className="flex-1 px-4 py-3 rounded-xl border-2 border-[#c8d8f0] text-[#1e3a6e] font-bold hover:bg-[#f5f8ff] transition-colors disabled:opacity-50"
                         >
                             Cancelar
                         </button>
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-[#2b1b17] to-[#3e2723] text-[#f0e6d2] font-bold hover:from-[#3e2723] hover:to-[#4e342e] shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2"
+                            className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-[#0a1628] to-[#1e3a6e] text-[#f5f8ff] font-bold hover:from-[#1e3a6e] hover:to-[#1a2d5a] shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2"
                         >
                             {isLoading ? (
                                 <>
-                                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#f0e6d2]" />
+                                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#f5f8ff]" />
                                     Creando...
                                 </>
                             ) : (

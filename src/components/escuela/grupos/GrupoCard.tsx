@@ -25,7 +25,7 @@ const gradoColors: Record<number, { gradient: string; text: string; bg: string }
 
 const getGradoColor = (grado: any) => {
     const g = parseInt(String(grado), 10);
-    return gradoColors[g] ?? { gradient: 'from-[#d4af37] to-[#c19a2e]', text: 'text-[#8d6e3f]', bg: 'bg-[#fbf8f1]' };
+    return gradoColors[g] ?? { gradient: 'from-[#d4af37] to-[#c19a2e]', text: 'text-[#1e3a6e]', bg: 'bg-[#f5f8ff]' };
 };
 
 const getGradoLabel = (grado: any) => {
@@ -48,7 +48,7 @@ export const GrupoCard: React.FC<GrupoCardProps> = ({ grupo, onEdit, onDelete })
     });
 
     return (
-        <div className={`group bg-white rounded-2xl shadow-md hover:shadow-xl border border-[#e3dac9]/50 transition-all duration-500 h-[360px] flex flex-col relative overflow-hidden hover:scale-[1.02] ${!grupo.activo ? 'opacity-70' : ''}`}>
+        <div className={`group bg-white rounded-2xl shadow-md hover:shadow-xl border border-[#c8d8f0]/50 transition-all duration-500 h-[360px] flex flex-col relative overflow-hidden hover:scale-[1.02] ${!grupo.activo ? 'opacity-70' : ''}`}>
             {/* Línea acento superior */}
             <div className="h-1 bg-gradient-to-r from-[#d4af37] to-[#c19a2e]" />
 
@@ -75,7 +75,7 @@ export const GrupoCard: React.FC<GrupoCardProps> = ({ grupo, onEdit, onDelete })
                                     {grupo.nombre}
                                 </div>
                                 <div>
-                                    <h4 className="font-playfair font-black text-xl text-[#2b1b17]">
+                                    <h4 className="font-playfair font-black text-xl text-[#0a1628]">
                                         Grupo {grupo.nombre}
                                     </h4>
                                     <div className="flex items-center gap-2 mt-1">
@@ -89,20 +89,20 @@ export const GrupoCard: React.FC<GrupoCardProps> = ({ grupo, onEdit, onDelete })
 
                         <div className="space-y-4 flex-grow">
                             {/* Maestro */}
-                            <div className="flex items-center gap-3 bg-[#fbf8f1] rounded-xl p-3 border border-[#e3dac9]/40">
-                                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#d4af37] border border-[#e3dac9] shadow-sm font-bold text-sm">
+                            <div className="flex items-center gap-3 bg-[#f5f8ff] rounded-xl p-3 border border-[#c8d8f0]/40">
+                                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#d4af37] border border-[#c8d8f0] shadow-sm font-bold text-sm">
                                     {grupo.maestros?.[0]?.nombre.charAt(0).toUpperCase() ?? '?'}
                                 </div>
                                 <div className="min-w-0">
-                                    <p className="text-[10px] text-[#a1887f] font-black uppercase tracking-widest">Maestro</p>
-                                    <p className="text-sm font-bold text-[#2b1b17] truncate">
+                                    <p className="text-[10px] text-[#6b8cba] font-black uppercase tracking-widest">Maestro</p>
+                                    <p className="text-sm font-bold text-[#0a1628] truncate">
                                         {grupo.maestros?.[0]?.nombre ?? 'Sin asignar'}
                                     </p>
                                 </div>
                             </div>
 
                             {/* Alumnos Summary */}
-                            <div className="bg-white rounded-xl p-3 border border-[#e3dac9]/30 flex items-center justify-between group-hover:border-[#d4af37]/40 transition-colors">
+                            <div className="bg-white rounded-xl p-3 border border-[#c8d8f0]/30 flex items-center justify-between group-hover:border-[#d4af37]/40 transition-colors">
                                 <div className="flex items-center gap-3">
                                     <div className="w-10 h-10 rounded-xl bg-[#faf8f5] flex items-center justify-center text-[#d4af37]">
                                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -110,13 +110,13 @@ export const GrupoCard: React.FC<GrupoCardProps> = ({ grupo, onEdit, onDelete })
                                         </svg>
                                     </div>
                                     <div>
-                                        <p className="text-[10px] text-[#a1887f] font-black uppercase tracking-widest">Estudiantes</p>
-                                        <p className="text-sm font-black text-[#2b1b17]">{numAlumnos} Inscritos</p>
+                                        <p className="text-[10px] text-[#6b8cba] font-black uppercase tracking-widest">Estudiantes</p>
+                                        <p className="text-sm font-black text-[#0a1628]">{numAlumnos} Inscritos</p>
                                     </div>
                                 </div>
                                 <button
                                     onClick={() => setIsViewMode(true)}
-                                    className="px-4 py-2 bg-[#2b1b17] text-[#f0e6d2] rounded-lg text-xs font-black uppercase tracking-widest hover:bg-[#3e2723] transition-colors shadow-sm active:scale-95"
+                                    className="px-4 py-2 bg-[#0a1628] text-[#f5f8ff] rounded-lg text-xs font-black uppercase tracking-widest hover:bg-[#1e3a6e] transition-colors shadow-sm active:scale-95"
                                 >
                                     Ver
                                 </button>
@@ -124,10 +124,10 @@ export const GrupoCard: React.FC<GrupoCardProps> = ({ grupo, onEdit, onDelete })
                         </div>
 
                         {/* Footer */}
-                        <div className="flex gap-2 pt-4 border-t border-[#e3dac9]/30 mt-4">
+                        <div className="flex gap-2 pt-4 border-t border-[#c8d8f0]/30 mt-4">
                             <button
                                 onClick={() => onEdit(grupo)}
-                                className="flex-1 py-2.5 bg-[#fbf8f1] border border-[#e3dac9] text-[#5d4037] rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-[#e3dac9]/50 transition-all flex items-center justify-center gap-2"
+                                className="flex-1 py-2.5 bg-[#f5f8ff] border border-[#c8d8f0] text-[#1e3a6e] rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-[#c8d8f0]/50 transition-all flex items-center justify-center gap-2"
                             >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -136,7 +136,7 @@ export const GrupoCard: React.FC<GrupoCardProps> = ({ grupo, onEdit, onDelete })
                             </button>
                             <button
                                 onClick={() => onDelete(grupo)}
-                                className="p-2.5 bg-white border border-[#e3dac9] text-[#a1887f] rounded-xl hover:text-red-600 hover:border-red-200 hover:bg-red-50 transition-all"
+                                className="p-2.5 bg-white border border-[#c8d8f0] text-[#6b8cba] rounded-xl hover:text-red-600 hover:border-red-200 hover:bg-red-50 transition-all"
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -149,12 +149,12 @@ export const GrupoCard: React.FC<GrupoCardProps> = ({ grupo, onEdit, onDelete })
                     <div className="flex flex-col h-full animate-fade-in">
                         <div className="flex items-center justify-between mb-4">
                             <div>
-                                <h5 className="text-[10px] text-[#a1887f] font-black uppercase tracking-widest">Lista de Alumnos</h5>
-                                <p className="text-lg font-black text-[#2b1b17]">Grupo {grupo.nombre}</p>
+                                <h5 className="text-[10px] text-[#6b8cba] font-black uppercase tracking-widest">Lista de Alumnos</h5>
+                                <p className="text-lg font-black text-[#0a1628]">Grupo {grupo.nombre}</p>
                             </div>
                             <button
                                 onClick={() => setIsViewMode(false)}
-                                className="p-2 hover:bg-[#fbf8f1] rounded-full text-[#a1887f] hover:text-[#2b1b17] transition-colors"
+                                className="p-2 hover:bg-[#f5f8ff] rounded-full text-[#6b8cba] hover:text-[#0a1628] transition-colors"
                             >
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -162,7 +162,7 @@ export const GrupoCard: React.FC<GrupoCardProps> = ({ grupo, onEdit, onDelete })
                             </button>
                         </div>
 
-                        <div className="flex-grow bg-[#fbf8f1]/50 border-2 border-[#fbf8f1] rounded-2xl overflow-hidden p-2">
+                        <div className="flex-grow bg-[#f5f8ff]/50 border-2 border-[#f5f8ff] rounded-2xl overflow-hidden p-2">
                             {numAlumnos > 0 ? (
                                 <div className="h-full overflow-y-auto pr-1 custom-scrollbar space-y-2">
                                     {(() => {
@@ -193,11 +193,11 @@ export const GrupoCard: React.FC<GrupoCardProps> = ({ grupo, onEdit, onDelete })
                                             const displayName = surnames ? `${surnames} ${name}` : name;
 
                                             return (
-                                                <div key={idx} className="flex items-center gap-3 p-2 bg-white rounded-xl shadow-sm border border-[#e3dac9]/20 group/item transition-all hover:translate-x-1">
+                                                <div key={idx} className="flex items-center gap-3 p-2 bg-white rounded-xl shadow-sm border border-[#c8d8f0]/20 group/item transition-all hover:translate-x-1">
                                                     <div className="w-6 h-6 rounded-full bg-[#d4af37]/10 flex items-center justify-center text-[#d4af37] text-[10px] font-black">
                                                         {idx + 1}
                                                     </div>
-                                                    <span className="text-sm font-bold text-[#5d4037]">{displayName}</span>
+                                                    <span className="text-sm font-bold text-[#1e3a6e]">{displayName}</span>
                                                 </div>
                                             );
                                         });
@@ -205,20 +205,20 @@ export const GrupoCard: React.FC<GrupoCardProps> = ({ grupo, onEdit, onDelete })
                                 </div>
                             ) : (
                                 <div className="h-full flex flex-col items-center justify-center text-center p-6">
-                                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3 text-[#e3dac9]">
+                                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3 text-[#c8d8f0]">
                                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                                         </svg>
                                     </div>
-                                    <p className="text-sm text-[#a1887f] font-bold">Aún no hay alumnos</p>
-                                    <p className="text-xs text-[#a1887f]/60 mt-1">Sincroniza alumnos para verlos aquí.</p>
+                                    <p className="text-sm text-[#6b8cba] font-bold">Aún no hay alumnos</p>
+                                    <p className="text-xs text-[#6b8cba]/60 mt-1">Sincroniza alumnos para verlos aquí.</p>
                                 </div>
                             )}
                         </div>
 
                         <button
                             onClick={() => setIsViewMode(false)}
-                            className="mt-4 w-full py-3 bg-[#faf8f5] text-[#8d6e3f] rounded-xl text-xs font-black uppercase tracking-widest border border-[#e3dac9] hover:bg-[#e3dac9]/30 transition-colors"
+                            className="mt-4 w-full py-3 bg-[#faf8f5] text-[#1e3a6e] rounded-xl text-xs font-black uppercase tracking-widest border border-[#c8d8f0] hover:bg-[#c8d8f0]/30 transition-colors"
                         >
                             Regresar
                         </button>
@@ -234,7 +234,7 @@ export const GrupoCard: React.FC<GrupoCardProps> = ({ grupo, onEdit, onDelete })
                     background: transparent;
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background: #e3dac9;
+                    background: #c8d8f0;
                     border-radius: 10px;
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb:hover {

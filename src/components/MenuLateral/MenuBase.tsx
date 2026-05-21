@@ -23,7 +23,7 @@ export default function MenuBase({
   isOpen,
   menuItems,
   onClose,
-  navyTheme = false,
+  navyTheme = true,
 }: MenuBaseProps) {
   const pathname = usePathname();
   const { displayName, roleLabel, logout } = useAuth();
@@ -66,12 +66,19 @@ export default function MenuBase({
     return icons[iconName] || icons.book;
   };
 
+  const isReader = pathname.includes('/reader');
+
   return (
     <aside
       className={`fixed left-0 top-0 h-full w-64 ${
-        navyTheme ? 'bg-[#1A2F45] text-white' : 'bg-[#2b1b17] text-[#f0e6d2]'
-      } flex flex-col py-8 shadow-2xl z-50 transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
-        }`}
+        navyTheme ? 'bg-[#1A2F45] text-white' : 'bg-[#0a1628] text-[#f5f8ff]'
+      } flex flex-col py-8 shadow-2xl z-[1000] transition-transform duration-300 ${
+        isOpen
+          ? 'translate-x-0'
+          : isReader
+            ? '-translate-x-full'
+            : '-translate-x-full md:translate-x-0'
+      }`}
     >
       {/* Logo */}
       <div className="mb-10 px-6 flex flex-col items-center text-center">
@@ -108,7 +115,7 @@ export default function MenuBase({
                     : 'bg-[#d4af37]/10 text-[#d4af37]'
                   : navyTheme
                     ? 'text-[#c8d8f0] hover:bg-[#0d1b2a] hover:text-white'
-                    : 'text-[#a1887f] hover:bg-[#d4af37]/5 hover:text-[#f0e6d2]'
+                    : 'text-[#6b8cba] hover:bg-[#d4af37]/5 hover:text-[#f5f8ff]'
                 }`}
             >
               <div className="w-6 h-6">{renderIcon(item.icon)}</div>
@@ -120,10 +127,10 @@ export default function MenuBase({
       </nav>
 
       {/* User & Logout Section */}
-      <div className={`mt-auto px-4 pt-6 border-t ${navyTheme ? 'border-[#1e3a6e]' : 'border-[#4e342e]'}`}>
+      <div className={`mt-auto px-4 pt-6 border-t ${navyTheme ? 'border-[#1e3a6e]' : 'border-[#1a2d5a]'}`}>
         <div className="mb-4 px-2">
           <p className="text-sm font-semibold">{displayName}</p>
-          <p className={`text-xs ${navyTheme ? 'text-[#6b8cba]' : 'text-[#a1887f]'}`}>{roleLabel}</p>
+          <p className={`text-xs ${navyTheme ? 'text-[#6b8cba]' : 'text-[#6b8cba]'}`}>{roleLabel}</p>
         </div>
 
         <button

@@ -12,16 +12,16 @@ interface Props {
 
 export default function ProfesorSearch({ value, onChange, onNew, totalFiltered }: Props) {
   return (
-    <div className="bg-white rounded-xl p-4 md:p-6 shadow-lg border border-[#e3dac9]/50">
+    <div className="bg-white rounded-xl p-4 md:p-6 shadow-lg border border-[#c8d8f0]/50">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h3 className="font-playfair text-2xl font-bold text-[#2b1b17] flex items-center gap-2">
+          <h3 className="font-playfair text-2xl font-bold text-[#0a1628] flex items-center gap-2">
             Gestión de Profesores
             <span className="px-2.5 py-0.5 bg-[#d4af37]/10 text-[#d4af37] text-sm font-sans rounded-full">
               {totalFiltered}
             </span>
           </h3>
-          <p className="text-sm text-[#8d6e3f] mt-1">Administra el personal docente</p>
+          <p className="text-sm text-[#1e3a6e] mt-1">Administra el personal docente</p>
         </div>
 
         <div className="flex gap-2 w-full md:w-auto">

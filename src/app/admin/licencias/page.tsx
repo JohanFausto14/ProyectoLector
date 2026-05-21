@@ -355,18 +355,18 @@ export default function AdminLicenciasPage() {
 
                 {/* Modal Generar */}
                 {showGenerar && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/50 backdrop-blur-sm">
-                        <div className="bg-[#f5f5f5] rounded-xl p-12 w-full max-w-xl shadow-2xl border border-[#c8d8f0] relative">
-                            <button onClick={() => setShowGenerar(false)} className="absolute top-8 right-8 text-[#6b8cba]">Cerrar</button>
-                            <h2 className="text-4xl font-playfair font-bold text-[#0a1628] mb-8 text-center">Nueva Emisión</h2>
-                            <form onSubmit={handleGenerar} className="space-y-8">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/50 backdrop-blur-sm">
+                        <div className="bg-[#f5f5f5] rounded-xl p-6 sm:p-12 w-full max-w-xl shadow-2xl border border-[#c8d8f0] relative">
+                            <button onClick={() => setShowGenerar(false)} className="absolute top-4 right-4 sm:top-8 sm:right-8 text-[#6b8cba] hover:text-[#0a1628] transition-colors">Cerrar</button>
+                            <h2 className="text-2xl sm:text-4xl font-playfair font-bold text-[#0a1628] mb-5 sm:mb-8 text-center">Nueva Emisión</h2>
+                            <form onSubmit={handleGenerar} className="space-y-5 sm:space-y-8">
                                 <CustomSelect label="Institución" options={escuelas.map(e => ({ id: e.id, label: e.nombre }))} value={newLicencia.escuelaId} onChange={val => setNewLicencia({...newLicencia, escuelaId: String(val)})} required />
-                                <div className="grid grid-cols-2 gap-6">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                                     <CustomSelect label="Libro" options={books.map(b => ({ id: b.id, label: b.titulo }))} value={newLicencia.libroId} onChange={val => setNewLicencia({...newLicencia, libroId: String(val)})} required />
                                     <input type="number" className="p-4 rounded-xl border-2" value={newLicencia.cantidad} onChange={e => setNewLicencia({...newLicencia, cantidad: e.target.value})} placeholder="Cantidad" required />
                                 </div>
                                 <input type="date" className="w-full p-4 rounded-xl border-2" value={newLicencia.fechaVencimiento} onChange={e => setNewLicencia({...newLicencia, fechaVencimiento: e.target.value})} required />
-                                <button type="submit" className="w-full py-5 bg-[#0a1628] text-[#f5f8ff] rounded-xl font-bold shadow-xl">Generar Licencias</button>
+                                <button type="submit" className="w-full py-4 sm:py-5 bg-[#0a1628] text-[#f5f8ff] rounded-xl font-bold shadow-xl hover:bg-[#1A2F45] transition-colors">Generar Licencias</button>
                             </form>
                         </div>
                     </div>

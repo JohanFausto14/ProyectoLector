@@ -2,7 +2,7 @@ import React from 'react';
 
 export const ContinuarLectura: React.FC = () => {
     return (
-        <div className="relative w-full min-h-[26rem] md:min-h-0 md:h-80 py-10 md:py-0 bg-gradient-to-br from-[#2b1b17] via-[#3e2723] to-[#2b1b17] rounded-2xl overflow-hidden shadow-2xl flex items-center p-6 md:p-12 group">
+        <div className="relative w-full min-h-[26rem] md:min-h-0 md:h-80 py-10 md:py-0 bg-gradient-to-br from-[#0a1628] via-[#1e3a6e] to-[#0a1628] rounded-2xl overflow-hidden shadow-2xl flex items-center p-6 md:p-12 group">
             {/* Background Texture */}
             <div
                 className="absolute inset-0 opacity-10 pointer-events-none"
@@ -17,16 +17,16 @@ export const ContinuarLectura: React.FC = () => {
             <div className="relative z-10 max-w-2xl">
                 {/* Badge */}
                 <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-gradient-to-r from-[#d4af37] to-[#c19a2e] rounded-full shadow-lg">
-                    <svg className="w-4 h-4 text-[#2b1b17]" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-4 h-4 text-[#0a1628]" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"></path>
                     </svg>
-                    <span className="text-sm md:text-xs font-bold tracking-widest uppercase text-[#2b1b17]">
+                    <span className="text-sm md:text-xs font-bold tracking-widest uppercase text-[#0a1628]">
                         Lectura Actual
                     </span>
                 </div>
 
                 {/* Title & Info */}
-                <h2 className="text-4xl md:text-5xl font-playfair font-bold mb-3 leading-tight text-[#f0e6d2] drop-shadow-lg">
+                <h2 className="text-4xl md:text-5xl font-playfair font-bold mb-3 leading-tight text-[#f5f8ff] drop-shadow-lg">
                     El Quijote
                 </h2>
                 <p className="text-[#d4af37]/90 font-lora italic mb-10 text-base md:text-base flex items-center gap-2 leading-relaxed">
@@ -38,7 +38,7 @@ export const ContinuarLectura: React.FC = () => {
 
                 {/* Actions & Progress */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-6 mt-2">
-                    <button className="px-6 py-4 md:px-8 md:py-4 bg-gradient-to-r from-[#d4af37] to-[#c19a2e] text-[#2b1b17] font-bold font-playfair uppercase tracking-widest rounded-xl shadow-xl hover:shadow-2xl hover:from-[#c19a2e] hover:to-[#b08a28] hover:-translate-y-1 active:translate-y-0 transition-all duration-300 flex items-center gap-3 md:gap-3 text-sm md:text-base w-full sm:w-auto justify-center">
+                    <button className="px-6 py-4 md:px-8 md:py-4 bg-gradient-to-r from-[#d4af37] to-[#c19a2e] text-[#0a1628] font-bold font-playfair uppercase tracking-widest rounded-xl shadow-xl hover:shadow-2xl hover:from-[#c19a2e] hover:to-[#b08a28] hover:-translate-y-1 active:translate-y-0 transition-all duration-300 flex items-center gap-3 md:gap-3 text-sm md:text-base w-full sm:w-auto justify-center">
                         <svg className="w-5 h-5 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"></path>
                         </svg>
@@ -48,12 +48,12 @@ export const ContinuarLectura: React.FC = () => {
                     <div className="flex flex-col w-full sm:w-auto">
                         <div className="flex items-center justify-between mb-2">
                             <span className="text-sm md:text-xs text-[#d4af37] uppercase tracking-widest font-bold">Progreso</span>
-                            <span className="text-sm md:text-xs text-[#f0e6d2] font-bold">45%</span>
+                            <span className="text-sm md:text-xs text-[#f5f8ff] font-bold">45%</span>
                         </div>
-                        <div className="w-40 md:w-48 h-2 bg-[#4e342e] rounded-full overflow-hidden shadow-inner">
+                        <div className="w-40 md:w-48 h-2 bg-[#1a2d5a] rounded-full overflow-hidden shadow-inner">
                             <div className="h-full bg-gradient-to-r from-[#d4af37] to-[#c19a2e] w-[45%] rounded-full shadow-lg transition-all duration-500"></div>
                         </div>
-                        <p className="text-xs md:text-[10px] text-[#a1887f] mt-1.5">Aproximadamente 2h 30min restantes</p>
+                        <p className="text-xs md:text-[10px] text-[#6b8cba] mt-1.5">Aproximadamente 2h 30min restantes</p>
                     </div>
                 </div>
             </div>

@@ -15,10 +15,10 @@ export const LibroCard: React.FC<LibroCardProps> = ({ libro, onClick }) => {
     return (
         <div
             onClick={() => onClick(libro.libroId)}
-            className="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border border-[#e3dac9]/30 hover:-translate-y-1"
+            className="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border border-[#c8d8f0]/30 hover:-translate-y-1"
         >
             {/* Portada */}
-            <div className="aspect-[3/4] bg-gradient-to-br from-[#fbf8f1] to-[#f0e6d2] relative flex items-center justify-center p-6 overflow-hidden">
+            <div className="aspect-[3/4] bg-gradient-to-br from-[#f5f8ff] to-[#f5f8ff] relative flex items-center justify-center p-6 overflow-hidden">
                 {libro.portadaUrl ? (
                     <img
                         src={libro.portadaUrl}
@@ -30,7 +30,7 @@ export const LibroCard: React.FC<LibroCardProps> = ({ libro, onClick }) => {
                         <svg className="w-16 h-16 text-[#d4af37]/30 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                         </svg>
-                        <span className="font-playfair font-bold text-[#8d6e3f] text-sm block px-4">{libro.titulo}</span>
+                        <span className="font-playfair font-bold text-[#1e3a6e] text-sm block px-4">{libro.titulo}</span>
                     </div>
                 )}
 
@@ -44,8 +44,8 @@ export const LibroCard: React.FC<LibroCardProps> = ({ libro, onClick }) => {
                 )}
 
                 {/* Overlay hover */}
-                <div className="absolute inset-0 bg-[#2b1b17]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="bg-white text-[#2b1b17] px-6 py-2 rounded-full font-bold shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform text-sm">
+                <div className="absolute inset-0 bg-[#0a1628]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span className="bg-white text-[#0a1628] px-6 py-2 rounded-full font-bold shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform text-sm">
                         {hasStarted ? 'Continuar' : 'Ver libro'}
                     </span>
                 </div>
@@ -53,12 +53,12 @@ export const LibroCard: React.FC<LibroCardProps> = ({ libro, onClick }) => {
 
             {/* Info */}
             <div className="p-4">
-                <h3 className="font-playfair font-bold text-[#2b1b17] text-base leading-tight line-clamp-2 mb-2">
+                <h3 className="font-playfair font-bold text-[#0a1628] text-base leading-tight line-clamp-2 mb-2">
                     {libro.titulo}
                 </h3>
 
                 <div className="flex items-center gap-2 mb-3 flex-wrap">
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-[#fbf8f1] text-[#8d6e3f] rounded border border-[#e3dac9]">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-[#f5f8ff] text-[#1e3a6e] rounded border border-[#c8d8f0]">
                         {libro.materia}
                     </span>
                     <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-blue-50 text-blue-600 rounded border border-blue-100">
@@ -69,12 +69,12 @@ export const LibroCard: React.FC<LibroCardProps> = ({ libro, onClick }) => {
                 {/* Barra de progreso */}
                 <div className="space-y-1">
                     <div className="flex justify-between text-[10px] font-bold">
-                        <span className={isCompleted ? 'text-emerald-600' : 'text-[#a1887f]'}>
+                        <span className={isCompleted ? 'text-emerald-600' : 'text-[#6b8cba]'}>
                             {isCompleted ? '¡Completado!' : hasStarted ? 'En curso' : 'Sin iniciar'}
                         </span>
-                        <span className="text-[#2b1b17]">{libro.progresoPorcentaje}%</span>
+                        <span className="text-[#0a1628]">{libro.progresoPorcentaje}%</span>
                     </div>
-                    <div className="h-2 w-full bg-[#f0e6d2] rounded-full overflow-hidden">
+                    <div className="h-2 w-full bg-[#f5f8ff] rounded-full overflow-hidden">
                         <div
                             className={`h-full transition-all duration-1000 ease-out rounded-full ${
                                 isCompleted

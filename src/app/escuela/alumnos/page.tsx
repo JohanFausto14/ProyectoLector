@@ -141,7 +141,7 @@ export default function AlumnosPage() {
         <div className="space-y-6 animate-fade-in">
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
-                <div className="bg-gradient-to-br from-white to-[#faf8f5] rounded-xl p-6 shadow-md border border-[#e3dac9]/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div className="bg-gradient-to-br from-white to-[#faf8f5] rounded-xl p-6 shadow-md border border-[#c8d8f0]/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <div className="flex items-center gap-4">
                         <div className="p-3.5 rounded-xl bg-gradient-to-br from-blue-500/10 to-blue-500/5 shadow-sm">
                             <svg className="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -149,15 +149,15 @@ export default function AlumnosPage() {
                             </svg>
                         </div>
                         <div>
-                            <p className="text-xs font-bold uppercase tracking-wider text-[#a1887f] mb-1">Total Alumnos</p>
-                            <h3 className="text-3xl font-playfair font-bold text-[#2b1b17]">
+                            <p className="text-xs font-bold uppercase tracking-wider text-[#6b8cba] mb-1">Total Alumnos</p>
+                            <h3 className="text-3xl font-playfair font-bold text-[#0a1628]">
                                 {isLoading ? '...' : alumnos.length}
                             </h3>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-white to-[#faf8f5] rounded-xl p-6 shadow-md border border-[#e3dac9]/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div className="bg-gradient-to-br from-white to-[#faf8f5] rounded-xl p-6 shadow-md border border-[#c8d8f0]/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <div className="flex items-center gap-4">
                         <div className="p-3.5 rounded-xl bg-gradient-to-br from-purple-500/10 to-purple-500/5 shadow-sm">
                             <svg className="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -165,15 +165,15 @@ export default function AlumnosPage() {
                             </svg>
                         </div>
                         <div>
-                            <p className="text-xs font-bold uppercase tracking-wider text-[#a1887f] mb-1">Grados</p>
-                            <h3 className="text-3xl font-playfair font-bold text-[#2b1b17]">
+                            <p className="text-xs font-bold uppercase tracking-wider text-[#6b8cba] mb-1">Grados</p>
+                            <h3 className="text-3xl font-playfair font-bold text-[#0a1628]">
                                 {isLoading ? '...' : gradosUnicos.length}
                             </h3>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-white to-[#faf8f5] rounded-xl p-6 shadow-md border border-[#e3dac9]/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div className="bg-gradient-to-br from-white to-[#faf8f5] rounded-xl p-6 shadow-md border border-[#c8d8f0]/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <div className="flex items-center gap-4">
                         <div className="p-3.5 rounded-xl bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 shadow-sm">
                             <svg className="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -181,8 +181,8 @@ export default function AlumnosPage() {
                             </svg>
                         </div>
                         <div>
-                            <p className="text-xs font-bold uppercase tracking-wider text-[#a1887f] mb-1">Con Tutor</p>
-                            <h3 className="text-3xl font-playfair font-bold text-[#2b1b17]">
+                            <p className="text-xs font-bold uppercase tracking-wider text-[#6b8cba] mb-1">Con Tutor</p>
+                            <h3 className="text-3xl font-playfair font-bold text-[#0a1628]">
                                 {isLoading ? '...' : conTutor}
                             </h3>
                         </div>
@@ -192,7 +192,7 @@ export default function AlumnosPage() {
                 {/* Card carga masiva */}
                 <div
                     onClick={() => setShowCargaMasivaModal(true)}
-                    className="bg-gradient-to-br from-white to-[#faf8f5] rounded-xl p-6 shadow-md border border-[#e3dac9]/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group"
+                    className="bg-gradient-to-br from-white to-[#faf8f5] rounded-xl p-6 shadow-md border border-[#c8d8f0]/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group"
                 >
                     <div className="flex items-center gap-4">
                         <div className="p-3.5 rounded-xl bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 shadow-sm group-hover:from-emerald-500/20 group-hover:to-emerald-500/10 transition-all">
@@ -201,8 +201,8 @@ export default function AlumnosPage() {
                             </svg>
                         </div>
                         <div>
-                            <p className="text-xs font-bold uppercase tracking-wider text-[#a1887f] mb-1">Carga Masiva</p>
-                            <p className="text-sm font-bold text-[#2b1b17] group-hover:text-emerald-700 transition-colors">
+                            <p className="text-xs font-bold uppercase tracking-wider text-[#6b8cba] mb-1">Carga Masiva</p>
+                            <p className="text-sm font-bold text-[#0a1628] group-hover:text-emerald-700 transition-colors">
                                 Importar Excel
                             </p>
                         </div>
@@ -211,16 +211,16 @@ export default function AlumnosPage() {
             </div>
 
             {/* Search and Filters */}
-            <div className="bg-white rounded-xl p-4 md:p-6 shadow-lg border border-[#e3dac9]/50">
+            <div className="bg-white rounded-xl p-4 md:p-6 shadow-lg border border-[#c8d8f0]/50">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                        <h3 className="font-playfair text-2xl font-bold text-[#2b1b17] flex items-center gap-2">
+                        <h3 className="font-playfair text-2xl font-bold text-[#0a1628] flex items-center gap-2">
                             Gestión de Alumnos
                             <span className="px-2.5 py-0.5 bg-[#d4af37]/10 text-[#d4af37] text-sm font-sans rounded-full">
                                 {filteredAlumnos.length}
                             </span>
                         </h3>
-                        <p className="text-sm text-[#8d6e3f] mt-1">Administra y monitorea a tus estudiantes</p>
+                        <p className="text-sm text-[#1e3a6e] mt-1">Administra y monitorea a tus estudiantes</p>
                     </div>
 
                     <div className="flex gap-2 w-full md:w-auto">
@@ -231,15 +231,15 @@ export default function AlumnosPage() {
                                 placeholder="Buscar por nombre o email..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full pl-11 pr-4 py-3 rounded-xl border-2 border-[#e3dac9] bg-white focus:outline-none focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10 font-lora text-sm transition-all duration-300"
+                                className="w-full pl-11 pr-4 py-3 rounded-xl border-2 border-[#c8d8f0] bg-white focus:outline-none focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10 font-lora text-sm transition-all duration-300"
                             />
-                            <svg className="w-5 h-5 text-[#a1887f] absolute left-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 text-[#6b8cba] absolute left-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
                             {searchTerm && (
                                 <button
                                     onClick={() => setSearchTerm('')}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#a1887f] hover:text-[#2b1b17] transition-colors"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b8cba] hover:text-[#0a1628] transition-colors"
                                 >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -263,7 +263,7 @@ export default function AlumnosPage() {
                         {/* Botón Nuevo Alumno */}
                         <button
                             onClick={() => setShowAddModal(true)}
-                            className="px-6 py-3 bg-gradient-to-r from-[#2b1b17] to-[#3e2723] text-[#f0e6d2] rounded-xl font-bold hover:from-[#3e2723] hover:to-[#4e342e] shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 whitespace-nowrap hover:-translate-y-0.5 active:translate-y-0"
+                            className="px-6 py-3 bg-gradient-to-r from-[#0a1628] to-[#1e3a6e] text-[#f5f8ff] rounded-xl font-bold hover:from-[#1e3a6e] hover:to-[#1a2d5a] shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 whitespace-nowrap hover:-translate-y-0.5 active:translate-y-0"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
@@ -279,8 +279,8 @@ export default function AlumnosPage() {
                         onClick={() => setFilterGrado('todos')}
                         className={`px-4 py-2 rounded-lg text-sm font-bold transition-all duration-300 ${
                             filterGrado === 'todos'
-                                ? 'bg-[#d4af37] text-[#2b1b17] shadow-md'
-                                : 'bg-[#fbf8f1] text-[#5d4037] hover:bg-[#e3dac9]'
+                                ? 'bg-[#d4af37] text-[#0a1628] shadow-md'
+                                : 'bg-[#f5f8ff] text-[#1e3a6e] hover:bg-[#c8d8f0]'
                         }`}
                     >
                         Todos los Grados
@@ -292,7 +292,7 @@ export default function AlumnosPage() {
                             className={`px-4 py-2 rounded-lg text-sm font-bold transition-all duration-300 ${
                                 filterGrado === grado.toString()
                                     ? 'bg-purple-500 text-white shadow-md'
-                                    : 'bg-[#fbf8f1] text-[#5d4037] hover:bg-[#e3dac9]'
+                                    : 'bg-[#f5f8ff] text-[#1e3a6e] hover:bg-[#c8d8f0]'
                             }`}
                         >
                             {grado}° Grado
@@ -302,7 +302,7 @@ export default function AlumnosPage() {
             </div>
 
             {/* Alumnos Table */}
-            <div className="bg-white rounded-xl shadow-lg border border-[#e3dac9]/50 overflow-hidden">
+            <div className="bg-white rounded-xl shadow-lg border border-[#c8d8f0]/50 overflow-hidden">
                 {isLoading ? (
                     <div className="flex items-center justify-center h-64">
                         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#d4af37]"></div>
@@ -333,16 +333,16 @@ export default function AlumnosPage() {
                             </svg>
                         </div>
 
-                        <h3 className="font-playfair text-xl font-bold text-[#2b1b17] text-center mb-2">
+                        <h3 className="font-playfair text-xl font-bold text-[#0a1628] text-center mb-2">
                             Eliminar Alumno
                         </h3>
-                        <p className="text-[#5d4037] text-center text-sm mb-1">
+                        <p className="text-[#1e3a6e] text-center text-sm mb-1">
                             ¿Estás seguro de que deseas eliminar a:
                         </p>
-                        <p className="text-[#2b1b17] font-bold text-center mb-1">
+                        <p className="text-[#0a1628] font-bold text-center mb-1">
                             {getNombreCompletoAlumno(alumnoToDelete)}
                         </p>
-                        <p className="text-[#8d6e3f] text-center text-xs mb-6">
+                        <p className="text-[#1e3a6e] text-center text-xs mb-6">
                             {alumnoToDelete.persona.correo}
                         </p>
                         <p className="text-red-600 text-center text-xs mb-6">
@@ -360,7 +360,7 @@ export default function AlumnosPage() {
                             <button
                                 onClick={handleDeleteCancel}
                                 disabled={isDeleting}
-                                className="flex-1 px-4 py-3 rounded-xl border-2 border-[#e3dac9] text-[#5d4037] font-bold hover:bg-[#fbf8f1] transition-colors disabled:opacity-50"
+                                className="flex-1 px-4 py-3 rounded-xl border-2 border-[#c8d8f0] text-[#1e3a6e] font-bold hover:bg-[#f5f8ff] transition-colors disabled:opacity-50"
                             >
                                 Cancelar
                             </button>

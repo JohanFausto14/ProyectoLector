@@ -11,7 +11,7 @@ export default function GrupoFilters({
   const [search, setSearch] = useState("");
 
   const filtros = [
-    { label: "Todos", color: "bg-[#d4af37] text-[#2b1b17]" },
+    { label: "Todos", color: "bg-[#d4af37] text-[#0a1628]" },
     { label: "1er Grado", color: "bg-blue-500 text-white" },
     { label: "2do Grado", color: "bg-purple-500 text-white" },
     { label: "3er Grado", color: "bg-emerald-500 text-white" },
@@ -31,7 +31,7 @@ export default function GrupoFilters({
             className={`px-4 py-2 rounded-lg text-sm font-bold transition-all duration-300 ${
               active === f.label
                 ? `${f.color} shadow-md`
-                : "bg-[#fbf8f1] text-[#5d4037] hover:bg-[#e3dac9]"
+                : "bg-[#f5f8ff] text-[#1e3a6e] hover:bg-[#c8d8f0]"
             }`}
           >
             {f.label}
@@ -46,10 +46,10 @@ export default function GrupoFilters({
           placeholder="Buscar grupo o profesor..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-11 pr-4 py-3 rounded-xl border-2 border-[#e3dac9] bg-white focus:outline-none focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10 font-lora text-sm transition-all duration-300"
+          className="w-full pl-11 pr-4 py-3 rounded-xl border-2 border-[#c8d8f0] bg-white focus:outline-none focus:border-[#d4af37] focus:ring-4 focus:ring-[#d4af37]/10 font-lora text-sm transition-all duration-300"
         />
         <svg
-          className="w-5 h-5 text-[#a1887f] absolute left-4 top-1/2 -translate-y-1/2"
+          className="w-5 h-5 text-[#6b8cba] absolute left-4 top-1/2 -translate-y-1/2"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -59,7 +59,7 @@ export default function GrupoFilters({
         {search && (
           <button
             onClick={() => setSearch("")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#a1887f] hover:text-[#2b1b17] transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b8cba] hover:text-[#0a1628] transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />

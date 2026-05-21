@@ -301,9 +301,9 @@ export default function ReaderPage() {
   // ─────────────────────────────────────────────────────────────────────────
   if (isLoading) {
     return (
-      <div className="fixed inset-0 bg-[#fbf8f1] flex flex-col items-center justify-center z-200">
+      <div className="fixed inset-0 bg-[#f5f8ff] flex flex-col items-center justify-center z-200">
         <div className="w-16 h-16 border-4 border-[#d4af37] border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="font-playfair text-xl text-[#2b1b17] animate-pulse">Abriendo el libro...</p>
+        <p className="font-playfair text-xl text-[#0a1628] animate-pulse">Abriendo el libro...</p>
       </div>
     );
   }
@@ -312,7 +312,7 @@ export default function ReaderPage() {
   const totalAnotaciones = annotations.getPayloadParaBack().length;
 
   return (
-    <div className="min-h-screen bg-[#fbf8f1] flex flex-col font-lora text-[#2b1b17]">
+    <div className="min-h-screen bg-[#f8fafc] flex flex-col font-lora text-[#0a1628] w-full max-w-full overflow-x-hidden">
       {/* ── Diagnóstico modal (bloquea la lectura hasta completarse) ── */}
       {diagnosticoPendiente && (
         <DiagnosticoModal
@@ -354,41 +354,57 @@ export default function ReaderPage() {
       />
 
       {/* Header */}
-      <header className="sticky top-0 z-110 bg-white/80 backdrop-blur-md border-b border-[#e3dac9] px-3 md:px-8 py-3 flex items-center justify-between shadow-sm gap-2">
-        <div className="flex items-center gap-2 md:gap-4 min-w-0 flex-1">
+      <header className="sticky top-0 z-110 bg-white/80 backdrop-blur-md border-b border-[#e2e8f0] px-2 sm:px-4 md:px-8 py-3 flex items-center justify-between shadow-sm gap-1 sm:gap-2 relative">
+
+
+        <div className="flex items-center gap-1 md:gap-3 min-w-0 flex-1">
           <button onClick={handleExit}
-            className="p-2 hover:bg-[#fbf8f1] rounded-full transition-colors group shrink-0" title="Volver">
-            <svg className="w-5 h-5 md:w-6 md:h-6 text-[#8d6e3f] group-hover:text-[#2b1b17]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            className="p-2 hover:bg-[#f5f8ff] rounded-full transition-colors group shrink-0" title="Volver a la Biblioteca">
+            <svg className="w-5 h-5 md:w-6 md:h-6 text-[#1e3a6e] group-hover:text-[#0a1628]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
           </button>
-          <div className="min-w-0 flex-1">
-            <h1 className="font-playfair font-bold text-sm md:text-xl truncate">{libro.titulo}</h1>
+          
+          <button 
+            onClick={() => window.dispatchEvent(new CustomEvent('open-student-sidebar'))}
+            className="p-2 hover:bg-[#f5f8ff] rounded-full transition-colors group shrink-0" 
+            title="Menú Principal"
+          >
+            <svg className="w-5 h-5 md:w-6 md:h-6 text-[#1e3a6e] group-hover:text-[#0a1628]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+
+          <div className="min-w-0 flex-1 pl-1">
+            <h1 className="font-playfair font-bold text-sm md:text-xl text-[#0a1628] truncate">{libro.titulo}</h1>
             <p className="text-[9px] md:text-[10px] font-black text-[#d4af37] uppercase tracking-widest truncate">
               {currentSegment.unidadNombre || 'Contenido'} &bull; {currentIdx + 1} de {totalSegments}
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2 md:gap-4 shrink-0">
+        <div className="flex items-center gap-1 sm:gap-3 md:gap-4 shrink-0">
           <div className="hidden md:flex flex-col items-end mr-2">
-            <span className="text-[10px] font-black text-[#a1887f]">PROGRESO</span>
-            <div className="w-32 h-1.5 bg-[#f0e6d2] rounded-full overflow-hidden mt-1">
-              <div className="h-full bg-[#d4af37] transition-all duration-500" style={{ width: `${progressPercent}%` }} />
+            <span className="text-[10px] font-black text-[#6b8cba]">PROGRESO</span>
+            <div className="w-32 h-2 bg-[#f8fafc] border border-[#cbd5e1] rounded-full overflow-hidden mt-1 p-[1px]">
+              <div 
+                className="h-full bg-gradient-to-r from-[#3b82f6] to-[#1d4ed8] rounded-full transition-all duration-500" 
+                style={{ width: `${progressPercent}%` }} 
+              />
             </div>
           </div>
           <ReadingTimer formattedTime={timer.formattedTime} isRunning={timer.isRunning} />
 
           {totalAnotaciones > 0 && (
-            <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#fbf8f1] border border-[#e3dac9]">
+            <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#f5f8ff] border border-[#c8d8f0]">
               <span className="text-xs">🖍</span>
-              <span className="text-[10px] font-black text-[#8d6e3f] uppercase tracking-widest">{totalAnotaciones}</span>
+              <span className="text-[10px] font-black text-[#1e3a6e] uppercase tracking-widest">{totalAnotaciones}</span>
             </div>
           )}
 
-          <div className="hidden md:block w-px h-6 bg-[#e3dac9]" />
+          <div className="hidden md:block w-px h-6 bg-[#c8d8f0]" />
           <button
             onClick={handleExit}
-            className="hidden md:flex items-center gap-2 px-4 py-2 rounded-lg border border-[#e3dac9] text-[#8d6e3f] text-xs font-bold uppercase tracking-widest hover:border-[#d4af37] hover:text-[#2b1b17] transition-all"
+            className="hidden md:flex items-center gap-2 px-4 py-2 rounded-lg border border-[#c8d8f0] text-[#1e3a6e] text-xs font-bold uppercase tracking-widest hover:border-[#d4af37] hover:text-[#0a1628] transition-all"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -396,7 +412,7 @@ export default function ReaderPage() {
             Finalizar
           </button>
           <button onClick={() => setShowSidebar(true)}
-            className="p-2 bg-[#2b1b17] text-white rounded-lg hover:bg-[#3e2723] transition-all shadow-md flex items-center gap-1.5 px-3">
+            className="p-1.5 sm:p-2 bg-[#0a1628] text-white rounded-lg hover:bg-[#1e3a6e] transition-all shadow-md flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3">
             <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
@@ -406,50 +422,52 @@ export default function ReaderPage() {
       </header>
 
       {/* Content */}
-      <main className="flex-1 max-w-3xl mx-auto w-full px-4 sm:px-6 md:px-8 py-8 md:py-20 relative" style={cursorStyle}>
-        <div className="pointer-events-none absolute top-0 left-0 w-24 h-24 border-l-2 border-t-2 border-[#d4af37]/20 -translate-x-4 -translate-y-4" />
-        <div className="pointer-events-none absolute top-0 right-0 w-24 h-24 border-r-2 border-t-2 border-[#d4af37]/20 translate-x-4 -translate-y-4" />
+      <main className="flex-1 max-w-4xl mx-auto w-full px-2.5 sm:px-6 md:px-8 py-4 sm:py-6 md:py-12 relative" style={cursorStyle}>
+        <div className="bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-[#e2e8f0] rounded-2xl md:rounded-3xl p-4 sm:p-8 md:p-16 relative">
+          <div className="hidden sm:block pointer-events-none absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-[#d4af37]/20 rounded-tl-2xl md:rounded-tl-3xl translate-x-4 translate-y-4" />
+          <div className="hidden sm:block pointer-events-none absolute top-0 right-0 w-16 h-16 border-r-2 border-t-2 border-[#d4af37]/20 rounded-tr-2xl md:rounded-tr-3xl -translate-x-4 translate-y-4" />
 
-        <article className="prose prose-stone prose-lg max-w-none">
-          <div className="text-center mb-16">
-            <span className="inline-block w-12 h-0.5 bg-[#d4af37] mb-6" />
-            <h2 className="font-playfair italic text-3xl md:text-4xl text-[#8d6e3f] mb-4">{currentSegment.titulo}</h2>
-            {currentSegment.numeroPagina && (
-              <p className="text-[#a1887f] text-sm">Página {currentSegment.numeroPagina}</p>
+          <article className="prose prose-stone prose-lg max-w-none">
+            <div className="text-center mb-12">
+              <span className="inline-block w-12 h-0.5 bg-[#d4af37] mb-4" />
+              <h2 className="font-playfair italic text-2xl md:text-4xl text-[#1e3a6e] mb-2">{currentSegment.titulo}</h2>
+              {currentSegment.numeroPagina && (
+                <p className="text-[#6b8cba] text-xs md:text-sm font-semibold">Página {currentSegment.numeroPagina}</p>
+              )}
+            </div>
+
+            {currentSegment.contenido ? (
+              <AnnotatedContent
+                contenido={currentSegment.contenido}
+                anotaciones={annotations.anotacionesDelSegmento}
+                onRemove={annotations.removeAnotacion}
+                onMouseUp={handleMouseUp}
+                onAddComentario={(ann, texto) => {
+                  annotations.addComentarioDirect(
+                    ann.textoSeleccionado,
+                    ann.offsetInicio,
+                    ann.offsetFin,
+                    texto,
+                  );
+                }}
+              />
+            ) : (
+              <p className="text-[#6b8cba] italic text-center">Este segmento no tiene contenido.</p>
             )}
-          </div>
-
-          {currentSegment.contenido ? (
-            <AnnotatedContent
-              contenido={currentSegment.contenido}
-              anotaciones={annotations.anotacionesDelSegmento}
-              onRemove={annotations.removeAnotacion}
-              onMouseUp={handleMouseUp}
-              onAddComentario={(ann, texto) => {
-                annotations.addComentarioDirect(
-                  ann.textoSeleccionado,
-                  ann.offsetInicio,
-                  ann.offsetFin,
-                  texto,
-                );
-              }}
-            />
-          ) : (
-            <p className="text-[#a1887f] italic text-center">Este segmento no tiene contenido.</p>
-          )}
-        </article>
+          </article>
+        </div>
 
         {/* Navigation */}
-        <div className="mt-20 pt-8 border-t border-[#e3dac9] flex items-center justify-between">
+        <div className="mt-8 pt-6 border-t border-[#c8d8f0]/60 flex items-center justify-between gap-1.5 sm:gap-2">
           <button onClick={handlePrev} disabled={currentIdx === 0}
-            className="flex items-center gap-3 px-6 py-3 rounded-xl border border-[#e3dac9] text-[#8d6e3f] font-bold hover:bg-white hover:text-[#2b1b17] disabled:opacity-30 disabled:pointer-events-none transition-all">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            className="flex items-center gap-1 sm:gap-3 px-2 sm:px-6 py-2 sm:py-3 rounded-xl border border-[#c8d8f0] text-[#1e3a6e] font-bold text-[11px] sm:text-base hover:bg-white hover:text-[#0a1628] disabled:opacity-30 disabled:pointer-events-none transition-all">
+            <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
             </svg>
             Anterior
           </button>
 
-          <span className="text-xs font-black text-[#a1887f] uppercase tracking-widest">
+          <span className="text-[10px] sm:text-xs font-black text-[#6b8cba] uppercase tracking-widest whitespace-nowrap">
             {currentIdx + 1} / {totalSegments}
           </span>
 
@@ -458,9 +476,9 @@ export default function ReaderPage() {
             if (!isFrontier) {
               return (
                 <button onClick={handleNext} disabled={currentIdx === totalSegments - 1}
-                  className="flex items-center gap-3 px-10 py-3 rounded-xl bg-[#2b1b17] text-white font-bold hover:bg-[#3e2723] hover:-translate-y-0.5 transition-all shadow-lg active:translate-y-0 disabled:opacity-40 disabled:pointer-events-none">
+                  className="flex items-center gap-1 sm:gap-3 px-3.5 sm:px-10 py-2 sm:py-3 rounded-xl bg-[#0a1628] text-white font-bold text-[11px] sm:text-base hover:bg-[#1e3a6e] hover:-translate-y-0.5 transition-all shadow-lg active:translate-y-0 disabled:opacity-40 disabled:pointer-events-none">
                   Siguiente
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
@@ -468,16 +486,16 @@ export default function ReaderPage() {
             }
             if (currentIdx === totalSegments - 1) {
               return (
-                <button disabled className="flex items-center gap-3 px-10 py-3 rounded-xl bg-[#2b1b17] text-white font-bold opacity-40 pointer-events-none">
+                <button disabled className="flex items-center gap-1 sm:gap-3 px-3.5 sm:px-10 py-2 sm:py-3 rounded-xl bg-[#0a1628] text-white font-bold text-[11px] sm:text-base opacity-40 pointer-events-none">
                   Fin
                 </button>
               );
             }
             if (isWaiting) {
               return (
-                <button disabled className="flex items-center gap-3 px-10 py-3 rounded-xl bg-[#2b1b17] text-white font-bold opacity-40 pointer-events-none">
-                  Leyendo... {waitTime}s
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button disabled className="flex items-center gap-1 sm:gap-3 px-2 sm:px-10 py-2 sm:py-3 rounded-xl bg-[#0a1628] text-white font-bold text-[11px] sm:text-base opacity-40 pointer-events-none">
+                  <span className="hidden xs:inline">Leyendo... </span>{waitTime}s
+                  <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
@@ -485,8 +503,8 @@ export default function ReaderPage() {
             }
             if (evaluacion.estado === 'cargando') {
               return (
-                <button disabled className="flex items-center gap-3 px-10 py-3 rounded-xl bg-[#2b1b17] text-white font-bold opacity-60 pointer-events-none">
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <button disabled className="flex items-center gap-1 sm:gap-3 px-2 sm:px-10 py-2 sm:py-3 rounded-xl bg-[#0a1628] text-white font-bold text-[11px] sm:text-base opacity-60 pointer-events-none">
+                  <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   Evaluando...
                 </button>
               );
@@ -494,8 +512,8 @@ export default function ReaderPage() {
             if (evaluacion.estado === 'pendiente') {
               return (
                 <button onClick={() => evaluacion.abrirPanel()}
-                  className="flex items-center gap-3 px-7 py-3 rounded-xl bg-[#d4af37] text-[#2b1b17] font-bold hover:bg-[#c19b2f] hover:-translate-y-0.5 transition-all shadow-lg">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  className="flex items-center gap-1 sm:gap-3 px-2 sm:px-5 py-2 sm:py-3 rounded-xl bg-[#d4af37] text-[#0a1628] font-bold text-[11px] sm:text-base hover:bg-[#c19b2f] hover:-translate-y-0.5 transition-all shadow-lg">
+                  <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                   Responder ({evaluacion.evaluacion?.preguntas.length ?? 0})
@@ -505,8 +523,8 @@ export default function ReaderPage() {
             if (evaluacion.estado === 'refuerzo') {
               return (
                 <button onClick={() => evaluacion.abrirPanel()}
-                  className="flex items-center gap-3 px-7 py-3 rounded-xl bg-amber-500 text-white font-bold hover:bg-amber-600 hover:-translate-y-0.5 transition-all shadow-lg">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  className="flex items-center gap-1 sm:gap-3 px-2 sm:px-5 py-2 sm:py-3 rounded-xl bg-amber-500 text-white font-bold text-[11px] sm:text-base hover:bg-amber-600 hover:-translate-y-0.5 transition-all shadow-lg">
+                  <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                   </svg>
                   Reintentar
@@ -515,18 +533,18 @@ export default function ReaderPage() {
             }
             return (
               <button onClick={handleNext}
-                className={`flex items-center gap-3 px-10 py-3 rounded-xl font-bold hover:-translate-y-0.5 transition-all shadow-lg ${
+                className={`flex items-center gap-1 sm:gap-3 px-3.5 sm:px-10 py-2 sm:py-3 rounded-xl font-bold text-[11px] sm:text-base hover:-translate-y-0.5 transition-all shadow-lg ${
                   evaluacion.estado === 'aprobado'
                     ? 'bg-emerald-600 text-white hover:bg-emerald-700'
-                    : 'bg-[#2b1b17] text-white hover:bg-[#3e2723]'
+                    : 'bg-[#0a1628] text-white hover:bg-[#1e3a6e]'
                 }`}>
                 {evaluacion.estado === 'aprobado' && (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4" />
                   </svg>
                 )}
                 Siguiente
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                 </svg>
               </button>
@@ -536,13 +554,13 @@ export default function ReaderPage() {
       </main>
 
       {/* Sidebar capítulos */}
-      <div className={`fixed inset-0 z-150 transition-opacity duration-300 ${showSidebar ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+      <div className={`fixed inset-0 z-150 overflow-hidden transition-opacity duration-300 ${showSidebar ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setShowSidebar(false)}>
         <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-        <aside className={`absolute right-0 top-0 bottom-0 w-80 bg-white shadow-2xl transform transition-transform duration-300 ease-out flex flex-col ${showSidebar ? 'translate-x-0' : 'translate-x-full'}`}
+        <aside className={`absolute right-0 top-0 bottom-0 w-80 max-w-[85vw] bg-white shadow-2xl transform transition-transform duration-300 ease-out flex flex-col ${showSidebar ? 'translate-x-0' : 'translate-x-full'}`}
           onClick={e => e.stopPropagation()}>
           <div className="p-6 border-b border-gray-100 flex items-center justify-between">
-            <h3 className="font-playfair font-bold text-xl text-[#2b1b17]">Capítulos</h3>
+            <h3 className="font-playfair font-bold text-xl text-[#0a1628]">Capítulos</h3>
             <button onClick={() => setShowSidebar(false)} className="p-2 hover:bg-gray-100 rounded-full">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -557,8 +575,8 @@ export default function ReaderPage() {
               return (
                 <button key={seg.id} onClick={() => selectSegment(idx)}
                   disabled={isLocked}
-                  className={`w-full text-left p-4 rounded-xl border transition-all flex items-start gap-4 ${isActive ? 'bg-[#fbf8f1] border-[#d4af37] shadow-sm' : isLocked ? 'opacity-40 cursor-not-allowed grayscale' : 'border-transparent hover:bg-gray-50'}`}>
-                  <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black shrink-0 ${isActive ? 'bg-[#2b1b17] text-white' : isLocked ? 'bg-gray-200 text-gray-400' : 'bg-gray-100 text-gray-500'}`}>
+                  className={`w-full text-left p-4 rounded-xl border transition-all flex items-start gap-4 ${isActive ? 'bg-[#f5f8ff] border-[#d4af37] shadow-sm' : isLocked ? 'opacity-40 cursor-not-allowed grayscale' : 'border-transparent hover:bg-gray-50'}`}>
+                  <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black shrink-0 ${isActive ? 'bg-[#0a1628] text-white' : isLocked ? 'bg-gray-200 text-gray-400' : 'bg-gray-100 text-gray-500'}`}>
                     {isLocked ? (
                       <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -566,11 +584,11 @@ export default function ReaderPage() {
                     ) : (idx + 1)}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className={`text-sm font-bold truncate ${isActive ? 'text-[#2b1b17]' : 'text-gray-600'}`}>{seg.titulo}</p>
+                    <p className={`text-sm font-bold truncate ${isActive ? 'text-[#0a1628]' : 'text-gray-600'}`}>{seg.titulo}</p>
                     <p className="text-[10px] text-gray-400 uppercase tracking-tighter">{seg.unidadNombre || 'Sección'}</p>
                   </div>
                   {segAnns.length > 0 && (
-                    <span className="text-[9px] font-black text-[#d4af37] bg-[#fbf8f1] border border-[#e3dac9] rounded-full px-1.5 py-0.5 shrink-0">
+                    <span className="text-[9px] font-black text-[#d4af37] bg-[#f5f8ff] border border-[#c8d8f0] rounded-full px-1.5 py-0.5 shrink-0">
                       {segAnns.length}
                     </span>
                   )}
@@ -582,9 +600,9 @@ export default function ReaderPage() {
       </div>
 
       {isSaving && (
-        <div className="fixed bottom-8 right-8 z-200 bg-white/90 backdrop-blur-sm border border-[#e3dac9] px-4 py-2 rounded-full shadow-lg flex items-center gap-3">
+        <div className="fixed bottom-8 right-8 z-200 bg-white/90 backdrop-blur-sm border border-[#c8d8f0] px-4 py-2 rounded-full shadow-lg flex items-center gap-3">
           <div className="w-4 h-4 border-2 border-[#d4af37] border-t-transparent rounded-full animate-spin" />
-          <span className="text-[10px] font-black text-[#8d6e3f] uppercase tracking-widest">Sincronizando...</span>
+          <span className="text-[10px] font-black text-[#1e3a6e] uppercase tracking-widest">Sincronizando...</span>
         </div>
       )}
     </div>

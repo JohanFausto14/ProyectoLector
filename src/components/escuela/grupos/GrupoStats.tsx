@@ -53,17 +53,17 @@ export default function GrupoStats({ stats }: { stats: any }) {
       {items.map((item) => (
         <div
           key={item.label}
-          className="bg-gradient-to-br from-white to-[#faf8f5] rounded-xl p-6 shadow-md border border-[#e3dac9]/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
+          className="bg-gradient-to-br from-white to-[#faf8f5] rounded-xl p-6 shadow-md border border-[#c8d8f0]/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
         >
           <div className="flex items-center gap-4">
             <div className={`p-3.5 rounded-xl bg-gradient-to-br ${item.gradient} shadow-sm group-hover:scale-110 transition-transform duration-300`}>
               <div className={item.iconColor}>{item.icon}</div>
             </div>
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-[#a1887f] mb-1">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#6b8cba] mb-1">
                 {item.label}
               </p>
-              <h3 className="text-3xl font-playfair font-bold text-[#2b1b17] group-hover:text-[#d4af37] transition-colors duration-300">
+              <h3 className="text-3xl font-playfair font-bold text-[#0a1628] group-hover:text-[#d4af37] transition-colors duration-300">
                 {item.value}
               </h3>
             </div>

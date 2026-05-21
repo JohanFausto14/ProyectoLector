@@ -77,7 +77,7 @@ export default function GrupoForm({
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Información del Grupo */}
       <div>
-        <h3 className="text-lg font-playfair font-bold text-[#2b1b17] mb-4 flex items-center gap-2">
+        <h3 className="text-lg font-playfair font-bold text-[#0a1628] mb-4 flex items-center gap-2">
           <div className="w-1 h-6 bg-gradient-to-b from-[#d4af37] to-[#c19a2e] rounded-full"></div>
           Información del Grupo
         </h3>
@@ -152,7 +152,7 @@ export default function GrupoForm({
 
       {/* Información Académica */}
       <div>
-        <h3 className="text-lg font-playfair font-bold text-[#2b1b17] mb-4 flex items-center gap-2">
+        <h3 className="text-lg font-playfair font-bold text-[#0a1628] mb-4 flex items-center gap-2">
           <div className="w-1 h-6 bg-gradient-to-b from-[#d4af37] to-[#c19a2e] rounded-full"></div>
           Información Académica
         </h3>
@@ -222,7 +222,7 @@ export default function GrupoForm({
       </div>
 
       {/* Actions */}
-      <div className="flex justify-end gap-3 pt-6 border-t border-[#e3dac9]">
+      <div className="flex justify-end gap-3 pt-6 border-t border-[#c8d8f0]">
         <Button type="button" variant="outline" onClick={onCancel} disabled={isLoading}>
           Cancelar
         </Button>
