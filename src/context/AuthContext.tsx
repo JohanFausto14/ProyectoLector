@@ -21,8 +21,10 @@ interface AuthContextType {
   isAuthenticated: boolean;
   /** true tras el primer check de localStorage (evita redirects prematuros) */
   isInitialized: boolean;
-  login: (token: string, user: AuthUser) => void;
+  login: (token: string, refreshToken: string, user: AuthUser, rememberMe?: boolean) => void;
   logout: () => void;
+  /** Actualiza access_token y refresh_token tras un refresh exitoso */
+  updateTokens: (accessToken: string, refreshToken: string) => void;
   /** Etiqueta legible del rol (ej. "maestro" → "Profesor") */
   roleLabel: string;
   /** Nombre completo o fallback */
@@ -56,22 +58,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (storedToken) setToken(storedToken);
       if (storedUser) setUser(JSON.parse(storedUser));
     } catch {
-      // Si algo falla, limpiar por seguridad
       localStorage.removeItem('token');
+      localStorage.removeItem('refresh_token');
       localStorage.removeItem('user');
     } finally {
-      // Marcar como inicializado siempre, con o sin sesión
       setIsInitialized(true);
     }
   }, []);
 
-  /** Llamar al hacer login exitoso */
-  const login = (newToken: string, newUser: AuthUser) => {
+  /**
+   * Llamar al hacer login exitoso.
+   * rememberMe=true  → refresh_token dura 50 días (el back ya lo maneja, nosotros solo guardamos)
+   * rememberMe=false → refresh_token dura 2 días
+   */
+  const login = (newToken: string, newRefreshToken: string, newUser: AuthUser, rememberMe = false) => {
     setToken(newToken);
     setUser(newUser);
+
     localStorage.setItem('token', newToken);
+    localStorage.setItem('refresh_token', newRefreshToken);
     localStorage.setItem('user', JSON.stringify(newUser));
-    Cookies.set('token', newToken, { expires: 7 });
+
+    // Cookie del access_token para el middleware de Next.js (RouteGuard)
+    // Si rememberMe, 50 días; si no, sesión (se borra al cerrar browser)
+    if (rememberMe) {
+      Cookies.set('token', newToken, { expires: 50 });
+    } else {
+      Cookies.set('token', newToken); // sesión
+    }
+  };
+
+  /** Llamar tras un refresh exitoso — actualiza solo los tokens sin tocar al user */
+  const updateTokens = (accessToken: string, refreshToken: string) => {
+    setToken(accessToken);
+    localStorage.setItem('token', accessToken);
+    localStorage.setItem('refresh_token', refreshToken);
+    Cookies.set('token', accessToken);
   };
 
   /** Llamar al cerrar sesión */
@@ -79,8 +101,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setToken(null);
     setUser(null);
     localStorage.removeItem('token');
+    localStorage.removeItem('refresh_token');
     localStorage.removeItem('user');
-    localStorage.clear();
     sessionStorage.clear();
     Cookies.remove('token');
     document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
@@ -102,6 +124,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isInitialized,
         login,
         logout,
+        updateTokens,
         roleLabel,
         displayName,
       }}

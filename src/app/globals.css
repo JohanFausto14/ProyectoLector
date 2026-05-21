@@ -40,6 +40,7 @@
 
 .transform-style-3d { transform-style: preserve-3d; }
 .backface-hidden    { backface-visibility: hidden; }
+.rotate-y-180       { transform: rotateY(180deg); }
 .perspective-2500   { perspective: 2500px; }
 
 /* ============================

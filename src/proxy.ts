@@ -11,7 +11,7 @@ const PROTECTED_ROUTES: Record<string, string[]> = {
 };
 
 // Rutas que NO requieren autenticación
-const PUBLIC_ROUTES = ['/login', '/registro', '/'];
+const PUBLIC_ROUTES = ['/login', '/registro', '/', '/forgot-password', '/reset-password'];
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;

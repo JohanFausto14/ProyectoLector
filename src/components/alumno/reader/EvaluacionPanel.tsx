@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { UseEvaluacionReturn } from '../../../hooks/useEvaluacion';
-import { RespuestaItem } from '../../../types/alumno/evaluacion';
+import { RespuestaItem, LetraRespuesta, PalabraGlosario } from '../../../types/alumno/evaluacion';
 
 interface EvaluacionPanelProps {
     ev: UseEvaluacionReturn;
@@ -10,54 +10,7 @@ interface EvaluacionPanelProps {
     onContinuar?: () => void;
 }
 
-// ── Generador de opciones simuladas ─────────────────────────────────────────
-// Las opciones se generan client-side para mostrar una UI de opción múltiple.
-// El texto de la opción seleccionada se envía al backend como respuesta abierta.
-function generarOpciones(texto: string, _id: string): string[] {
-    const q = texto.toLowerCase();
-
-    if (q.includes('por qué') || q.includes('porqué') || q.includes('por que')) {
-        return [
-            'Porque el autor transmite una enseñanza moral a través de los eventos narrados.',
-            'Debido a que los personajes enfrentan un conflicto que refleja la realidad social del contexto.',
-            'Ya que el texto presenta una secuencia de causa y efecto entre los eventos descritos.',
-            'Porque la situación descrita requiere una resolución que cambia el curso de la historia.',
-        ];
-    }
-    if (q.includes('cómo') || q.includes('como')) {
-        return [
-            'A través de una secuencia de eventos que desarrollan la idea central del texto.',
-            'Mediante el uso de descripciones detalladas que contextualizan el tema principal.',
-            'Por medio de la presentación de personajes que representan diferentes perspectivas.',
-            'Utilizando recursos narrativos que guían al lector hacia la comprensión del tema.',
-        ];
-    }
-    if (q.includes('cuál') || q.includes('cual')) {
-        return [
-            'La idea que mejor resume el propósito comunicativo del fragmento.',
-            'El concepto que el autor desarrolla a lo largo del texto leído.',
-            'El elemento que conecta los diferentes aspectos del tema tratado.',
-            'La característica más relevante dentro del contexto del texto.',
-        ];
-    }
-    if (q.includes('qué') || q.includes('que')) {
-        return [
-            'Es el elemento central que desarrolla la idea principal del fragmento leído.',
-            'Representa un concepto clave utilizado para contextualizar los eventos.',
-            'Es una característica que apoya el tema principal del texto.',
-            'Constituye el punto de partida para comprender la estructura del texto.',
-        ];
-    }
-    // Default
-    return [
-        'La comprensión del texto implica identificar la idea principal del fragmento.',
-        'El autor desarrolla el tema mediante ejemplos y descripciones específicas.',
-        'Los elementos narrativos del texto apoyan la tesis central presentada.',
-        'El fragmento ofrece una perspectiva particular sobre el tema abordado.',
-    ];
-}
-
-const LETRA = ['A', 'B', 'C', 'D'];
+const LETRAS: LetraRespuesta[] = ['A', 'B', 'C', 'D'];
 
 // ── Gauge de score ───────────────────────────────────────────────────────────
 function ScoreGauge({ score }: { score: number }) {
@@ -91,37 +44,55 @@ function ScoreGauge({ score }: { score: number }) {
 export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: EvaluacionPanelProps) {
     const { estado, evaluacion, resultado, isOpen, cerrarPanel, enviarRespuestas, solicitarReintento } = ev;
 
+    // Selección: preguntaId (number) → letra seleccionada
+    const [seleccion, setSeleccion] = useState<Record<number, LetraRespuesta>>({});
+
+    // Timestamps de inicio por pregunta (para calcular tiempoMs)
+    const preguntaStartRef = useRef<Record<number, number>>({});
+
+    const handleSelect = useCallback((preguntaId: number, letra: LetraRespuesta) => {
+        setSeleccion(prev => ({ ...prev, [preguntaId]: letra }));
+    }, []);
+
+    // Registrar cuándo el alumno empieza a ver cada pregunta
+    const handlePreguntaVisible = useCallback((preguntaId: number) => {
+        if (!preguntaStartRef.current[preguntaId]) {
+            preguntaStartRef.current[preguntaId] = Date.now();
+        }
+    }, []);
+
+    const handleSubmit = useCallback(async () => {
+        if (!evaluacion) return;
+
+        const respuestas: RespuestaItem[] = evaluacion.preguntas.map(p => {
+            const tiempoMs = preguntaStartRef.current[p.preguntaId]
+                ? Date.now() - preguntaStartRef.current[p.preguntaId]
+                : undefined;
+
+            return {
+                preguntaId: p.preguntaId,
+                respuesta: seleccion[p.preguntaId],
+                tiempoMs,
+            };
+        });
+
+        if (respuestas.some(r => !r.respuesta)) return;
+
+        setSeleccion({});
+        preguntaStartRef.current = {};
+        await enviarRespuestas(respuestas);
+    }, [evaluacion, seleccion, enviarRespuestas]);
+
     const handleContinuar = useCallback(() => {
         cerrarPanel();
         onContinuar?.();
     }, [cerrarPanel, onContinuar]);
 
-    // Selección actual: preguntaId → índice de opción seleccionada (0-3)
-    const [seleccion, setSeleccion] = useState<Record<string, number>>({});
-
-    // Opciones generadas (memoizadas para que no cambien al re-render)
-    const opcionesPorPregunta = useMemo(() => {
-        if (!evaluacion) return {};
-        return Object.fromEntries(
-            evaluacion.preguntas.map(p => [p.preguntaId, generarOpciones(p.texto, p.preguntaId)])
-        );
-    }, [evaluacion]);
-
-    const handleSelect = useCallback((preguntaId: string, idx: number) => {
-        setSeleccion(prev => ({ ...prev, [preguntaId]: idx }));
-    }, []);
-
-    const handleSubmit = useCallback(async () => {
-        if (!evaluacion) return;
-        const respuestas: RespuestaItem[] = evaluacion.preguntas.map(p => ({
-            preguntaId: p.preguntaId,
-            // Enviamos el texto de la opción seleccionada como respuesta abierta
-            respuesta: opcionesPorPregunta[p.preguntaId]?.[seleccion[p.preguntaId]] ?? '',
-        }));
-        if (respuestas.some(r => !r.respuesta)) return;
+    const handleReintento = useCallback(async () => {
         setSeleccion({});
-        await enviarRespuestas(respuestas);
-    }, [evaluacion, seleccion, opcionesPorPregunta, enviarRespuestas]);
+        preguntaStartRef.current = {};
+        await solicitarReintento();
+    }, [solicitarReintento]);
 
     const allAnswered = evaluacion?.preguntas.every(
         p => seleccion[p.preguntaId] !== undefined
@@ -156,11 +127,10 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                         </div>
 
                         {evaluacion && (
-                            <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border ${
-                                evaluacion.nivel === 'avanzado' ? 'bg-purple-50 text-purple-700 border-purple-200' :
-                                evaluacion.nivel === 'intermedio' ? 'bg-blue-50 text-blue-700 border-blue-200' :
-                                'bg-emerald-50 text-emerald-700 border-emerald-200'
-                            }`}>
+                            <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border ${evaluacion.nivel === 'avanzado' ? 'bg-purple-50 text-purple-700 border-purple-200' :
+                                    evaluacion.nivel === 'intermedio' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                                        'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                }`}>
                                 {evaluacion.nivel}
                             </span>
                         )}
@@ -177,7 +147,7 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                             </div>
                         )}
 
-                        {/* ── Preguntas de opción múltiple ── */}
+                        {/* Preguntas — opciones reales del back */}
                         {estado === 'pendiente' && evaluacion && (
                             <div className="space-y-6">
                                 {/* Info bar */}
@@ -186,17 +156,26 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                                         </svg>
-                                        <span>Selecciona la mejor respuesta para cada pregunta</span>
+                                        <span>Selecciona la mejor respuesta — umbral {evaluacion.umbralAprobacion}%</span>
                                     </div>
                                     <span className="font-bold">
                                         {evaluacion.intentosRestantes} intento{evaluacion.intentosRestantes !== 1 ? 's' : ''} restante{evaluacion.intentosRestantes !== 1 ? 's' : ''}
                                     </span>
                                 </div>
 
-                                {/* Preguntas */}
+                                {/* Preguntas con opciones reales */}
                                 {evaluacion.preguntas.map((p, idx) => {
-                                    const opciones = opcionesPorPregunta[p.preguntaId] ?? [];
-                                    const selected = seleccion[p.preguntaId];
+                                    // Registrar cuando el alumno ve la pregunta
+                                    handlePreguntaVisible(p.preguntaId);
+
+                                    const opciones: { letra: LetraRespuesta; texto: string }[] = [
+                                        { letra: 'A', texto: p.opcionA },
+                                        { letra: 'B', texto: p.opcionB },
+                                        { letra: 'C', texto: p.opcionC },
+                                        { letra: 'D', texto: p.opcionD },
+                                    ];
+                                    const letraSeleccionada = seleccion[p.preguntaId];
+
                                     return (
                                         <div key={p.preguntaId} className="bg-white rounded-2xl p-5 border border-[#e3dac9] shadow-sm">
                                             {/* Enunciado */}
@@ -207,26 +186,23 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                                                 <p className="font-medium text-[#2b1b17] text-sm leading-relaxed">{p.texto}</p>
                                             </div>
 
-                                            {/* Opciones */}
+                                            {/* Opciones A/B/C/D reales */}
                                             <div className="space-y-2.5">
-                                                {opciones.map((opcion, i) => {
-                                                    const isSelected = selected === i;
+                                                {opciones.map(({ letra, texto }) => {
+                                                    const isSelected = letraSeleccionada === letra;
                                                     return (
                                                         <button
-                                                            key={i}
-                                                            onClick={() => handleSelect(p.preguntaId, i)}
+                                                            key={letra}
+                                                            onClick={() => handleSelect(p.preguntaId, letra)}
                                                             className="w-full flex items-start gap-3 p-3.5 rounded-xl border-2 text-left transition-all duration-200"
                                                             style={{
                                                                 borderColor: isSelected ? '#d4af37' : '#e3dac9',
                                                                 background: isSelected
                                                                     ? 'linear-gradient(135deg,#d4af3712,#d4af3706)'
                                                                     : '#fafaf9',
-                                                                boxShadow: isSelected
-                                                                    ? '0 0 0 3px rgba(212,175,55,0.15)'
-                                                                    : 'none',
+                                                                boxShadow: isSelected ? '0 0 0 3px rgba(212,175,55,0.15)' : 'none',
                                                             }}
                                                         >
-                                                            {/* Badge de letra */}
                                                             <span
                                                                 className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black transition-all duration-200"
                                                                 style={{
@@ -234,15 +210,14 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                                                                     color: isSelected ? '#2b1b17' : '#8d6e3f',
                                                                 }}
                                                             >
-                                                                {LETRA[i]}
+                                                                {letra}
                                                             </span>
                                                             <span
                                                                 className="text-sm leading-snug pt-0.5 transition-colors duration-200"
                                                                 style={{ color: isSelected ? '#2b1b17' : '#5d4037', fontWeight: isSelected ? 600 : 400 }}
                                                             >
-                                                                {opcion}
+                                                                {texto}
                                                             </span>
-                                                            {/* Check icon si seleccionada */}
                                                             {isSelected && (
                                                                 <svg className="w-4 h-4 text-[#d4af37] shrink-0 ml-auto mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
@@ -293,28 +268,47 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                                         </svg>
                                         <span className="text-amber-700 font-black text-xs uppercase tracking-widest">Necesitas refuerzo</span>
                                     </div>
-                                    <p className="text-[#5d4037] font-lora text-sm">Necesitas al menos 70 puntos. Revisa las pistas y vuelve a intentarlo.</p>
+                                    <p className="text-[#5d4037] font-lora text-sm">
+                                        Necesitas al menos {resultado.score >= 0 ? '70' : '?'} puntos.
+                                        {evaluacion && evaluacion.intentosRestantes > 0
+                                            ? ` Te quedan ${evaluacion.intentosRestantes} intento${evaluacion.intentosRestantes !== 1 ? 's' : ''}.`
+                                            : ''}
+                                    </p>
                                 </div>
 
+                                {/* Apoyos pedagógicos */}
                                 {resultado.apoyos?.map((apoyo, idx) => (
                                     <div key={idx} className="bg-white rounded-2xl p-4 border border-[#e3dac9]">
                                         {apoyo.tipo === 'pista' && (
                                             <>
                                                 <p className="text-[10px] font-black text-[#d4af37] uppercase tracking-widest mb-2 flex items-center gap-1">
-                                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                                    </svg>
                                                     Pista
                                                 </p>
                                                 <p className="text-sm text-[#5d4037] font-lora leading-relaxed">{apoyo.contenido}</p>
                                             </>
                                         )}
+
                                         {apoyo.tipo === 'glosario' && apoyo.palabras && (
                                             <>
-                                                <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-2">Palabras clave</p>
-                                                <div className="flex flex-wrap gap-2">
-                                                    {apoyo.palabras.map((p, i) => (
-                                                        <span key={i} className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold border border-blue-200">{p}</span>
+                                                <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-3">📖 Palabras clave</p>
+                                                <div className="space-y-2">
+                                                    {(apoyo.palabras as PalabraGlosario[]).map((item, i) => (
+                                                        <div key={i} className="flex gap-2">
+                                                            <span className="font-bold text-blue-700 text-sm shrink-0">{item.palabra}:</span>
+                                                            <span className="text-sm text-[#5d4037] font-lora">{item.definicion}</span>
+                                                        </div>
                                                     ))}
                                                 </div>
+                                            </>
+                                        )}
+
+                                        {apoyo.tipo === 'resumen' && (
+                                            <>
+                                                <p className="text-[10px] font-black text-purple-600 uppercase tracking-widest mb-2">📄 Resumen del fragmento</p>
+                                                <p className="text-sm text-[#5d4037] font-lora leading-relaxed">{apoyo.contenido}</p>
                                             </>
                                         )}
                                     </div>
@@ -324,17 +318,48 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
 
                         {/* Intentos agotados */}
                         {estado === 'intentos_agotados' && (
-                            <div className="flex flex-col items-center text-center py-8 gap-4">
-                                {resultado && <ScoreGauge score={resultado.score} />}
-                                <div>
-                                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 border border-gray-200 rounded-full mb-3">
+                            <div className="space-y-5">
+                                <div className="flex flex-col items-center text-center gap-4 py-4">
+                                    {resultado && <ScoreGauge score={resultado.score} />}
+                                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 border border-gray-200 rounded-full">
                                         <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                         </svg>
                                         <span className="text-gray-600 font-black text-xs uppercase tracking-widest">Intentos agotados</span>
                                     </div>
-                                    <p className="text-[#5d4037] font-lora text-sm">Usaste todos tus intentos en este fragmento. Puedes seguir leyendo y volver a practicar después.</p>
+                                    <p className="text-[#5d4037] font-lora text-sm">Usaste todos tus intentos. Puedes continuar leyendo.</p>
                                 </div>
+
+                                {/* Todos los apoyos acumulados (pista + glosario + resumen) */}
+                                {resultado?.apoyos?.map((apoyo, idx) => (
+                                    <div key={idx} className="bg-white rounded-2xl p-4 border border-[#e3dac9]">
+                                        {apoyo.tipo === 'pista' && (
+                                            <>
+                                                <p className="text-[10px] font-black text-[#d4af37] uppercase tracking-widest mb-2">💡 Pista</p>
+                                                <p className="text-sm text-[#5d4037] font-lora leading-relaxed">{apoyo.contenido}</p>
+                                            </>
+                                        )}
+                                        {apoyo.tipo === 'glosario' && apoyo.palabras && (
+                                            <>
+                                                <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-3">📖 Palabras clave</p>
+                                                <div className="space-y-2">
+                                                    {(apoyo.palabras as PalabraGlosario[]).map((item, i) => (
+                                                        <div key={i} className="flex gap-2">
+                                                            <span className="font-bold text-blue-700 text-sm shrink-0">{item.palabra}:</span>
+                                                            <span className="text-sm text-[#5d4037] font-lora">{item.definicion}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </>
+                                        )}
+                                        {apoyo.tipo === 'resumen' && (
+                                            <>
+                                                <p className="text-[10px] font-black text-purple-600 uppercase tracking-widest mb-2">📄 Resumen</p>
+                                                <p className="text-sm text-[#5d4037] font-lora leading-relaxed">{apoyo.contenido}</p>
+                                            </>
+                                        )}
+                                    </div>
+                                ))}
                             </div>
                         )}
                     </div>
@@ -355,15 +380,23 @@ export default function EvaluacionPanel({ ev, tituloSegmento, onContinuar }: Eva
                         )}
 
                         {estado === 'refuerzo' && (
-                            <button
-                                onClick={() => solicitarReintento()}
-                                className="flex-1 py-3 rounded-xl bg-[#d4af37] text-[#2b1b17] font-bold hover:bg-[#c19b2f] transition-all shadow-lg flex items-center justify-center gap-2"
-                            >
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                                </svg>
-                                Reintentar
-                            </button>
+                            <>
+                                <button
+                                    onClick={cerrarPanel}
+                                    className="px-4 py-3 rounded-xl border border-[#e3dac9] text-[#8d6e3f] font-bold hover:bg-white transition-all text-sm"
+                                >
+                                    Releer
+                                </button>
+                                <button
+                                    onClick={handleReintento}
+                                    className="flex-1 py-3 rounded-xl bg-[#d4af37] text-[#2b1b17] font-bold hover:bg-[#c19b2f] transition-all shadow-lg flex items-center justify-center gap-2"
+                                >
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                    </svg>
+                                    Reintentar
+                                </button>
+                            </>
                         )}
 
                         {(estado === 'aprobado' || estado === 'intentos_agotados') && (
