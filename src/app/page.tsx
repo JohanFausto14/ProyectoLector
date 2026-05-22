@@ -39,16 +39,9 @@ export default function LandingPage() {
         <div className="flex gap-2 md:gap-4 mt-4 sm:mt-0 w-full sm:w-auto justify-end sm:justify-start">
           <Link
             href="/login"
-            className="px-4 md:px-6 py-2 text-white/80 hover:text-white transition-colors font-bold relative group text-sm md:text-base"
+            className="px-6 py-2 bg-gradient-to-r from-[#d4af37] to-[#c19b2f] text-[#0a0a0a] rounded-lg font-bold shadow-lg hover:shadow-[#d4af37]/50 transition-all transform hover:scale-105 relative overflow-hidden group text-sm md:text-base"
           >
             <span className="relative z-10">Iniciar Sesión</span>
-            <div className="absolute inset-0 bg-white/5 rounded-lg scale-0 group-hover:scale-100 transition-transform"></div>
-          </Link>
-          <Link
-            href="/registro"
-            className="px-4 md:px-6 py-2 bg-gradient-to-r from-[#d4af37] to-[#c19b2f] text-[#0a0a0a] rounded-lg font-bold shadow-lg hover:shadow-[#d4af37]/50 transition-all transform hover:scale-105 relative overflow-hidden group text-sm md:text-base"
-          >
-            <span className="relative z-10">Registrarse</span>
             <div className="absolute inset-0 bg-gradient-to-r from-[#f5f8ff] to-[#d4af37] opacity-0 group-hover:opacity-100 transition-opacity"></div>
           </Link>
         </div>
@@ -85,7 +78,7 @@ export default function LandingPage() {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center w-full max-w-xs sm:max-w-none mx-auto">
             <Link
               href="/login"
-              className="group relative px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-[#d4af37] to-[#c19b2f] rounded-full font-bold text-base md:text-lg text-[#0a0a0a] overflow-hidden transform hover:scale-105 transition-all shadow-lg hover:shadow-[#d4af37]/50 w-full sm:w-auto flex justify-center"
+              className="group relative px-8 md:px-12 py-3 md:py-4 bg-gradient-to-r from-[#d4af37] to-[#c19b2f] rounded-full font-bold text-base md:text-lg text-[#0a0a0a] overflow-hidden transform hover:scale-105 transition-all shadow-lg hover:shadow-[#d4af37]/50 w-full sm:w-auto flex justify-center"
             >
               <span className="relative z-10 flex items-center gap-2">
                 Comenzar Ahora
@@ -99,13 +92,6 @@ export default function LandingPage() {
                 </svg>
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-[#f5f8ff] to-[#d4af37] opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            </Link>
-            <Link
-              href="/registro"
-              className="group relative px-6 md:px-8 py-3 md:py-4 bg-white/5 backdrop-blur-md border-2 border-[#d4af37] rounded-full font-bold text-base md:text-lg text-white overflow-hidden transform hover:scale-105 transition-all w-full sm:w-auto flex justify-center"
-            >
-              <span className="relative z-10">Crear Cuenta</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-[#d4af37]/20 to-[#c19b2f]/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </Link>
           </div>
 
@@ -244,10 +230,10 @@ export default function LandingPage() {
               Únete a miles de instituciones que ya están revolucionando el aprendizaje con nuestra plataforma
             </p>
             <Link
-              href="/registro"
+              href="/login"
               className="inline-flex items-center justify-center gap-2 px-6 md:px-10 py-3 md:py-4 bg-gradient-to-r from-[#d4af37] to-[#c19b2f] rounded-full font-bold text-base md:text-lg text-[#0a0a0a] transform hover:scale-105 transition-all shadow-lg hover:shadow-[#d4af37]/50 w-full sm:w-auto"
             >
-              Empezar Gratis
+              Comenzar Ahora
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>

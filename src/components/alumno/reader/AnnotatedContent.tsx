@@ -10,6 +10,7 @@ interface AnnotatedContentProps {
   onRemove:    (id: string) => void;
   onMouseUp:   () => void;
   onAddComentario?: (ann: Anotacion, comentario: string) => void;
+  theme?:      'normal' | 'sepia' | 'oscuro_calido' | 'oscuro_neutro';
 }
 
 interface Span {
@@ -334,6 +335,7 @@ export default function AnnotatedContent({
   onRemove,
   onMouseUp,
   onAddComentario,
+  theme = 'normal',
 }: AnnotatedContentProps) {
   // Para highlights: hover state (mostrar tooltip solo informativo si no está activo el popover)
   const [hoveredHighlightId, setHoveredHighlightId] = useState<string | null>(null);
@@ -400,7 +402,7 @@ export default function AnnotatedContent({
       <div
         onMouseUp={onMouseUp}
         onTouchEnd={onMouseUp}
-        className="text-[#0a1628] leading-[2] text-justify font-lora text-lg md:text-xl"
+        className="text-inherit leading-[2] text-justify font-lora text-lg md:text-xl"
         style={{ hyphens: 'auto' }}
       >
         {paraData.map(({ text, start }, paraIdx) => {
@@ -849,24 +851,86 @@ export default function AnnotatedContent({
 
         {/* ── Notas al pie ──────────────────────────────────────────────── */}
         {comentarios.length > 0 && (
-          <div className="mt-12 pt-8" style={{ borderTop: '1px solid rgba(226,232,240,1)' }}>
+          <div className="mt-12 pt-8" style={{
+            borderTop: (theme === 'oscuro_calido' || theme === 'oscuro_neutro')
+              ? '1px solid rgba(51, 65, 85, 0.6)' 
+              : theme === 'sepia'
+                ? '1px solid rgba(235, 220, 185, 1)'
+                : '1px solid rgba(226,232,240,1)'
+          }}>
             <div className="flex items-center gap-3 mb-5">
               <div className="w-6 h-6 rounded-lg flex items-center justify-center shrink-0"
-                style={{ background: 'linear-gradient(135deg, #0a1628, #1e3a8a)' }}>
+                style={{
+                  background: (theme === 'oscuro_calido' || theme === 'oscuro_neutro')
+                    ? 'linear-gradient(135deg, #1e293b, #334155)'
+                    : theme === 'sepia'
+                      ? 'linear-gradient(135deg, #5d401b, #87725a)'
+                      : 'linear-gradient(135deg, #0a1628, #1e3a8a)'
+                }}>
                 <svg className="w-3 h-3 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
                 </svg>
               </div>
-              <p className="text-[10px] font-black text-[#0a1628] uppercase tracking-[0.2em]">
+              <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${
+                (theme === 'oscuro_calido' || theme === 'oscuro_neutro')
+                  ? 'text-[#cbd5e1]' 
+                  : theme === 'sepia'
+                    ? 'text-[#4a3525]'
+                    : 'text-[#0a1628]'
+              }`}>
                 Mis notas · {comentarios.length}
               </p>
-              <div className="flex-1 h-px" style={{ background: 'rgba(226,232,240,1)' }}/>
+              <div className="flex-1 h-px" style={{
+                background: (theme === 'oscuro_calido' || theme === 'oscuro_neutro')
+                  ? 'rgba(51, 65, 85, 0.6)'
+                  : theme === 'sepia'
+                    ? 'rgba(235, 220, 185, 1)'
+                    : 'rgba(226,232,240,1)'
+              }}/>
             </div>
 
             <div className="space-y-3">
               {comentarios.map((ann, idx) => {
                 // La nota al pie también se resalta si el chip marginal está abierto o en hover
                 const isActive = openCommentId === ann.id || hoveredCommentId === ann.id;
+                
+                let cardBg = 'rgba(248, 250, 252, 0.9)';
+                let cardBorder = '1px solid rgba(226,232,240,1)';
+                let borderLeftColor = isActive ? '#0a1628' : 'rgba(226,232,240,1)';
+                let indexBg = isActive ? 'linear-gradient(135deg, #0a1628, #1e3a8a)' : '#6b8cba';
+                let indexTextColor = 'text-white';
+                let contentColor = 'text-[#0a1628]';
+                
+                if (theme === 'oscuro_calido') {
+                  cardBg = isActive ? 'rgba(36, 30, 25, 0.9)' : 'rgba(36, 30, 25, 0.5)';
+                  cardBorder = isActive ? '1px solid rgba(196, 160, 98, 0.4)' : '1px solid rgba(54, 46, 38, 0.6)';
+                  borderLeftColor = isActive ? '#c4a062' : 'rgba(54, 46, 38, 0.6)';
+                  indexBg = isActive ? 'linear-gradient(135deg, #c4a062, #8c6d3b)' : '#3d3025';
+                  indexTextColor = isActive ? 'text-[#1B1612]' : 'text-[#a89578]';
+                  contentColor = 'text-[#E8D5B0]';
+                } else if (theme === 'oscuro_neutro') {
+                  cardBg = isActive ? 'rgba(30, 30, 30, 0.9)' : 'rgba(30, 30, 30, 0.5)';
+                  cardBorder = isActive ? '1px solid rgba(136, 136, 136, 0.4)' : '1px solid rgba(44, 44, 44, 0.6)';
+                  borderLeftColor = isActive ? '#888888' : 'rgba(44, 44, 44, 0.6)';
+                  indexBg = isActive ? 'linear-gradient(135deg, #888888, #555555)' : '#2c2c2c';
+                  indexTextColor = isActive ? 'text-white' : 'text-[#a0a0a0]';
+                  contentColor = 'text-[#D4D4D4]';
+                } else if (theme === 'sepia') {
+                  cardBg = isActive ? 'rgba(92, 64, 21, 0.1)' : 'rgba(250, 246, 235, 0.9)';
+                  cardBorder = isActive ? '1px solid rgba(92, 64, 21, 0.35)' : '1px solid rgba(228, 220, 191, 1)';
+                  borderLeftColor = isActive ? '#5c4015' : 'rgba(228, 220, 191, 1)';
+                  indexBg = isActive ? 'linear-gradient(135deg, #5c4015, #80705a)' : '#e4dcbf';
+                  indexTextColor = isActive ? 'text-white' : 'text-[#3D2E1A]';
+                  contentColor = 'text-[#3D2E1A]';
+                } else {
+                  cardBg = isActive ? 'rgba(30,58,138,0.05)' : 'rgba(248, 250, 252, 0.9)';
+                  cardBorder = isActive ? '1px solid rgba(10,22,40,0.25)' : '1px solid rgba(226,232,240,1)';
+                  borderLeftColor = isActive ? '#0a1628' : 'rgba(226,232,240,1)';
+                  indexBg = isActive ? 'linear-gradient(135deg, #0a1628, #1e3a8a)' : '#6b8cba';
+                  indexTextColor = 'text-white';
+                  contentColor = 'text-[#0a1628]';
+                }
+
                 return (
                   <div
                     key={ann.id}
@@ -874,27 +938,35 @@ export default function AnnotatedContent({
                     onMouseLeave={() => { if (!openCommentId) setHoveredCommentId(null); }}
                     className="group relative flex items-start gap-4 rounded-xl p-4 cursor-default transition-all duration-200"
                     style={{
-                      background:  isActive ? 'rgba(30,58,138,0.05)' : 'rgba(248, 250, 252, 0.9)',
-                      border:      isActive ? '1px solid rgba(10,22,40,0.25)' : '1px solid rgba(226,232,240,1)',
-                      borderLeft:  `3px solid ${isActive ? '#0a1628' : 'rgba(226,232,240,1)'}`,
+                      background:  cardBg,
+                      border:      cardBorder,
+                      borderLeft:  `3px solid ${borderLeftColor}`,
                       transform:   isActive ? 'translateX(2px)' : 'translateX(0)',
                     }}
                   >
                     <span
-                      className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black text-white shrink-0 transition-all duration-200"
+                      className={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black shrink-0 transition-all duration-200 ${indexTextColor}`}
                       style={{
-                        background: isActive ? 'linear-gradient(135deg, #0a1628, #1e3a8a)' : '#6b8cba',
-                        boxShadow:  isActive ? '0 2px 8px rgba(10,22,40,0.2)' : 'none',
+                        background: indexBg,
+                        boxShadow:  isActive ? '0 2px 8px rgba(0,0,0,0.2)' : 'none',
                       }}
                     >
                       {idx + 1}
                     </span>
 
                     <div className="flex-1 min-w-0">
-                      <p className="text-[9px] text-[#6b8cba] italic mb-1.5 line-clamp-1">
+                      <p className={`text-[9px] italic mb-1.5 line-clamp-1 ${
+                        theme === 'oscuro_calido'
+                          ? 'text-[#a89578]'
+                          : theme === 'oscuro_neutro'
+                            ? 'text-slate-400'
+                            : theme === 'sepia'
+                              ? 'text-amber-800/60'
+                              : 'text-[#6b8cba]'
+                      }`}>
                         &ldquo;{ann.textoSeleccionado.slice(0, 70)}{ann.textoSeleccionado.length > 70 ? '…' : ''}&rdquo;
                       </p>
-                      <p className="text-sm font-lora text-[#0a1628] leading-relaxed">
+                      <p className={`text-sm font-lora leading-relaxed ${contentColor}`}>
                         {ann.comentario}
                       </p>
                     </div>

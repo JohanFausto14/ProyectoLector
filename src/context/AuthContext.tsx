@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Cookies from 'js-cookie';
 
 // ── Tipos ────────────────────────────────────────────────────
@@ -46,9 +46,23 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 // ── Provider ──────────────────────────────────────────────────
 export function AuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
+  const pathname = usePathname();
   const [user, setUser] = useState<AuthUser | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
+
+  // Control de zoom del body según la ruta
+  useEffect(() => {
+    if (typeof document !== 'undefined' && document.body) {
+      if (pathname === '/') {
+        document.body.classList.remove('zoom-90');
+        document.body.classList.add('zoom-80');
+      } else {
+        document.body.classList.remove('zoom-80');
+        document.body.classList.add('zoom-90');
+      }
+    }
+  }, [pathname]);
 
   // Cargar desde localStorage al montar
   useEffect(() => {

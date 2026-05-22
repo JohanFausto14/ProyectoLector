@@ -190,9 +190,9 @@ export const LoginBook: React.FC = () => {
       className="min-h-screen bg-white flex items-center justify-center overflow-hidden perspective-[2500px] relative font-sans"
       id="scene"
     >
-      <div className="scale-75 sm:scale-90 md:scale-100 lg:scale-105 relative items-center justify-center flex w-full h-full transition-transform duration-500">
+      <div className="scale-75 sm:scale-90 md:scale-100 lg:scale-105 relative flex items-center justify-center transition-transform duration-500">
         {/* Floor Shadow */}
-        <div className="absolute w-[600px] h-[60px] bg-black/5 blur-2xl rounded-[100%] top-[75%] pointer-events-none md:top-[75%] mt-10 md:mt-0"></div>
+        <div className="absolute w-[600px] h-[60px] bg-black/5 blur-2xl rounded-[100%] bottom-[-50px] left-1/2 -translate-x-1/2 pointer-events-none"></div>
 
         {/* THE BOOK ENTITY */}
         <div

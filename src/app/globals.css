@@ -98,3 +98,23 @@ body {
   from { opacity: 0; transform: translateX(8px) scale(0.96); }
   to   { opacity: 1; transform: translateX(0)   scale(1);    }
 }
+
+/* Zoom levels requested by user */
+:root {
+  --zoom-level: 1;
+}
+
+body.zoom-80 {
+  --zoom-level: 0.8;
+  zoom: 0.8;
+}
+
+body.zoom-90 {
+  --zoom-level: 0.9;
+  zoom: 0.9;
+}
+
+/* Adjust min-h-screen dynamically to compensate for body zoom */
+.min-h-screen {
+  min-height: calc(100vh / var(--zoom-level, 1)) !important;
+}
