@@ -55,11 +55,20 @@ export default function AnnotationToolbar({
   const [visible, setVisible] = useState(false);
   const [hoveredColor, setHoveredColor] = useState<HighlightColor | null>(null);
   const [showBelow, setShowBelow] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const [showGlosario, setShowGlosario] = useState(false);
   const [isLoadingGlosario, setIsLoadingGlosario] = useState(false);
   const [remoteDefinicion, setRemoteDefinicion] = useState<{ palabra: string, definicion: string | null } | null>(null);
   const [glosarioError, setGlosarioError] = useState<string | null>(null);
+
+  // Detectar vista móvil de forma responsiva
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Calcular posición sobre la selección (position:fixed)
   useEffect(() => {
@@ -108,7 +117,15 @@ export default function AnnotationToolbar({
       {/* ── Toolbar flotante ────────────────────────────────────── */}
       <div
         ref={toolbarRef}
-        style={{
+        style={isMobile ? {
+          bottom: '84px',
+          left: '50%',
+          transform: visible ? 'translateX(-50%) scale(1)' : 'translateX(-50%) scale(0.92)',
+          width: 'calc(100% - 24px)',
+          maxWidth: '340px',
+          opacity: visible ? 1 : 0,
+          transition: 'opacity 0.18s ease, transform 0.22s cubic-bezier(0.34,1.56,0.64,1)',
+        } : {
           top: pos.top,
           left: pos.left,
           width: '280px',
@@ -121,7 +138,7 @@ export default function AnnotationToolbar({
         className="fixed z-[500]"
       >
         {/* Flecha apuntando hacia arriba (cuando el toolbar está abajo de la selección) */}
-        {showBelow && (
+        {showBelow && !isMobile && (
           <div className="flex justify-center mb-[-1px]">
             <div
               className="w-3 h-3 rotate-45 rounded-sm"
@@ -349,7 +366,7 @@ export default function AnnotationToolbar({
         </div>
 
         {/* Flecha apuntando hacia abajo (cuando el toolbar está arriba de la selección) */}
-        {!showBelow && (
+        {!showBelow && !isMobile && (
           <div className="flex justify-center mt-[-1px]">
             <div
               className="w-3 h-3 rotate-45 rounded-sm"

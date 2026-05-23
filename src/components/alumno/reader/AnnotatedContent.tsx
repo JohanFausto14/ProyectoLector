@@ -11,6 +11,7 @@ interface AnnotatedContentProps {
   onMouseUp:   () => void;
   onAddComentario?: (ann: Anotacion, comentario: string) => void;
   theme?:      'normal' | 'sepia' | 'oscuro_calido' | 'oscuro_neutro';
+  activeTool?: string | null;
 }
 
 interface Span {
@@ -336,11 +337,108 @@ export default function AnnotatedContent({
   onMouseUp,
   onAddComentario,
   theme = 'normal',
+  activeTool = null,
 }: AnnotatedContentProps) {
   // Para highlights: hover state (mostrar tooltip solo informativo si no está activo el popover)
   const [hoveredHighlightId, setHoveredHighlightId] = useState<string | null>(null);
   // Popover activo para el highlight (al hacer clic)
   const [activeHighlightId,  setActiveHighlightId]  = useState<string | null>(null);
+
+  // Referencias para el trazado de selección táctil en móvil
+  const startRangeRef = useRef<{ node: Node; offset: number } | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!activeTool || activeTool === 'comentario') return;
+    
+    // Limpiar rangos para evitar disparadores de selección nativa del móvil
+    window.getSelection()?.removeAllRanges();
+
+    const touch = e.touches[0];
+    if (!touch) return;
+
+    let range: Range | null = null;
+    if (document.caretRangeFromPoint) {
+      range = document.caretRangeFromPoint(touch.clientX, touch.clientY);
+    } else if ((document as any).caretPositionFromPoint) {
+      const pos = (document as any).caretPositionFromPoint(touch.clientX, touch.clientY);
+      if (pos) {
+        range = document.createRange();
+        range.setStart(pos.offsetNode, pos.offset);
+        range.setEnd(pos.offsetNode, pos.offset);
+      }
+    }
+
+    if (range) {
+      startRangeRef.current = {
+        node: range.startContainer,
+        offset: range.startOffset,
+      };
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!activeTool || activeTool === 'comentario' || !startRangeRef.current) return;
+    
+    // Previene el scroll de la página para permitir un trazado/dibujo fluido
+    if (e.cancelable) {
+      e.preventDefault();
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!activeTool || activeTool === 'comentario' || !startRangeRef.current) return;
+
+    const touch = e.changedTouches[0];
+    if (!touch) {
+      startRangeRef.current = null;
+      return;
+    }
+
+    let range: Range | null = null;
+    if (document.caretRangeFromPoint) {
+      range = document.caretRangeFromPoint(touch.clientX, touch.clientY);
+    } else if ((document as any).caretPositionFromPoint) {
+      const pos = (document as any).caretPositionFromPoint(touch.clientX, touch.clientY);
+      if (pos) {
+        range = document.createRange();
+        range.setStart(pos.offsetNode, pos.offset);
+        range.setEnd(pos.offsetNode, pos.offset);
+      }
+    }
+
+    if (range && startRangeRef.current) {
+      const startNode = startRangeRef.current.node;
+      const startOffset = startRangeRef.current.offset;
+      const endNode = range.startContainer;
+      const endOffset = range.startOffset;
+
+      const finalRange = document.createRange();
+      const comparison = startNode.compareDocumentPosition(endNode);
+
+      if (comparison === Node.DOCUMENT_POSITION_FOLLOWING || (startNode === endNode && startOffset <= endOffset)) {
+        finalRange.setStart(startNode, startOffset);
+        finalRange.setEnd(endNode, endOffset);
+      } else {
+        finalRange.setStart(endNode, endOffset);
+        finalRange.setEnd(startNode, startOffset);
+      }
+
+      const sel = window.getSelection();
+      if (sel) {
+        sel.removeAllRanges();
+        sel.addRange(finalRange);
+        
+        // Ejecuta el callback que maneja la selección y aplica el subrayado
+        onMouseUp();
+        
+        // Limpiamos la selección de inmediato para evitar que aparezca el popup del navegador
+        setTimeout(() => {
+          sel.removeAllRanges();
+        }, 10);
+      }
+    }
+    startRangeRef.current = null;
+  };
   
   // Estado para las nuevas funciones del popover (Nota y Diccionario)
   const [popoverMode, setPopoverMode] = useState<'menu' | 'nota' | 'definicion'>('menu');
@@ -401,9 +499,15 @@ export default function AnnotatedContent({
     <>
       <div
         onMouseUp={onMouseUp}
-        onTouchEnd={onMouseUp}
+        onTouchStart={activeTool && activeTool !== 'comentario' ? handleTouchStart : undefined}
+        onTouchMove={activeTool && activeTool !== 'comentario' ? handleTouchMove : undefined}
+        onTouchEnd={activeTool && activeTool !== 'comentario' ? handleTouchEnd : onMouseUp}
         className="text-inherit leading-[2] text-justify font-lora text-lg md:text-xl"
-        style={{ hyphens: 'auto' }}
+        style={{ 
+          hyphens: 'auto',
+          userSelect: activeTool && activeTool !== 'comentario' ? 'none' : 'auto',
+          WebkitUserSelect: activeTool && activeTool !== 'comentario' ? 'none' : 'auto'
+        }}
       >
         {paraData.map(({ text, start }, paraIdx) => {
           if (!text.trim()) return null;

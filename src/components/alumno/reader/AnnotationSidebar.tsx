@@ -10,6 +10,7 @@ import {
 interface AnnotationSidebarProps {
   activeTool: ActiveTool;
   onToggle:   (tool: ActiveTool) => void;
+  forceMinimized?: boolean;
 }
 
 const COLORS: HighlightColor[] = ['amarillo', 'verde', 'rosa', 'azul'];
@@ -85,17 +86,21 @@ function Tooltip({ label, sublabel, visible }: TooltipProps) {
 
 type HoverId = 'minimize' | 'comentario' | 'clear' | HighlightColor | null;
 
-export default function AnnotationSidebar({ activeTool, onToggle }: AnnotationSidebarProps) {
-  const [minimized, setMinimized] = useState(false);
+export default function AnnotationSidebar({ activeTool, onToggle, forceMinimized = false }: AnnotationSidebarProps) {
+  const [minimizedState, setMinimizedState] = useState(false);
   const [hovered,   setHovered]   = useState<HoverId>(null);
+
+  const minimized = forceMinimized || minimizedState;
 
   // Botón compacto para expandir
   if (minimized) {
     return (
       <button
-        onClick={() => setMinimized(false)}
+        onClick={() => setMinimizedState(false)}
         title="Abrir herramientas de anotación"
-        className="fixed z-[120] bottom-6 right-6 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:right-6 flex items-center justify-center w-12 h-12 rounded-full bg-white border border-[#c8d8f0]/80 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-md hover:scale-105 active:scale-95 transition-all duration-200"
+        className={`fixed z-[120] left-1/2 -translate-x-1/2 flex items-center justify-center w-12 h-12 rounded-full bg-white border border-[#c8d8f0]/80 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-md hover:scale-105 active:scale-95 transition-all duration-300 md:bottom-auto md:left-auto md:translate-x-0 md:right-6 md:top-1/2 md:-translate-y-1/2 ${
+          forceMinimized ? 'bottom-20' : 'bottom-6'
+        }`}
       >
         <div className="w-8 h-8 rounded-full flex items-center justify-center bg-gradient-to-br from-[#0a1628] to-[#1e3a6e] shadow-sm">
           <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -222,7 +227,7 @@ export default function AnnotationSidebar({ activeTool, onToggle }: AnnotationSi
       <div className="relative flex justify-center">
         <Tooltip label="Minimizar panel" sublabel="Reducir a un botón flotante" visible={hovered === 'minimize'} />
         <button
-          onClick={() => setMinimized(true)}
+          onClick={() => setMinimizedState(true)}
           onMouseEnter={() => setHovered('minimize')}
           onMouseLeave={() => setHovered(null)}
           className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:bg-gray-100 text-[#6b8cba] hover:text-[#0a1628]"
