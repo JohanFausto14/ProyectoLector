@@ -5,7 +5,7 @@ export default function RegisterPage() {
         <div className="min-h-screen flex items-center justify-center bg-[#f5f5f5] p-4">
             <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg w-full max-w-md">
                 <h1 className="text-2xl md:text-3xl font-playfair font-bold text-[#0a1628] mb-6 text-center">Registro</h1>
-                <form className="space-y-4">
+                <form method="POST" className="space-y-4">
                     <div>
                         <label className="block text-[#1e3a6e] mb-1">Nombre Completo</label>
                         <input type="text" className="w-full border border-[#c8d8f0] rounded-lg p-2 focus:outline-none focus:border-[#d4af37]" />
