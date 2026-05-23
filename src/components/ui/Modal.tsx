@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 interface ModalProps {
     isOpen: boolean;
@@ -21,6 +22,19 @@ export const Modal: React.FC<ModalProps> = ({
     maxWidth,
     isLocked = true
 }) => {
+    const pathname = usePathname();
+
+    const hasSidebar = () => {
+        if (!pathname) return false;
+        if (pathname.includes('/reader')) return false;
+        return (
+            pathname.startsWith('/admin') ||
+            pathname.startsWith('/alumno') ||
+            pathname.startsWith('/escuela') ||
+            pathname.startsWith('/profesor') ||
+            pathname.startsWith('/tutor')
+        );
+    };
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
@@ -46,7 +60,7 @@ export const Modal: React.FC<ModalProps> = ({
     const widthClass = maxWidth || sizeClasses[size];
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 animate-in fade-in duration-200">
+        <div className={`fixed inset-0 ${hasSidebar() ? 'md:left-64' : ''} z-[100] flex items-center justify-center p-4 animate-in fade-in duration-200`}>
             {/* Backdrop */}
             <div 
                 className="absolute inset-0 bg-black/50 backdrop-blur-sm"
@@ -54,7 +68,7 @@ export const Modal: React.FC<ModalProps> = ({
             ></div>
 
             {/* Modal */}
-            <div className={`relative w-full ${widthClass} bg-gradient-to-br from-white to-[#f5f8ff] rounded-2xl shadow-2xl border border-[#c8d8f0]/60 max-h-[90vh] flex flex-col animate-in zoom-in-95 duration-300`}>
+            <div className={`relative w-full ${widthClass} bg-gradient-to-br from-white to-[#f5f8ff] rounded-2xl shadow-2xl border border-[#c8d8f0]/60 max-h-[90vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-300`}>
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-[#c8d8f0]/60">
                     <h2 className="text-2xl font-playfair font-bold text-[#0a1628]">

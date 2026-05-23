@@ -115,7 +115,7 @@ export const EditUsuarioModal: React.FC<EditUsuarioModalProps> = ({
             isOpen={isOpen}
             onClose={handleClose}
             title={`Editar Usuario: ${nombreCompleto}`}
-            maxWidth="4xl"
+            size="xl"
         >
             <div className="p-6">
                 {/* Badge de rol (no editable) */}

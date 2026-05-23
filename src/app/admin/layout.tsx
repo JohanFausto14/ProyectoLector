@@ -31,7 +31,7 @@ export default function AdminLayout({
   const currentTitle = getTitle();
 
   return (
-    <div className="min-h-screen bg-[#eef2ff] flex relative">
+    <div className="min-h-screen bg-[#eef2ff] flex relative w-full max-w-full overflow-x-hidden">
 
       <SidebarAdmin isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
@@ -42,7 +42,7 @@ export default function AdminLayout({
         />
       )}
 
-      <main className="flex-1 md:ml-64 px-4 py-2 md:px-8 md:py-4 min-h-screen transition-all">
+      <main className="flex-1 min-w-0 md:ml-64 px-4 py-2 md:px-8 md:py-4 min-h-screen transition-all">
 
         <header className="flex items-center gap-4 mb-2 md:mb-0">
           <button

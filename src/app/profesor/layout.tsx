@@ -26,7 +26,7 @@ export default function ProfesorLayout({
   const currentTitle = getTitle();
 
   return (
-    <div className="min-h-screen flex bg-[#f5f5f5] relative">
+    <div className="min-h-screen flex bg-[#f5f5f5] relative w-full max-w-full overflow-x-hidden">
 
       <SidebarProfesor isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
@@ -37,7 +37,7 @@ export default function ProfesorLayout({
         />
       )}
 
-      <main className="flex-1 md:ml-64 p-4 md:p-8 min-h-screen transition-all">
+      <main className="flex-1 min-w-0 md:ml-64 p-4 md:p-8 min-h-screen transition-all">
         <header className="flex items-center gap-4 mb-8">
           <button
             className="md:hidden text-[#0a1628] p-2 hover:bg-black/5 rounded-lg"

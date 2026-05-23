@@ -83,7 +83,7 @@ export default function DashboardLayout({
 
       {/* Main */}
       <main 
-        className={`flex-1 min-h-screen transition-all duration-300 ease-in-out ${
+        className={`flex-1 min-w-0 min-h-screen transition-all duration-300 ease-in-out ${
           isReader 
             ? `p-0 ${isSidebarOpen ? 'md:ml-64' : 'md:ml-0'}` 
             : 'md:ml-64 p-4 md:p-8'

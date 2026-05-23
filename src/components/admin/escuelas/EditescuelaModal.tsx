@@ -71,7 +71,7 @@ export const EditEscuelaModal: React.FC<EditEscuelaModalProps> = ({
             isOpen={isOpen}
             onClose={onClose}
             title={`Editar: ${escuela.nombre}`}
-            maxWidth="4xl"
+            size="xl"
         >
             <div className="p-6">
                 {/* Error de API */}

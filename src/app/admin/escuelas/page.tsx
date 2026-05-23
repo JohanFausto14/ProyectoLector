@@ -384,7 +384,7 @@ export default function EscuelasAdminPage() {
 
                 {/* ── Modal confirmación de eliminación ───────────────── */}
                 {showDeleteModal && escuelaToDelete && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="fixed inset-0 md:left-64 z-50 flex items-center justify-center p-4">
                         <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
                         <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 animate-fade-in">
 

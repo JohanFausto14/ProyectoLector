@@ -7,7 +7,7 @@ interface Props {
 
 export default function CompraTable({ compras }: Props) {
   return (
-    <div className="w-full">
+    <div className="w-full overflow-x-auto">
       <table className="w-full block md:table">
         <thead className="hidden md:table-header-group">
           <tr className="border-b-2 border-[#c8d8f0] block md:table-row">

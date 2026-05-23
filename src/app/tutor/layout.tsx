@@ -23,7 +23,7 @@ export default function TutorLayout({
   };
 
   return (
-    <div className="flex min-h-screen bg-[#f5f5f5] relative">
+    <div className="flex min-h-screen bg-[#f5f5f5] relative w-full max-w-full overflow-x-hidden">
       <SidebarTutor isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       {isSidebarOpen && (
@@ -33,7 +33,7 @@ export default function TutorLayout({
         />
       )}
 
-      <main className="flex-1 md:ml-64 px-4 py-2 md:px-8 md:py-4 min-h-screen transition-all">
+      <main className="flex-1 min-w-0 md:ml-64 px-4 py-2 md:px-8 md:py-4 min-h-screen transition-all">
         <header className="flex items-center gap-4 mb-2 md:mb-0">
           <button
             className="md:hidden text-[#0a1628] p-2 hover:bg-black/5 rounded-lg"

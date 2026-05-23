@@ -33,7 +33,7 @@ export const LibroTable: React.FC<LibroTableProps> = ({
     }
 
     return (
-        <div className="w-full">
+        <div className="w-full overflow-x-auto">
             <table className="w-full block md:table">
                 <thead className="hidden md:table-header-group bg-gradient-to-r from-[#f5f8ff] to-[#f5f8ff]">
                     <tr className="block md:table-row">

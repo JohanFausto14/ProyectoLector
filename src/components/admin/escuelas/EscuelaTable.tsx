@@ -295,7 +295,7 @@ export const EscuelaTable: React.FC<EscuelaTableProps> = ({
     }
 
     return (
-        <div className="w-full">
+        <div className="w-full overflow-x-auto">
             <table className="w-full block md:table">
                 <thead className="hidden md:table-header-group bg-[#dce8f8]">
                     <tr className="block md:table-row">

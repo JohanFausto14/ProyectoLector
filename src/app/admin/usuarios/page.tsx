@@ -358,7 +358,7 @@ export default function UsuariosAdminPage() {
                             <p className="text-[#6b8cba]">Cargando usuarios...</p>
                         </div>
                     ) : (
-                        <div className="w-full flex-grow">
+                        <div className="w-full flex-grow overflow-x-auto">
                             <table className="w-full block md:table">
                                 <thead className="hidden md:table-header-group bg-[#dce8f8]">
                                     <tr className="block md:table-row">
@@ -417,7 +417,7 @@ export default function UsuariosAdminPage() {
 
                 {/* Modal eliminación */}
                 {showDeleteModal && usuarioToDelete && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="fixed inset-0 md:left-64 z-50 flex items-center justify-center p-4">
                         <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
                         <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 animate-fade-in">
                             <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-red-100">
