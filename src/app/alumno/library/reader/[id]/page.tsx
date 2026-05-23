@@ -219,6 +219,39 @@ export default function ReaderPage() {
     return () => document.removeEventListener('mousedown', handleClick);
   }, [showThemeMenu]);
 
+  // ── Detección de footer para ocultar herramientas y evitar solapamientos ─────
+  const navRef = useRef<HTMLDivElement>(null);
+  const [isNavVisible, setIsNavVisible] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handleScroll = () => {
+      const currentNav = navRef.current;
+      if (!currentNav) return;
+
+      const rect = currentNav.getBoundingClientRect();
+      // Si la parte superior de la barra de navegación es menor a la altura visible del viewport,
+      // significa que está a la vista del usuario en pantalla.
+      const enteredViewport = rect.top < window.innerHeight;
+      setIsNavVisible(enteredViewport);
+    };
+
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
+    
+    // Intervalo de re-verificación para cambios dinámicos de tamaño o de segmento
+    const interval = setInterval(handleScroll, 250);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      clearInterval(interval);
+    };
+  }, []);
+
   // ── Diagnóstico ──────────────────────────────────────────────────────────
   const [diagnosticoPendiente, setDiagnosticoPendiente] = useState<DiagnosticoNecesarioResponse | null>(null);
   const [diagnosticoListo, setDiagnosticoListo] = useState(false);
@@ -544,38 +577,64 @@ export default function ReaderPage() {
       <AnnotationSidebar
         activeTool={annotations.activeTool}
         onToggle={annotations.toggleTool}
+        forceMinimized={isNavVisible}
       />
 
       {/* Header */}
-      <header className={`sticky top-0 z-110 ${cfg.headerBg} backdrop-blur-md px-2 sm:px-4 md:px-8 py-3 flex items-center justify-between shadow-sm gap-1 sm:gap-2 relative transition-colors duration-300`}>
+      <header className={`sticky top-0 z-110 ${cfg.headerBg} backdrop-blur-md px-3 sm:px-4 md:px-8 py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between shadow-sm gap-2 sm:gap-2 relative transition-colors duration-300`}>
 
+        {/* Fila 1: Navegación primaria y título del libro */}
+        <div className="flex items-center justify-between w-full sm:w-auto min-w-0 flex-1 gap-2">
+          <div className="flex items-center gap-1 md:gap-3 min-w-0 flex-1">
+            <button onClick={handleExit}
+              className={`p-2 ${cfg.headerIconBtnHover} rounded-full transition-all duration-200 hover:scale-110 active:scale-95 group shrink-0`} title="Volver a la Biblioteca">
+              <svg className={`w-5 h-5 md:w-6 md:h-6 ${cfg.headerBtnIcon}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+            </button>
+            
+            <button 
+              onClick={() => window.dispatchEvent(new CustomEvent('open-student-sidebar'))}
+              className={`p-2 ${cfg.headerIconBtnHover} rounded-full transition-all duration-200 hover:scale-110 active:scale-95 group shrink-0`} 
+              title="Menú Principal"
+            >
+              <svg className={`w-5 h-5 md:w-6 md:h-6 ${cfg.headerBtnIcon}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
 
-        <div className="flex items-center gap-1 md:gap-3 min-w-0 flex-1">
-          <button onClick={handleExit}
-            className={`p-2 ${cfg.headerIconBtnHover} rounded-full transition-all duration-200 hover:scale-110 active:scale-95 group shrink-0`} title="Volver a la Biblioteca">
-            <svg className={`w-5 h-5 md:w-6 md:h-6 ${cfg.headerBtnIcon}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-          </button>
-          
-          <button 
-            onClick={() => window.dispatchEvent(new CustomEvent('open-student-sidebar'))}
-            className={`p-2 ${cfg.headerIconBtnHover} rounded-full transition-all duration-200 hover:scale-110 active:scale-95 group shrink-0`} 
-            title="Menú Principal"
-          >
-            <svg className={`w-5 h-5 md:w-6 md:h-6 ${cfg.headerBtnIcon}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="min-w-0 flex-1 pl-1">
+              <h1 className={`font-playfair font-bold text-sm md:text-xl ${cfg.headerTitle} truncate`}>{libro.titulo}</h1>
+              <p className={`hidden sm:block text-[9px] md:text-[10px] font-black ${cfg.headerSub} uppercase tracking-widest truncate`}>
+                {currentSegment.unidadNombre || 'Contenido'} &bull; {currentIdx + 1} de {totalSegments}
+              </p>
+            </div>
+          </div>
+
+          {/* Botón Capítulos en Móvil (Fila 1) */}
+          <button onClick={() => setShowSidebar(true)}
+            className={`sm:hidden p-2 rounded-lg transition-all shadow-md flex items-center justify-center shrink-0 ${cfg.headerChaptersBtn}`}>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
+        </div>
 
-          <div className="min-w-0 flex-1 pl-1">
-            <h1 className={`font-playfair font-bold text-sm md:text-xl ${cfg.headerTitle} truncate`}>{libro.titulo}</h1>
-            <p className={`text-[9px] md:text-[10px] font-black ${cfg.headerSub} uppercase tracking-widest truncate`}>
+        {/* Fila 2: Metadatos en móvil, herramientas en escritorio */}
+        <div className={`flex items-center justify-between sm:justify-end gap-2 sm:gap-3 md:gap-4 w-full sm:w-auto shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 ${
+          (theme === 'oscuro_calido' || theme === 'oscuro_neutro') 
+            ? 'border-white/10' 
+            : theme === 'sepia' 
+              ? 'border-[#e4dcbf]' 
+              : 'border-slate-200'
+        }`}>
+          {/* Metadata en móvil (Fila 2 izquierda) */}
+          <div className="sm:hidden flex-1 min-w-0">
+            <p className={`text-[10px] font-black ${cfg.headerSub} uppercase tracking-widest truncate`}>
               {currentSegment.unidadNombre || 'Contenido'} &bull; {currentIdx + 1} de {totalSegments}
             </p>
           </div>
-        </div>
-        <div className="flex items-center gap-1 sm:gap-3 md:gap-4 shrink-0">
+
           <div className="hidden md:flex flex-col items-end mr-2">
             <span className={`text-[10px] font-black ${cfg.headerProgressLabel}`}>PROGRESO</span>
             <div className={`w-32 h-2.5 border ${cfg.headerProgressBg} rounded-full overflow-hidden mt-1 p-[1px]`}>
@@ -740,7 +799,7 @@ export default function ReaderPage() {
             Finalizar
           </button>
           <button onClick={() => setShowSidebar(true)}
-            className={`p-1.5 sm:p-2 rounded-lg transition-all shadow-md flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 ${cfg.headerChaptersBtn}`}>
+            className={`hidden sm:flex p-1.5 sm:p-2 rounded-lg transition-all shadow-md items-center gap-1 sm:gap-1.5 px-2 sm:px-3 ${cfg.headerChaptersBtn}`}>
             <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
@@ -774,6 +833,7 @@ export default function ReaderPage() {
                 anotaciones={annotations.anotacionesDelSegmento}
                 onRemove={annotations.removeAnotacion}
                 onMouseUp={handleMouseUp}
+                activeTool={annotations.activeTool}
                 onAddComentario={(ann, texto) => {
                   annotations.addComentarioDirect(
                     ann.textoSeleccionado,
@@ -790,98 +850,107 @@ export default function ReaderPage() {
         </div>
 
         {/* Navigation */}
-        <div className={`mt-8 pt-6 border-t ${cfg.navBorder}/60 flex items-center justify-between gap-1.5 sm:gap-2`}>
-          <button onClick={handlePrev} disabled={currentIdx === 0}
-            className={`flex items-center gap-1 sm:gap-3 px-2 sm:px-6 py-2 sm:py-3 rounded-xl border ${cfg.navBorder} ${cfg.prevButtonText} font-bold text-[11px] sm:text-base ${cfg.prevButtonHover} disabled:opacity-30 disabled:pointer-events-none transition-all`}>
-            <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-            </svg>
-            Anterior
-          </button>
+        <div 
+          ref={navRef}
+          className={`mt-8 pt-6 pb-6 border-t ${cfg.navBorder}/60 grid grid-cols-3 items-center gap-1.5 sm:gap-2`}
+        >
+          <div className="flex justify-start">
+            <button onClick={handlePrev} disabled={currentIdx === 0}
+              className={`flex items-center gap-1 sm:gap-3 px-2 sm:px-6 py-2 sm:py-3 rounded-xl border ${cfg.navBorder} ${cfg.prevButtonText} font-bold text-[11px] sm:text-base ${cfg.prevButtonHover} disabled:opacity-30 disabled:pointer-events-none transition-all`}>
+              <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+              </svg>
+              Anterior
+            </button>
+          </div>
 
-          <span className={`text-[10px] sm:text-xs font-black ${cfg.subtitleColor} uppercase tracking-widest whitespace-nowrap`}>
-            {currentIdx + 1} / {totalSegments}
-          </span>
+          <div className="flex justify-center text-center">
+            <span className={`text-[10px] sm:text-xs font-black ${cfg.subtitleColor} uppercase tracking-widest whitespace-nowrap`}>
+              {currentIdx + 1} / {totalSegments}
+            </span>
+          </div>
 
-          {/* Botón Siguiente — dinámico */}
-          {(() => {
-            if (!isFrontier) {
+          <div className="flex justify-end">
+            {/* Botón Siguiente — dinámico */}
+            {(() => {
+              if (!isFrontier) {
+                return (
+                  <button onClick={handleNext} disabled={currentIdx === totalSegments - 1}
+                    className={`flex items-center gap-1 sm:gap-3 px-3.5 sm:px-10 py-2 sm:py-3 rounded-xl ${cfg.navButtonBg} ${cfg.navButtonText} font-bold text-[11px] sm:text-base ${cfg.navButtonHover} hover:-translate-y-0.5 transition-all shadow-lg active:translate-y-0 disabled:opacity-40 disabled:pointer-events-none`}>
+                    Siguiente
+                    <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                );
+              }
+              if (currentIdx === totalSegments - 1) {
+                return (
+                  <button disabled className={`flex items-center gap-1 sm:gap-3 px-3.5 sm:px-10 py-2 sm:py-3 rounded-xl ${cfg.navButtonBg} ${cfg.navButtonText} font-bold text-[11px] sm:text-base opacity-40 pointer-events-none`}>
+                    Fin
+                  </button>
+                );
+              }
+              if (isWaiting) {
+                return (
+                  <button disabled className={`flex items-center gap-1 sm:gap-3 px-2 sm:px-10 py-2 sm:py-3 rounded-xl ${cfg.navButtonBg} ${cfg.navButtonText} font-bold text-[11px] sm:text-base opacity-40 pointer-events-none`}>
+                    <span className="hidden xs:inline">Leyendo... </span>{waitTime}s
+                    <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                );
+              }
+              if (evaluacion.estado === 'cargando') {
+                return (
+                  <button disabled className={`flex items-center gap-1 sm:gap-3 px-2 sm:px-10 py-2 sm:py-3 rounded-xl ${cfg.navButtonBg} ${cfg.navButtonText} font-bold text-[11px] sm:text-base opacity-60 pointer-events-none`}>
+                    <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Evaluando...
+                  </button>
+                );
+              }
+              if (evaluacion.estado === 'pendiente') {
+                return (
+                  <button onClick={() => evaluacion.abrirPanel()}
+                    className="flex items-center gap-1 sm:gap-3 px-2 sm:px-5 py-2 sm:py-3 rounded-xl bg-[#d4af37] text-[#0a1628] font-bold text-[11px] sm:text-base hover:bg-[#c19b2f] hover:-translate-y-0.5 transition-all shadow-lg">
+                    <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Responder ({evaluacion.evaluacion?.preguntas.length ?? 0})
+                  </button>
+                );
+              }
+              if (evaluacion.estado === 'refuerzo') {
+                return (
+                  <button onClick={() => evaluacion.abrirPanel()}
+                    className="flex items-center gap-1 sm:gap-3 px-2 sm:px-5 py-2 sm:py-3 rounded-xl bg-amber-500 text-white font-bold text-[11px] sm:text-base hover:bg-amber-600 hover:-translate-y-0.5 transition-all shadow-lg">
+                    <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Reintentar
+                  </button>
+                );
+              }
               return (
-                <button onClick={handleNext} disabled={currentIdx === totalSegments - 1}
-                  className={`flex items-center gap-1 sm:gap-3 px-3.5 sm:px-10 py-2 sm:py-3 rounded-xl ${cfg.navButtonBg} ${cfg.navButtonText} font-bold text-[11px] sm:text-base ${cfg.navButtonHover} hover:-translate-y-0.5 transition-all shadow-lg active:translate-y-0 disabled:opacity-40 disabled:pointer-events-none`}>
+                <button onClick={handleNext}
+                  className={`flex items-center gap-1 sm:gap-3 px-3.5 sm:px-10 py-2 sm:py-3 rounded-xl font-bold text-[11px] sm:text-base hover:-translate-y-0.5 transition-all shadow-lg ${
+                    evaluacion.estado === 'aprobado'
+                      ? 'bg-emerald-600 text-white hover:bg-emerald-700'
+                      : `${cfg.navButtonBg} ${cfg.navButtonText} ${cfg.navButtonHover}`
+                  }`}>
+                  {evaluacion.estado === 'aprobado' && (
+                    <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4" />
+                    </svg>
+                  )}
                   Siguiente
                   <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
               );
-            }
-            if (currentIdx === totalSegments - 1) {
-              return (
-                <button disabled className={`flex items-center gap-1 sm:gap-3 px-3.5 sm:px-10 py-2 sm:py-3 rounded-xl ${cfg.navButtonBg} ${cfg.navButtonText} font-bold text-[11px] sm:text-base opacity-40 pointer-events-none`}>
-                  Fin
-                </button>
-              );
-            }
-            if (isWaiting) {
-              return (
-                <button disabled className={`flex items-center gap-1 sm:gap-3 px-2 sm:px-10 py-2 sm:py-3 rounded-xl ${cfg.navButtonBg} ${cfg.navButtonText} font-bold text-[11px] sm:text-base opacity-40 pointer-events-none`}>
-                  <span className="hidden xs:inline">Leyendo... </span>{waitTime}s
-                  <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              );
-            }
-            if (evaluacion.estado === 'cargando') {
-              return (
-                <button disabled className={`flex items-center gap-1 sm:gap-3 px-2 sm:px-10 py-2 sm:py-3 rounded-xl ${cfg.navButtonBg} ${cfg.navButtonText} font-bold text-[11px] sm:text-base opacity-60 pointer-events-none`}>
-                  <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  Evaluando...
-                </button>
-              );
-            }
-            if (evaluacion.estado === 'pendiente') {
-              return (
-                <button onClick={() => evaluacion.abrirPanel()}
-                  className="flex items-center gap-1 sm:gap-3 px-2 sm:px-5 py-2 sm:py-3 rounded-xl bg-[#d4af37] text-[#0a1628] font-bold text-[11px] sm:text-base hover:bg-[#c19b2f] hover:-translate-y-0.5 transition-all shadow-lg">
-                  <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  Responder ({evaluacion.evaluacion?.preguntas.length ?? 0})
-                </button>
-              );
-            }
-            if (evaluacion.estado === 'refuerzo') {
-              return (
-                <button onClick={() => evaluacion.abrirPanel()}
-                  className="flex items-center gap-1 sm:gap-3 px-2 sm:px-5 py-2 sm:py-3 rounded-xl bg-amber-500 text-white font-bold text-[11px] sm:text-base hover:bg-amber-600 hover:-translate-y-0.5 transition-all shadow-lg">
-                  <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
-                  Reintentar
-                </button>
-              );
-            }
-            return (
-              <button onClick={handleNext}
-                className={`flex items-center gap-1 sm:gap-3 px-3.5 sm:px-10 py-2 sm:py-3 rounded-xl font-bold text-[11px] sm:text-base hover:-translate-y-0.5 transition-all shadow-lg ${
-                  evaluacion.estado === 'aprobado'
-                    ? 'bg-emerald-600 text-white hover:bg-emerald-700'
-                    : `${cfg.navButtonBg} ${cfg.navButtonText} ${cfg.navButtonHover}`
-                }`}>
-                {evaluacion.estado === 'aprobado' && (
-                  <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4" />
-                  </svg>
-                )}
-                Siguiente
-                <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            );
-          })()}
+            })()}
+          </div>
         </div>
       </main>
 
