@@ -159,7 +159,7 @@ export default function StatsPage() {
             <TarjetaEstadistica label="Tiempo de Lectura" value={tiempoFmt} subtext={`${stats.tiempoEsteMesMinutos}m este mes`}>
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             </TarjetaEstadistica>
-            <TarjetaEstadistica label="Puntaje Promedio" value={`${stats.promedioEvaluaciones}%`} subtext={`${stats.segmentosCompletados} secciones completadas`}>
+            <TarjetaEstadistica label="Puntaje Promedio" value={`${Number(stats.promedioEvaluaciones || 0).toFixed(2)}%`} subtext={`${stats.segmentosCompletados} secciones completadas`}>
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             </TarjetaEstadistica>
             <TarjetaEstadistica label="Racha Actual" value={`${stats.rachaActualDias} días`} subtext={`Máxima: ${stats.rachaMaximaDias} días`}>
@@ -246,18 +246,18 @@ export default function StatsPage() {
               <h3 className="font-playfair text-lg font-bold text-[#0a1628] mb-5">Rendimiento Académico</h3>
               <div className="space-y-5">
                 {[
-                  { label: 'Promedio en evaluaciones', value: stats.promedioEvaluaciones, max: 100, color: '#4caf50', suffix: '%' },
-                  { label: 'Progreso global de lectura', value: promedioGlobal, max: 100, color: '#2196f3', suffix: '%' },
-                  { label: 'Secciones completadas', value: Math.min(stats.segmentosCompletados, 200), max: 200, color: '#d4af37', suffix: '' },
+                  { label: 'Promedio en evaluaciones', displayValue: Number(stats.promedioEvaluaciones || 0).toFixed(2), numericValue: Number(stats.promedioEvaluaciones || 0), max: 100, color: '#4caf50', suffix: '%' },
+                  { label: 'Progreso global de lectura', displayValue: String(promedioGlobal), numericValue: promedioGlobal, max: 100, color: '#2196f3', suffix: '%' },
+                  { label: 'Secciones completadas', displayValue: String(stats.segmentosCompletados), numericValue: Math.min(stats.segmentosCompletados, 200), max: 200, color: '#d4af37', suffix: '' },
                 ].map(m => (
                   <div key={m.label}>
                     <div className="flex justify-between items-center mb-1.5">
                       <span className="text-sm font-medium text-[#0a1628]">{m.label}</span>
-                      <span className="text-sm font-black" style={{ color: m.color }}>{m.value}{m.suffix}</span>
+                      <span className="text-sm font-black" style={{ color: m.color }}>{m.displayValue}{m.suffix}</span>
                     </div>
                     <div className="w-full h-3 rounded-full overflow-hidden" style={{ background: `${m.color}20` }}>
                       <div className="h-full rounded-full transition-all duration-700"
-                        style={{ width: `${(m.value / m.max) * 100}%`, background: `linear-gradient(90deg,${m.color}90,${m.color})` }} />
+                        style={{ width: `${(m.numericValue / m.max) * 100}%`, background: `linear-gradient(90deg,${m.color}90,${m.color})` }} />
                     </div>
                   </div>
                 ))}
