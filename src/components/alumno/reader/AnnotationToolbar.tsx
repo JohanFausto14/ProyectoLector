@@ -56,17 +56,20 @@ export default function AnnotationToolbar({
   const [hoveredColor, setHoveredColor] = useState<HighlightColor | null>(null);
   const [showBelow, setShowBelow] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
 
   const [showGlosario, setShowGlosario] = useState(false);
   const [isLoadingGlosario, setIsLoadingGlosario] = useState(false);
   const [remoteDefinicion, setRemoteDefinicion] = useState<{ palabra: string, definicion: string | null } | null>(null);
   const [glosarioError, setGlosarioError] = useState<string | null>(null);
 
-  // Detectar vista móvil de forma responsiva
+  // Detectar vista móvil de forma responsiva y si es dispositivo móvil real
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
+    const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    setIsMobileDevice(isMobileUA);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -98,6 +101,42 @@ export default function AnnotationToolbar({
 
     return () => clearTimeout(timer);
   }, [selection]);
+
+  // Manejar el evento scroll para cerrar la barra en móvil o reposicionarla en PC
+  useEffect(() => {
+    if (!selection) return;
+
+    const handleScroll = () => {
+      if (isMobileDevice) {
+        onClear();
+      } else {
+        const sel = window.getSelection();
+        if (sel && sel.rangeCount > 0) {
+          const range = sel.getRangeAt(0);
+          const rect = range.getBoundingClientRect();
+          const toolbarW = 280;
+          const gap = 10;
+
+          let left = rect.left + rect.width / 2 - toolbarW / 2;
+          left = Math.max(8, Math.min(left, window.innerWidth - toolbarW - 8));
+
+          const shouldBelow = rect.top < 150;
+          setShowBelow(shouldBelow);
+
+          if (shouldBelow) {
+            setPos({ top: rect.bottom + gap, left });
+          } else {
+            setPos({ top: rect.top - gap, left });
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [selection, isMobileDevice, onClear]);
 
   // Focus en textarea al abrir comentario
   useEffect(() => {

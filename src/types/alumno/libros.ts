@@ -58,6 +58,7 @@ export interface Segmento {
     titulo: string;
     orden: number;
     contenido?: string;
+    contenidoHtml?: string;
     numeroPagina?: number | null;
     idExterno?: string;
     unidadId?: number;
@@ -78,6 +79,7 @@ export interface SegmentoRaw {
     libroId: string;
     unidadId: string;
     contenido: string;
+    contenidoHtml?: string;
     numeroPagina: string | null;
     orden: string;
     idExterno: string;

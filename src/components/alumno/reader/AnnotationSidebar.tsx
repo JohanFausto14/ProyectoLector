@@ -89,8 +89,18 @@ type HoverId = 'minimize' | 'comentario' | 'clear' | HighlightColor | null;
 export default function AnnotationSidebar({ activeTool, onToggle, forceMinimized = false }: AnnotationSidebarProps) {
   const [minimizedState, setMinimizedState] = useState(false);
   const [hovered,   setHovered]   = useState<HoverId>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const minimized = forceMinimized || minimizedState;
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const minimized = (isMobile && forceMinimized) || minimizedState;
 
   // Botón compacto para expandir
   if (minimized) {
