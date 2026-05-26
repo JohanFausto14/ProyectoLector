@@ -379,7 +379,7 @@ function NoteChip({ ann, noteIdx, onRemove, isOpen, onOpen, onClose, onHover }: 
 
 // ── Componente principal ──────────────────────────────────────────────────────
 
-export default function AnnotatedContent({
+function AnnotatedContent({
   contenido,
   contenidoHtml,
   anotaciones,
@@ -1300,3 +1300,5 @@ export default function AnnotatedContent({
     </>
   );
 }
+
+export default React.memo(AnnotatedContent);

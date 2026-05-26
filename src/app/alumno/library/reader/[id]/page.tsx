@@ -9,7 +9,7 @@ import { PreferenciasAlumno } from '../../../../../types/alumno/alumno';
 import { toast } from '../../../../../utils/toast';
 import { useReadingTimer, getFinishMessage } from '../../../../../hooks/useReadingTimer';
 import ReadingTimer from '../../../../../components/alumno/reader/ReadingTimer';
-import { useAnnotations } from '../../../../../hooks/useAnnotations';
+import { useAnnotations, Anotacion } from '../../../../../hooks/useAnnotations';
 import AnnotationToolbar from '../../../../../components/alumno/reader/AnnotationToolbar';
 import AnnotationSidebar from '../../../../../components/alumno/reader/AnnotationSidebar';
 import AnnotatedContent from '../../../../../components/alumno/reader/AnnotatedContent';
@@ -365,6 +365,15 @@ export default function ReaderPage() {
     if (!currentSegment?.contenido) return;
     handleTextSelection(currentSegment.contenido, currentSegment.contenidoHtml);
   }, [currentSegment, handleTextSelection]);
+
+  const handleAddComentario = useCallback((ann: Anotacion, texto: string) => {
+    annotations.addComentarioDirect(
+      ann.textoSeleccionado,
+      ann.offsetInicio,
+      ann.offsetFin,
+      texto
+    );
+  }, [annotations.addComentarioDirect]);
 
   const cursorStyle = useMemo(() => {
     if (!annotations.activeTool) return {};
@@ -835,14 +844,7 @@ export default function ReaderPage() {
                 onRemove={annotations.removeAnotacion}
                 onMouseUp={handleMouseUp}
                 activeTool={annotations.activeTool}
-                onAddComentario={(ann, texto) => {
-                  annotations.addComentarioDirect(
-                    ann.textoSeleccionado,
-                    ann.offsetInicio,
-                    ann.offsetFin,
-                    texto,
-                  );
-                }}
+                onAddComentario={handleAddComentario}
               />
             ) : (
               <p className={`${cfg.subtitleColor} italic text-center`}>Este segmento no tiene contenido.</p>

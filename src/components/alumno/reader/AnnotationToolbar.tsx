@@ -56,19 +56,20 @@ export default function AnnotationToolbar({
   const [hoveredColor, setHoveredColor] = useState<HighlightColor | null>(null);
   const [showBelow, setShowBelow] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
 
   const [showGlosario, setShowGlosario] = useState(false);
   const [isLoadingGlosario, setIsLoadingGlosario] = useState(false);
   const [remoteDefinicion, setRemoteDefinicion] = useState<{ palabra: string, definicion: string | null } | null>(null);
   const [glosarioError, setGlosarioError] = useState<string | null>(null);
 
-  // Detectar vista móvil de forma responsiva y si es dispositivo táctil
+  // Detectar vista móvil de forma responsiva y si es dispositivo móvil real
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    setIsTouchDevice(window.matchMedia('(pointer: coarse)').matches);
+    const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    setIsMobileDevice(isMobileUA);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -106,7 +107,7 @@ export default function AnnotationToolbar({
     if (!selection) return;
 
     const handleScroll = () => {
-      if (isTouchDevice) {
+      if (isMobileDevice) {
         onClear();
       } else {
         const sel = window.getSelection();
@@ -135,7 +136,7 @@ export default function AnnotationToolbar({
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [selection, isTouchDevice, onClear]);
+  }, [selection, isMobileDevice, onClear]);
 
   // Focus en textarea al abrir comentario
   useEffect(() => {
