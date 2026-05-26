@@ -99,6 +99,42 @@ export default function AnnotationToolbar({
     return () => clearTimeout(timer);
   }, [selection]);
 
+  // Manejar el evento scroll para cerrar la barra en móvil o reposicionarla en PC
+  useEffect(() => {
+    if (!selection) return;
+
+    const handleScroll = () => {
+      if (isMobile) {
+        onClear();
+      } else {
+        const sel = window.getSelection();
+        if (sel && sel.rangeCount > 0) {
+          const range = sel.getRangeAt(0);
+          const rect = range.getBoundingClientRect();
+          const toolbarW = 280;
+          const gap = 10;
+
+          let left = rect.left + rect.width / 2 - toolbarW / 2;
+          left = Math.max(8, Math.min(left, window.innerWidth - toolbarW - 8));
+
+          const shouldBelow = rect.top < 150;
+          setShowBelow(shouldBelow);
+
+          if (shouldBelow) {
+            setPos({ top: rect.bottom + gap, left });
+          } else {
+            setPos({ top: rect.top - gap, left });
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [selection, isMobile, onClear]);
+
   // Focus en textarea al abrir comentario
   useEffect(() => {
     if (pendingType === 'comentario') {

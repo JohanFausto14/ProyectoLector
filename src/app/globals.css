@@ -118,3 +118,11 @@ body.zoom-90 {
 .min-h-screen {
   min-height: calc(100vh / var(--zoom-level, 1)) !important;
 }
+
+/* ── Estilos para el Lector (segmento-contenido) ── */
+.segmento-contenido p        { text-align: justify; line-height: 1.8; margin-bottom: 1em; }
+.segmento-contenido h3       { font-weight: bold; font-size: 1.15rem; margin: 1.5em 0 0.5em; }
+.segmento-contenido ol,
+.segmento-contenido ul       { padding-left: 1.5em; margin-bottom: 1em; }
+.segmento-contenido li       { line-height: 1.7; margin-bottom: 0.4em; }
+.segmento-contenido .dialogo { padding-left: 1em; border-left: 3px solid #ccc; font-style: italic; }

@@ -363,7 +363,7 @@ export default function ReaderPage() {
 
   const handleMouseUp = useCallback(() => {
     if (!currentSegment?.contenido) return;
-    handleTextSelection(currentSegment.contenido);
+    handleTextSelection(currentSegment.contenido, currentSegment.contenidoHtml);
   }, [currentSegment, handleTextSelection]);
 
   const cursorStyle = useMemo(() => {
@@ -830,6 +830,7 @@ export default function ReaderPage() {
               <AnnotatedContent
                 theme={theme}
                 contenido={currentSegment.contenido}
+                contenidoHtml={currentSegment.contenidoHtml}
                 anotaciones={annotations.anotacionesDelSegmento}
                 onRemove={annotations.removeAnotacion}
                 onMouseUp={handleMouseUp}

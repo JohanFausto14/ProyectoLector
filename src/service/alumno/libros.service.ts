@@ -69,6 +69,7 @@ export class AlumnoLibrosService {
                             titulo: seg.nombre || `Sección ${seg.orden}`, // Si no tiene nombre, usar orden
                             orden: Number(seg.orden),
                             contenido: seg.contenido || '',
+                            contenidoHtml: seg.contenidoHtml || '',
                             numeroPagina: seg.numeroPagina ? Number(seg.numeroPagina) : null,
                             idExterno: seg.idExterno,
                             unidadId: Number(unidad.id),

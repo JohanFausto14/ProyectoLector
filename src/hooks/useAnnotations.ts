@@ -62,6 +62,25 @@ function generateTempId(): string {
     return `temp_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
 }
 
+function findClosestSubstring(s: string, sub: string, target: number): number {
+    if (!sub) return target;
+    
+    let bestIndex = -1;
+    let minDiff = Infinity;
+    let index = s.indexOf(sub);
+    
+    while (index !== -1) {
+        const diff = Math.abs(index - target);
+        if (diff < minDiff) {
+            minDiff = diff;
+            bestIndex = index;
+        }
+        index = s.indexOf(sub, index + 1);
+    }
+    
+    return bestIndex !== -1 ? bestIndex : s.indexOf(sub);
+}
+
 function getTextOffsetInElement(
     target:       Node,
     offsetInNode: number,
@@ -108,10 +127,36 @@ function buildParaOffsets(contenido: string): number[] {
 export function getSelectionOffsets(
     selection: Selection,
     contenido:  string,
+    contenidoHtml?: string,
 ): { offsetInicio: number; offsetFin: number } | null {
     if (!selection || selection.rangeCount === 0) return null;
     const range = selection.getRangeAt(0);
     if (range.collapsed) return null;
+
+    if (contenidoHtml) {
+        const startNode = range.startContainer;
+        const container = (
+            startNode.nodeType === Node.TEXT_NODE
+                ? startNode.parentElement
+                : startNode as Element
+        )?.closest('.segmento-contenido') as Element | null;
+
+        if (!container) return null;
+
+        const offsetDentroInicio = getTextOffsetInElement(range.startContainer, range.startOffset, container);
+        const offsetDentroFin    = getTextOffsetInElement(range.endContainer,   range.endOffset,   container);
+
+        const htmlText = container.textContent || '';
+        const selectedText = selection.toString();
+
+        const targetContenidoIndex = offsetDentroInicio * (contenido.length / (htmlText.length || 1));
+        const offsetInicio = findClosestSubstring(contenido, selectedText, targetContenidoIndex);
+        
+        if (offsetInicio === -1) return null;
+        
+        const offsetFin = offsetInicio + selectedText.length;
+        return { offsetInicio, offsetFin };
+    }
 
     const paraOffsets = buildParaOffsets(contenido);
     const startNode   = range.startContainer;
@@ -206,13 +251,13 @@ export function useAnnotations({ alumnoId, libroId, segmentoId }: UseAnnotations
 
     // ── Capturar selección ────────────────────────────────────────────────────
 
-    const handleTextSelection = useCallback((contenido: string) => {
+    const handleTextSelection = useCallback((contenido: string, contenidoHtml?: string) => {
         const sel = window.getSelection();
         if (!sel || sel.isCollapsed || !sel.toString().trim()) {
             setSelection(null);
             return;
         }
-        const offsets = getSelectionOffsets(sel, contenido);
+        const offsets = getSelectionOffsets(sel, contenido, contenidoHtml);
         if (!offsets) { setSelection(null); return; }
 
         const rect = sel.getRangeAt(0).getBoundingClientRect();
